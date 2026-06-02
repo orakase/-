@@ -3558,7 +3558,7 @@ function gameOver() {
   // 획득 훈장
   if (_sessionNewMedals.length > 0) {
     html += `<div class="rpt-section">
-      <div class="rpt-title">🏅 달성 훈장</div>
+      <div class="rpt-title"><img src="twemoji/1f3c5.svg" width="16" height="16" style="vertical-align:middle;margin-right:4px;">달성 훈장</div>
       <div class="rpt-medals">
         ${_sessionNewMedals.map(m=>`<span class="rpt-medal-chip"><img src="medals/${m.id}.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> ${m.name} ${m.tier}</span>`).join('')}
       </div>
@@ -5813,7 +5813,7 @@ function checkNewMedals() {
       if (!SKIN_SAVE.medalAwards[key]) {
         SKIN_SAVE.medalAwards[key] = true;
         const tierLabel = ['','신병','병사','장교','사령관'][t] || '달성';
-        _sessionNewMedals.push({emoji:m.emoji, name:m.name, tier:tierLabel});
+        _sessionNewMedals.push({id:m.id, name:m.name, tier:tierLabel});
         giveStars(MEDAL_TIER_STARS[t] || 100, '훈장 달성');
         changed = true;
       }
