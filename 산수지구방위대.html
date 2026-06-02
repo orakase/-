@@ -1991,8 +1991,6 @@ const _bgAmbient = (function(){
 //  DEV CHEAT
 // ═══════════════════════════════════════
 (function(){
-  // 화면 5번 빠르게 탭/클릭 → 치트 패널 토글
-  let _taps=0, _tapT=0;
   function openCheat(){
     let panel=document.getElementById('cheat-panel');
     if(panel){panel.remove();return;}
@@ -2063,12 +2061,6 @@ const _bgAmbient = (function(){
     GSTATS.bossKills = tier;
     spawnBoss();
   };
-  document.addEventListener('click', function(e){
-    const now=Date.now();
-    if(now-_tapT<600){_taps++;}else{_taps=1;}
-    _tapT=now;
-    if(_taps>=5){_taps=0;openCheat();}
-  });
   // 키보드: Ctrl+Shift+D
   document.addEventListener('keydown', function(e){
     if(e.ctrlKey&&e.shiftKey&&e.key==='D'){e.preventDefault();openCheat();}
