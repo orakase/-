@@ -6325,7 +6325,7 @@ function getAlienData(idx) {
   const grade = getAlienGrade(idx);
   const gi = ALIEN_GRADE_INFO[grade];
   const _spriteNum = String(idx + 1).padStart(3, '0');
-  const _headHtml = `<img src="aliens/${_spriteNum}.png" style="width:85%;height:85%;object-fit:contain;display:block;filter:drop-shadow(0 0 6px rgba(255,255,255,.35)) brightness(1.25);">`;
+  const _headHtml = `<img src="aliens/${_spriteNum}.png" loading="lazy" style="width:85%;height:85%;object-fit:contain;display:block;filter:drop-shadow(0 0 6px rgba(255,255,255,.35)) brightness(1.25);">`;
   const _bgPool = {
     N:   ['#1c1c1c','#0d180d','#180d0d','#0d0d18','#181808','#101018','#180d18'],
     R:   ['#000d2d','#001a22','#00152a','#001428','#001020','#00182d','#001630'],
