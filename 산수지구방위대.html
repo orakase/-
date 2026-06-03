@@ -2279,9 +2279,15 @@ function spawnWave() {
   if (S.comboClearPaused && S.combo > 0) {
     S.comboClearPaused = false;
     S.comboStart = Date.now();
-    S.comboTimer = setTimeout(resetCombo, CFG.comboMs);
+    S.comboTimer = setTimeout(resetCombo, getEffectiveComboMs());
   } else if (S.comboClearPaused) {
     S.comboClearPaused = false;
+  }
+  // 새 웨이브 등장 시 콤보 타이머 리셋 — 새 적을 읽을 시간 보장
+  if (S.combo > 0 && !S.comboClearPaused) {
+    S.comboStart = Date.now();
+    clearTimeout(S.comboTimer);
+    S.comboTimer = setTimeout(resetCombo, getEffectiveComboMs());
   }
 
   const gh       = gameEl.clientHeight || 500;
