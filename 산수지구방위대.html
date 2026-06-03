@@ -6887,6 +6887,8 @@ function pauseGame() {
     _pauseComboRemain = Math.max(0, getEffectiveComboMs() - elapsed);
     clearTimeout(S.comboTimer); S.comboTimer = null;
   }
+  // 웨이브 타이머 정지
+  clearTimeout(S.waveTimer); S.waveTimer = null;
   // 피버 타이머 저장
   if (S.fever && S.feverEndTime) {
     S.feverFrozenRemain = Math.max(0, S.feverEndTime - Date.now());
@@ -6917,7 +6919,7 @@ function resumeGame() {
 
   S.lastTs = null;
   S.raf = requestAnimationFrame(loop);
-  if (!S.waveTimer) scheduleNextWave();
+  scheduleNextWave();
 }
 
 function showQuitConfirm() {
