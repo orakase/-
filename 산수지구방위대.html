@@ -4410,23 +4410,33 @@ function sfxBigBoom() {
 function spawnBigKillFX(vx, vy, color) {
   for (let i = 0; i < 10; i++) {
     const angle = (i / 10) * Math.PI * 2 + Math.random() * 0.5;
-    const dist  = 55 + Math.random() * 60;
-    const px    = Math.cos(angle) * dist;
-    const py    = Math.sin(angle) * dist;
-    const sz    = 8 + Math.random() * 7;
-    const dur   = 320 + Math.random() * 180;
+    const dist  = 60 + Math.random() * 55;
+    const tx    = Math.cos(angle) * dist;
+    const ty    = Math.sin(angle) * dist;
+    const sz    = 9 + Math.random() * 7;
+    const dur   = 380 + Math.random() * 180;
     const p = document.createElement('div');
-    p.style.cssText = `position:fixed;width:${sz}px;height:${sz}px;border-radius:50%;
-      left:${(vx - sz/2).toFixed(0)}px;top:${(vy - sz/2).toFixed(0)}px;
-      background:${color};box-shadow:0 0 ${sz+6}px ${color};
-      pointer-events:none;z-index:9999;opacity:1;
-      transition:transform ${dur}ms ease-out,opacity ${dur}ms ease-out;`;
+    p.style.position  = 'fixed';
+    p.style.width     = sz + 'px';
+    p.style.height    = sz + 'px';
+    p.style.borderRadius = '50%';
+    p.style.background  = color || '#ff8800';
+    p.style.boxShadow   = `0 0 ${sz+5}px ${color || '#ff8800'}`;
+    p.style.left        = (vx - sz/2) + 'px';
+    p.style.top         = (vy - sz/2) + 'px';
+    p.style.pointerEvents = 'none';
+    p.style.zIndex      = '99999';
     document.body.appendChild(p);
-    requestAnimationFrame(() => {
-      p.style.transform = `translate(${px.toFixed(0)}px,${py.toFixed(0)}px) scale(0.1)`;
-      p.style.opacity = '0';
-    });
-    setTimeout(() => { if(p.parentNode) p.parentNode.removeChild(p); }, dur + 50);
+    let start = null;
+    (function animate(ts) {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - prog, 2);
+      p.style.transform = `translate(${(tx * ease).toFixed(1)}px,${(ty * ease).toFixed(1)}px) scale(${1 - prog * 0.9})`;
+      p.style.opacity = String(1 - prog);
+      if (prog < 1) requestAnimationFrame(animate);
+      else if (p.parentNode) p.parentNode.removeChild(p);
+    })(performance.now());
   }
 }
 
