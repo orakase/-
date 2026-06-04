@@ -1485,6 +1485,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 </style>
 </head>
 <body>
+<canvas id="fx-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99999;image-rendering:pixelated;"></canvas>
 <div id="wrap">
 
 <!-- HUD -->
@@ -4419,74 +4420,95 @@ function sfxBigBoom() {
   cr.connect(crG); crG.connect(dest); cr.start(t); cr.stop(t + 0.05);
 }
 
+// ── 픽셀 파티클 엔진 ──
+const _PX = (function() {
+  let cvs, ctx, particles = [], raf = null;
+  const GRAVITY = 0.18;
+  function init() {
+    cvs = document.getElementById('fx-canvas');
+    if (!cvs) return false;
+    cvs.width  = window.innerWidth;
+    cvs.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      if (cvs) { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+    });
+    ctx = cvs.getContext('2d');
+    return true;
+  }
+  function loop() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.vx *= 0.98; p.vy += GRAVITY; p.x += p.vx; p.y += p.vy;
+      p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.col;
+      ctx.fillRect(Math.round(p.x), Math.round(p.y), p.sz, p.sz);
+    }
+    ctx.globalAlpha = 1;
+    if (particles.length > 0) raf = requestAnimationFrame(loop);
+    else raf = null;
+  }
+  function spawn(vx, vy, cols) {
+    if (!ctx && !init()) return;
+    // 충격파 링 (canvas)
+    let ringR = 0, ringAlpha = 1;
+    (function ringLoop() {
+      if (ringAlpha <= 0) return;
+      ringR += 5; ringAlpha -= 0.07;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, ringAlpha);
+      ctx.strokeStyle = cols[0];
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(vx, vy, ringR, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.restore();
+      requestAnimationFrame(ringLoop);
+    })();
+    // 빠른 파티클 (16개)
+    for (let i = 0; i < 16; i++) {
+      const a = (i/16)*Math.PI*2 + Math.random()*0.4;
+      const spd = 4 + Math.random()*5;
+      particles.push({
+        x: vx, y: vy,
+        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd - 1,
+        sz: 3 + Math.floor(Math.random()*4),
+        col: cols[Math.floor(Math.random()*cols.length)],
+        life: 1, decay: 0.045 + Math.random()*0.02
+      });
+    }
+    // 느린 큰 파티클 (10개)
+    for (let i = 0; i < 10; i++) {
+      const a = (i/10)*Math.PI*2 + 0.15 + Math.random()*0.4;
+      const spd = 2.5 + Math.random()*3.5;
+      particles.push({
+        x: vx, y: vy,
+        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd - 0.5,
+        sz: 5 + Math.floor(Math.random()*5),
+        col: cols[Math.floor(Math.random()*cols.length)],
+        life: 1, decay: 0.018 + Math.random()*0.01
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(loop);
+  }
+  return { spawn };
+})();
+
 function spawnBigKillFX(vx, vy, color) {
-  const c = color || '#ff8800';
-  // 1. 충격파 링
-  const ring = document.createElement('div');
-  ring.style.cssText = `position:fixed;border-radius:50%;border:3px solid ${c};
-    left:${vx}px;top:${vy}px;width:0;height:0;
-    pointer-events:none;z-index:99999;transform:translate(-50%,-50%);`;
-  document.body.appendChild(ring);
-  let rs=null;
-  (function animRing(ts){
-    if(!rs)rs=ts;
-    const p=Math.min((ts-rs)/220,1);
-    const r=p*55;
-    ring.style.width=r*2+'px'; ring.style.height=r*2+'px';
-    ring.style.opacity=String(1-p);
-    if(p<1)requestAnimationFrame(animRing);
-    else if(ring.parentNode)ring.parentNode.removeChild(ring);
-  })(performance.now());
-
-  // 2. 빠른 파티클 (8개, 가깝고 빠름)
-  for(let i=0;i<8;i++){
-    const a=(i/8)*Math.PI*2+Math.random()*0.4;
-    const d=40+Math.random()*30;
-    const tx=Math.cos(a)*d, ty=Math.sin(a)*d;
-    const sz=6+Math.random()*5, dur=200+Math.random()*100;
-    const p=document.createElement('div');
-    p.style.cssText=`position:fixed;width:${sz}px;height:${sz*0.5}px;border-radius:${sz}px;
-      background:${c};box-shadow:0 0 ${sz+4}px ${c};
-      left:${vx-sz/2}px;top:${vy-sz*0.25}px;
-      pointer-events:none;z-index:99999;
-      transform-origin:center;transform:rotate(${Math.atan2(ty,tx)}rad);`;
-    document.body.appendChild(p);
-    let s=null;
-    (function anim(ts){
-      if(!s)s=ts;
-      const prog=Math.min((ts-s)/dur,1);
-      const e=1-Math.pow(1-prog,3);
-      p.style.left=(vx-sz/2+tx*e)+'px'; p.style.top=(vy-sz*0.25+ty*e)+'px';
-      p.style.opacity=String(1-prog*prog);
-      if(prog<1)requestAnimationFrame(anim);
-      else if(p.parentNode)p.parentNode.removeChild(p);
-    })(performance.now());
-  }
-
-  // 3. 느린 파티클 (8개, 멀리 천천히 사라짐)
-  for(let i=0;i<8;i++){
-    const a=(i/8)*Math.PI*2+0.2+Math.random()*0.4;
-    const d=95+Math.random()*80;
-    const tx=Math.cos(a)*d, ty=Math.sin(a)*d;
-    const sz=5+Math.random()*5, dur=700+Math.random()*400;
-    const p=document.createElement('div');
-    p.style.cssText=`position:fixed;width:${sz}px;height:${sz}px;border-radius:50%;
-      background:${c};box-shadow:0 0 ${sz+4}px ${c};
-      left:${vx-sz/2}px;top:${vy-sz/2}px;
-      pointer-events:none;z-index:99999;`;
-    document.body.appendChild(p);
-    let s=null;
-    (function anim(ts){
-      if(!s)s=ts;
-      const prog=Math.min((ts-s)/dur,1);
-      const e=1-Math.pow(1-prog,2);
-      p.style.left=(vx-sz/2+tx*e)+'px'; p.style.top=(vy-sz/2+ty*e)+'px';
-      // 후반부에만 서서히 투명해짐
-      p.style.opacity=String(prog<0.5 ? 1 : 1-(prog-0.5)*2);
-      if(prog<1)requestAnimationFrame(anim);
-      else if(p.parentNode)p.parentNode.removeChild(p);
-    })(performance.now());
-  }
+  const palettes = {
+    'rgba(255,110,20,1)':  ['#FF8800','#FF5500','#FFCC00','#FF2200','#FFFFFF'],
+    'rgba(0,255,200,1)':   ['#00FFCC','#00AAFF','#88FFFF','#FFFFFF','#00FF88'],
+    'rgba(255,160,0,1)':   ['#FFAA00','#FF6600','#FFEE00','#FF3300','#FFFFFF'],
+    'rgba(255,70,0,1)':    ['#FF4400','#FF8800','#FFCC00','#FF0000','#FFFFFF'],
+    'rgba(255,220,0,1)':   ['#FFDD00','#FFAA00','#FFFFFF','#FF8800','#FFFF88'],
+    'rgba(255,80,100,1)':  ['#FF2255','#FF8899','#FFFF00','#FF5500','#FFFFFF'],
+    'rgba(255,180,0,1)':   ['#FFB400','#FF8800','#FFFF00','#FFFFFF','#FF4400'],
+    'rgba(255,255,100,1)': ['#FFFF64','#FFDD00','#FFFFFF','#FFAA00','#FF8800'],
+  };
+  const cols = palettes[color] || ['#FF8800','#FFCC00','#FF4400','#FFFFFF'];
+  _PX.spawn(vx, vy, cols);
 }
 
 function bigBoomEl(el, y, color) {
