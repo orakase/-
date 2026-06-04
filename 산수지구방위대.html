@@ -78,7 +78,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 /* HUD */
 #hud{
   display:flex;justify-content:space-around;align-items:center;
-  padding:5px 6px;
+  padding:5px 6px;position:relative;
   background:rgba(0,0,55,.92);border-bottom:1px solid #1a2a55;
   z-index:10;flex-shrink:0;
 }
@@ -1155,7 +1155,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
   color:#aab;font-size:11px;letter-spacing:1px;width:22px;height:22px;
   border-radius:2px;cursor:pointer;padding:0;display:none;
-  flex-shrink:0;align-self:center;margin-left:2px;
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
 }
 #btn-pause:active{background:rgba(255,255,255,.18);}
 #pause-overlay{
