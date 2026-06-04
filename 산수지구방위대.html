@@ -2774,13 +2774,12 @@ function onEntityExplode(e, scoreGained = 0) {
     const RADIUS = 169;
     const bcx = cx, bcy = cy;
     const nearby = S.entities.filter(o =>
-      o.type !== 'ufo' && Math.hypot(o.x - e.x, o.y - e.y) < RADIUS
+      o !== e && Math.hypot(o.x - e.x, o.y - e.y) < RADIUS
     );
     showBubbleBlast(cx, cy, RADIUS);
     gRecordItem('bubble', nearby.length);
     chainDestroy(nearby, 90);
     lingerDestroy(() => S.entities.filter(o =>
-      o.type !== 'ufo' &&
       Math.hypot((o.x + (o.el.offsetWidth||90)/2) - bcx,
                  (o.y + (o.el.offsetHeight||34)/2) - bcy) < RADIUS
     ));
@@ -2789,13 +2788,13 @@ function onEntityExplode(e, scoreGained = 0) {
   if (e.isCross) {
     const cex = e.x, cey = e.y;
     const targets = S.entities.filter(o =>
-      o.type !== 'ufo' && (Math.abs(o.y - cey) < 24 || Math.abs(o.x - cex) < 40)
+      o !== e && (Math.abs(o.y - cey) < 24 || Math.abs(o.x - cex) < 40)
     );
     showCrossBlast(cx, cy);
     gRecordItem('cross', targets.length);
     chainDestroy(targets, 70);
     lingerDestroy(() => S.entities.filter(o =>
-      o.type !== 'ufo' && (Math.abs(o.y - cey) < 24 || Math.abs(o.x - cex) < 40)
+      o !== e && (Math.abs(o.y - cey) < 24 || Math.abs(o.x - cex) < 40)
     ));
   }
 
@@ -2806,7 +2805,7 @@ function onEntityExplode(e, scoreGained = 0) {
     const cosA = Math.cos(αR), sinA = Math.sin(αR);
     const xcx  = cx, xcy = cy;
     const targets = S.entities.filter(o => {
-      if (o.type === 'ufo') return false;
+      if (o === e) return false;
       const ox = o.x + (o.el.offsetWidth  || 90) / 2;
       const oy = o.y + (o.el.offsetHeight || 34) / 2;
       const d1 = Math.abs((ox - xcx) * sinA - (oy - xcy) * cosA);
@@ -2817,7 +2816,7 @@ function onEntityExplode(e, scoreGained = 0) {
     gRecordItem('xblade', targets.length);
     chainDestroy(targets, 70);
     lingerDestroy(() => S.entities.filter(o => {
-      if (o.type === 'ufo') return false;
+      if (o === e) return false;
       const ox = o.x + (o.el.offsetWidth  || 90) / 2;
       const oy = o.y + (o.el.offsetHeight || 34) / 2;
       const d1 = Math.abs((ox - xcx) * sinA - (oy - xcy) * cosA);
@@ -3218,13 +3217,13 @@ function activateItemWithFX(u) {
         spawnFrag(sx, sy, tx, ty, color, 25 + i * 32,
           i === 3 ? () => {
             const gh = gameEl.clientHeight;
-            const tgts = S.entities.filter(e => e.type !== 'ufo' && e.y >= gh * 0.15);
+            const tgts = S.entities.filter(e => e.y >= gh * 0.15);
             gRecordItem('nuke', tgts.length);
             showNukeBlast(gh);
             chainDestroy(tgts, 160);
             lingerDestroy(() => {
               const gh2 = gameEl.clientHeight;
-              return S.entities.filter(e => e.type !== 'ufo' && e.y >= gh2 * 0.4);
+              return S.entities.filter(e => e.y >= gh2 * 0.4);
             });
           } : null
         );
