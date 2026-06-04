@@ -4462,6 +4462,9 @@ const _PX = (function() {
   function spawn(vx, vy, cols, mult) {
     mult = mult || 1;
     if (!ctx && !init()) return;
+    // 파티클 수 제한 - 이미 많으면 줄이거나 스킵
+    if (particles.length > 180) return;
+    if (particles.length > 100) mult = Math.max(1, Math.floor(mult * 0.5));
 
     // 빠른 파티클 (16개)
     for (let i = 0; i < 16 * mult; i++) {
@@ -4508,11 +4511,16 @@ function spawnBigKillFX(vx, vy, color, mult) {
   _PX.spawn(vx, vy, cols);
 }
 
+let _grCache = null, _grCacheTs = 0;
 function bigBoomEl(el, y, color) {
   if (!color) color = 'rgba(255,160,40,1)';
   if (y !== undefined) { el.style.top = y + 'px'; el.style.transform = ''; }
   el.classList.add('big-boom');
-  sfxKill();
+  // 빠른 연속 킬 시 사운드 쓰로틀
+  if (!bigBoomEl._lastSfx || now - bigBoomEl._lastSfx > 60) { sfxKill(); bigBoomEl._lastSfx = now; }
+  // gameEl rect 캐시 (같은 프레임 내 반복 호출 최적화)
+  const now = performance.now();
+  if (!_grCache || now - _grCacheTs > 50) { _grCache = gameEl.getBoundingClientRect(); _grCacheTs = now; }
   const er = el.getBoundingClientRect();
   spawnBigKillFX(er.left + er.width/2, er.top + er.height/2, color);
   gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth;
