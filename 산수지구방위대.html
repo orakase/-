@@ -4375,45 +4375,44 @@ function sfxHeal() {
 
 function sfxBigBoom() {
   const ctx = getAC(), t = ctx.currentTime;
-  // 저음 베이스 쿵
+  // 날카로운 임팩트 - 밝은 주파수 하강 (펀치감)
   const o1 = ctx.createOscillator(), g1 = ctx.createGain();
-  o1.type = 'sine';
-  o1.frequency.setValueAtTime(95, t);
-  o1.frequency.exponentialRampToValueAtTime(26, t + 0.28);
-  g1.gain.setValueAtTime(0, t);
-  g1.gain.linearRampToValueAtTime(0.68, t + 0.008);
-  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.36);
-  o1.connect(g1); audioConnect(g1); o1.start(t); o1.stop(t + 0.4);
-  // 중음 크랙
+  o1.type = 'triangle';
+  o1.frequency.setValueAtTime(620, t);
+  o1.frequency.exponentialRampToValueAtTime(85, t + 0.18);
+  g1.gain.setValueAtTime(0.72, t);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+  o1.connect(g1); audioConnect(g1); o1.start(t); o1.stop(t + 0.25);
+  // 고음 크랙 (명확한 타격감)
   const o2 = ctx.createOscillator(), g2 = ctx.createGain();
-  o2.type = 'sawtooth';
-  o2.frequency.setValueAtTime(340, t);
-  o2.frequency.exponentialRampToValueAtTime(42, t + 0.13);
-  g2.gain.setValueAtTime(0, t);
-  g2.gain.linearRampToValueAtTime(0.32, t + 0.005);
-  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
-  o2.connect(g2); audioConnect(g2); o2.start(t); o2.stop(t + 0.22);
-  // 노이즈 버스트
-  pHiNoise(0.28, t, t + 0.14, 1800);
+  o2.type = 'square';
+  o2.frequency.setValueAtTime(420, t);
+  o2.frequency.exponentialRampToValueAtTime(65, t + 0.07);
+  g2.gain.setValueAtTime(0.38, t);
+  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+  o2.connect(g2); audioConnect(g2); o2.start(t); o2.stop(t + 0.11);
+  // 밝은 노이즈 버스트
+  pHiNoise(0.38, t, t + 0.1, 2800);
 }
 
 function spawnBigKillFX(cx, cy, color) {
   for (let i = 0; i < 8; i++) {
     const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.5;
-    const dist  = 52 + Math.random() * 48;
+    const dist  = 55 + Math.random() * 50;
     const px    = Math.cos(angle) * dist;
     const py    = Math.sin(angle) * dist;
-    const sz    = 5 + Math.random() * 4;
-    const dur   = 270 + Math.random() * 180;
+    const sz    = 5 + Math.random() * 5;
+    const dur   = 280 + Math.random() * 180;
     const p = document.createElement('div');
     p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;
       left:${(cx - sz/2).toFixed(0)}px;top:${(cy - sz/2).toFixed(0)}px;
-      background:${color};box-shadow:0 0 ${sz+3}px ${color};
-      pointer-events:none;z-index:8;
-      --px:${px.toFixed(0)}px;--py:${py.toFixed(0)}px;
-      animation:killParticle ${dur}ms ease-out forwards;`;
+      background:${color};box-shadow:0 0 ${sz+4}px ${color};
+      pointer-events:none;z-index:25;`;
     gameEl.appendChild(p);
-    setTimeout(() => p.remove(), dur + 60);
+    p.animate([
+      {opacity:1, transform:'translate(0,0) scale(1)'},
+      {opacity:0, transform:`translate(${px.toFixed(0)}px,${py.toFixed(0)}px) scale(0.15)`}
+    ], {duration:dur, easing:'ease-out', fill:'forwards'}).onfinish = () => p.remove();
   }
 }
 
