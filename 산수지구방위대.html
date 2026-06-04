@@ -3143,7 +3143,6 @@ function activateItemWithFX(u) {
   const sy = ur.top  + ur.height / 2 - gr.top;
 
   boomEl(u.el, u.y);
-  gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth; gameEl.classList.add('kill-shaking'); setTimeout(()=>gameEl.classList.remove('kill-shaking'),110);
   setTimeout(() => u.el.remove(), 380);
 
   // Fly one fragment from UFO center to a target entity
@@ -4523,8 +4522,6 @@ function bigBoomEl(el, y, color) {
   if (!_grCache || now - _grCacheTs > 50) { _grCache = gameEl.getBoundingClientRect(); _grCacheTs = now; }
   const er = el.getBoundingClientRect();
   spawnBigKillFX(er.left + er.width/2, er.top + er.height/2, color);
-  gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth;
-  gameEl.classList.add('kill-shaking'); setTimeout(()=>gameEl.classList.remove('kill-shaking'),110);
 }
 
 function sfxFreeze() {
