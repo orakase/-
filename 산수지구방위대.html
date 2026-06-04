@@ -7309,13 +7309,13 @@ function generateAlienHint(q, a) {
   if(t.includes('이등변삼각형')&&t.includes('밑각')&&!t.includes('꼭짓')){const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];return `이등변삼각형: 두 밑각이 같아요!\n밑각=(180°-${x}°)÷2=${(180-x)/2}°`;}}
   if(t.includes('사각형')&&t.includes('나머지')){const angs=t.match(/(\d+)°/g);if(angs&&angs.length>=3){const sum=angs.reduce((s,v)=>s+parseInt(v),0);return `사각형 네 각의 합=360°\n360°-${sum}°=${360-sum}°`;}return `사각형 네 각의 합은 360°예요!`;}
   if(t.includes('오각형')&&t.includes('나머지')){const angs=t.match(/(\d+)°/g);if(angs){const sum=angs.reduce((s,v)=>s+parseInt(v),0);return `오각형 다섯 각의 합=540°\n540°-${sum}°=${540-sum}°`;}}
-  if(t.includes('삼각형')&&t.includes('각의 합'))return `삼각형 세 각의 합은 항상 180°!`;
-  if(t.includes('사각형')&&t.includes('각의 합'))return `사각형 네 각의 합은 항상 360°!`;
-  if(t.includes('정삼각형')&&t.includes('각'))return `정삼각형: 세 각이 모두 같아요!\n180°÷3=60°`;
-  if(t.includes('오각형')&&t.includes('내각의 합'))return `오각형 내각의 합=180°×(5-2)=540°`;
-  if(t.includes('정오각형')&&t.includes('한 내각'))return `540°÷5=108°`;
-  if(t.includes('육각형')&&t.includes('내각의 합'))return `육각형 내각의 합=180°×(6-2)=720°`;
-  if(t.includes('직각')&&t.includes('몇 도'))return `직각=90°`;
+  if(t.includes('삼각형')&&t.includes('각의 합'))return `삼각형 세 꼭짓점을 뜯어서 한 줄로 세우면\n반직선(일직선)이 돼요!\n일직선 = ?°`;
+  if(t.includes('사각형')&&t.includes('각의 합'))return `사각형을 대각선으로 자르면\n삼각형 2개가 나와요!\n삼각형 1개의 각의 합 × 2 = ?`;
+  if(t.includes('정삼각형')&&t.includes('각'))return `정삼각형: 세 각이 모두 같아요!\n삼각형 세 각의 합 ÷ 3 = ?`;
+  if(t.includes('오각형')&&t.includes('내각의 합'))return `다각형 내각의 합 공식:\n180° × (꼭짓점 수 - 2)\n오각형 꼭짓점 = 5개 → 180 × ? = ?`;
+  if(t.includes('정오각형')&&t.includes('한 내각'))return `정오각형 내각의 합을 먼저 구해요:\n180° × (5-2) = ?°\n그 다음 ÷ 5 = ?`;
+  if(t.includes('육각형')&&t.includes('내각의 합'))return `다각형 내각의 합 공식:\n180° × (꼭짓점 수 - 2)\n육각형 꼭짓점 = 6개 → 180 × ? = ?`;
+  if(t.includes('직각')&&t.includes('몇 도'))return `직각은 일직선(180°)의 딱 절반이에요!\n180 ÷ 2 = ?`;
   if(t.includes('직사각형')&&t.includes('둘레'))return `직사각형 둘레=(가로+세로)×2`;
   if(t.includes('정사각형')&&t.includes('둘레'))return `정사각형 둘레=한 변×4`;
   if(t.includes('직사각형')&&t.includes('넓이'))return `직사각형 넓이=가로×세로`;
@@ -7346,8 +7346,8 @@ function generateAlienHint(q, a) {
   if(t.match(/\d+km\s*\d+m/)){const m=t.match(/(\d+)km\s*(\d+)m/);if(m)return `1km=1000m\n${+m[1]*1000}+${m[2]}=${+m[1]*1000+ +m[2]}m`;}
   if(t.includes('mL')&&t.includes('L'))return `1000mL=1L`;
   if(t.match(/\d+kg\s*\d+g/)){const m=t.match(/(\d+)kg\s*(\d+)g/);if(m)return `1kg=1000g\n${+m[1]*1000}+${m[2]}=${+m[1]*1000+ +m[2]}g`;}
-  if(t.includes('1일')&&t.includes('시간'))return `1일=24시간`;
-  if(t.includes('1년')&&t.includes('개월'))return `1년=12개월`;
+  if(t.includes('1일')&&t.includes('시간'))return `시계는 하루에 두 바퀴 돌아요!\n시침 한 바퀴 = 12시간\n12 × 2 = ?`;
+  if(t.includes('1년')&&t.includes('개월'))return `계절이 봄·여름·가을·겨울 = 4계절\n각 계절마다 3개월\n4 × 3 = ?`;
   if(t.includes('최대공약수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)return `최대공약수: 공통 약수 중 가장 큰 것\n${ns[0]}의 약수: ${_factors(ns[0]).join(',')}\n${ns[1]}의 약수: ${_factors(ns[1]).join(',')}`;}
   if(t.includes('최소공배수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)return `최소공배수: 공통 배수 중 가장 작은 것\n${ns[0]}의 배수: ${[1,2,3,4,5].map(i=>ns[0]*i).join(',')}\n${ns[1]}의 배수: ${[1,2,3,4,5].map(i=>ns[1]*i).join(',')}`;}
   if(t.includes('약수의 개수'))return `1부터 차례로 나눠보면서 약수를 모두 찾아요!`;
