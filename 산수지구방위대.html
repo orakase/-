@@ -2834,10 +2834,6 @@ function onEntityExplode(e, scoreGained = 0, big = false) {
   if (big) {
     bigBoomEl(e.el, e.y, 'rgba(255,220,0,1)');
   } else {
-    gameEl.classList.remove('kill-shaking');
-    void gameEl.offsetWidth;
-    gameEl.classList.add('kill-shaking');
-    setTimeout(()=>gameEl.classList.remove('kill-shaking'), 110);
     sfxKill();
     boomEl(e.el, e.y);
   }
