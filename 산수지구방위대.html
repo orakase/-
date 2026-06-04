@@ -1175,7 +1175,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   z-index:11;pointer-events:none;white-space:nowrap;
 }
 .fever-badge{
-  font-size:10px;font-weight:900;padding:2px 9px;border-radius:12px;letter-spacing:.3px;
+  font-size:14px;font-weight:900;padding:4px 12px;border-radius:3px;letter-spacing:.3px;
 }
 .fever-badge-invincible{background:rgba(0,200,255,.18);border:1px solid rgba(0,200,255,.5);color:#00ddff;}
 .fever-badge-score{background:rgba(255,200,0,.18);border:1px solid rgba(255,200,0,.5);color:#ffcc00;}
@@ -1464,8 +1464,8 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
     </div>
   </div>
   <div id="fever-status">
-    <span class="fever-badge fever-badge-invincible"><img src="ui/fever_invincible.png" style="width:22px;height:22px;object-fit:contain;vertical-align:middle;"> 무적</span>
-    <span class="fever-badge fever-badge-score"><img src="ui/fever_score.png" style="width:22px;height:22px;object-fit:contain;vertical-align:middle;"> 점수×2</span>
+    <span class="fever-badge fever-badge-invincible"><img src="ui/fever_invincible.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> 무적</span>
+    <span class="fever-badge fever-badge-score"><img src="ui/fever_score.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> 점수×2</span>
   </div>
   <div id="prog-bar"><div id="prog-fill" style="width:100%"></div></div>
   <div id="earth"></div>
@@ -3608,6 +3608,8 @@ function gameOver() {
   saveScore(finalScore, getSpeedTier() + 1);
   const scoreStars = Math.min(20, Math.floor(finalScore / 50000));
   if (scoreStars > 0) giveStars(scoreStars, '점수 보너스');
+  const levelStars = (getSpeedTier() + 1) * 2;
+  if (levelStars > 0) giveStars(levelStars, '레벨 보너스');
   checkNewMedals();
 
   // ── 전투 보고서 빌더 ──
@@ -4837,7 +4839,7 @@ function spawnBoss(tierOverride) {
   }
   gameEl.appendChild(el);
   S.boss = {
-    el, hp: 5,
+    el, hp: _bossTier === 0 ? 3 : _bossTier === 1 ? 4 : 5,
     y: -200, x: centerX,
     centerX,
     amplitude: gw * 0.08,
