@@ -7888,6 +7888,7 @@ function openAlienPending(idx) {
       <button class="popup-close-btn" onclick="closeAlienPopup()">닫기</button>
     </div>`;
   $('alien-popup-wrap').style.display = 'flex';
+  document.querySelectorAll('.alien-get-pop').forEach(e=>e.remove());
   applyTwemoji($('alien-popup'));
   sfxPopupOpen();
   const inp = document.getElementById('alien-ans-input');
@@ -7941,6 +7942,7 @@ function openAlienProfile(idx, isNew=false, correctMsg='') {
     <div class="profile-section"><b>특수 능력:</b><br><span class="profile-ability-chip">${d.abilityLabel} ${d.abilityUnit}</span></div>
     <button class="popup-close-btn" onclick="closeAlienPopup()" style="margin-top:4px;">닫기</button>`;
   $('alien-popup-wrap').style.display = 'flex';
+  document.querySelectorAll('.alien-get-pop').forEach(e=>e.remove());
   applyTwemoji($('alien-popup'));
   sfxPopupOpen();
 }
