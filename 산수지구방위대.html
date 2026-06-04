@@ -1152,9 +1152,9 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 .title-nav-btn:nth-child(4) .title-nav-icon{filter:drop-shadow(0 0 7px rgba(255,220,0,.7));}
 /* ── 일시 정지 ── */
 #btn-pause{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-  color:#889;font-size:13px;width:26px;height:26px;
-  border-radius:6px;cursor:pointer;padding:0;display:none;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  color:#aab;font-size:11px;letter-spacing:1px;width:22px;height:22px;
+  border-radius:2px;cursor:pointer;padding:0;display:none;
   flex-shrink:0;align-self:center;margin-left:2px;
 }
 #btn-pause:active{background:rgba(255,255,255,.18);}
@@ -1437,7 +1437,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   <div class="hc"><span class="hl">레벨</span><span class="hv" id="h-level">Lv.1</span></div>
   <div class="hc"><span class="hl">최고점수</span><span class="hv" id="h-best" style="font-size:11px;">0</span></div>
   <div class="hc"><span class="hl">점수</span><span class="hv" id="h-score">0</span></div>
-  <button id="btn-pause" onclick="pauseGame()">⏸</button>
+  <button id="btn-pause" onclick="pauseGame()">||</button>
 </div>
 
 <!-- Game area -->
@@ -1446,7 +1446,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   <div id="pause-overlay">
     <!-- 일반 일시정지 패널 -->
     <div id="pause-normal" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-      <div style="font-size:24px;font-weight:900;color:#fff;letter-spacing:2px;">⏸ 일시 정지</div>
+      <div style="font-size:24px;font-weight:900;color:#fff;letter-spacing:2px;">|| 일시 정지</div>
       <div style="font-size:13px;color:#667;margin-top:-6px;">점수 <span id="pause-score-val" style="color:#ddeeff;font-weight:900">0</span></div>
       <button class="pause-action-btn" onclick="resumeGame()"
         style="background:#1a33bb;color:#fff;margin-top:4px;">▶ 계속하기</button>
