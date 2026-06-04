@@ -1639,7 +1639,7 @@ const CFG = {
 const SCORE_VALUE = { normal:10, guerrilla:15, ufo:50 };
 
 // Item definitions
-const _ii = (n,s=18) => `<img src="items/${n}.png" style="width:${s}px;height:${s}px;object-fit:contain;vertical-align:middle;">`;
+const _ii = (n,s=22) => `<img src="items/${n}.png" style="width:${s}px;height:${s}px;object-fit:contain;vertical-align:middle;">`;
 const ITEMS = {
   heal:   { emoji:_ii('heal'),   name:'긴급 보급',  desc:'대원 HP +3 긴급 충전!' },
   freeze: { emoji:_ii('freeze'), name:'시간 정지',  desc:'적 전체 5초간 작전 동결!' },
@@ -2334,13 +2334,13 @@ function spawnWave() {
     let type, cssClass, prefix, fallSec, hpLoss;
     if (isGuerr) {
       type='guerrilla'; cssClass='ent-guerrilla';
-      prefix='<img src="items/enemy_guerrilla.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;"> ';
+      prefix='<img src="items/enemy_guerrilla.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> ';
       fallSec=CFG.fallSecGuerr; hpLoss=CFG.hpLossGuerr;
     } else {
       type='normal';
       const op = prob.expr.includes('×') ? 'mul' : prob.expr.includes('-') ? 'sub' : 'add';
       cssClass=`ent-${op}`;
-      prefix='<img src="items/enemy_normal.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;"> ';
+      prefix='<img src="items/enemy_normal.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> ';
       fallSec=CFG.fallSecNormal; hpLoss=CFG.hpLossNormal;
     }
     const slotW = (gw - 20) / count;
@@ -2408,7 +2408,7 @@ function spawnUfo() {
   el.style.borderColor = st.border;
   el.style.boxShadow   = `0 0 16px ${st.glow}`;
   el.style.background  = st.bg;
-  el.innerHTML = `<img src="items/enemy_ufo.png" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;"> ${prob.expr} ${ITEMS[itemType].emoji}`;
+  el.innerHTML = `<img src="items/enemy_ufo.png" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> ${prob.expr} ${ITEMS[itemType].emoji}`;
   el.style.left = startX + 'px';
   el.style.top  = ufoY   + 'px';
   gameEl.appendChild(el);
@@ -3227,8 +3227,8 @@ function spawnFrag(sx, sy, tx, ty, color, delay, onArrive) {
 // Rebuild enemy's text label (preserving badges)
 function rebuildEnemyLabel(e, badge) {
   const prefix = e.type === 'guerrilla'
-    ? '<img src="items/enemy_guerrilla.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;"> '
-    : '<img src="items/enemy_normal.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;"> ';
+    ? '<img src="items/enemy_guerrilla.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> '
+    : '<img src="items/enemy_normal.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> ';
   // Re-sync card class to current expr (dup item may have changed the operation)
   if (e.type !== 'guerrilla') {
     const op = e.expr.includes('×') ? 'mul' : e.expr.includes('-') ? 'sub' : 'add';
