@@ -991,7 +991,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   text-align:center;line-height:1.6;
 }
 .popup-hint-btn{
-  flex:1;padding:8px 4px;border-radius:2px;
+  padding:6px 16px;border-radius:2px;
   background:rgba(40,80,20,.25);border:1.5px solid rgba(80,160,40,.4);color:#66aa33;
   font-size:12px;font-weight:700;cursor:pointer;
 }
@@ -1017,7 +1017,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 }
 .popup-answer-row{display:flex;gap:8px;width:100%;align-items:center;}
 #alien-ans-input{
-  flex:1;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);
+  width:90px;flex-shrink:0;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);
   border-radius:8px;color:#fff;font-size:16px;font-weight:700;
   padding:8px 10px;text-align:center;outline:none;
 }
@@ -7429,9 +7429,9 @@ function openAlienPending(idx) {
       <input id="alien-ans-input" type="number" placeholder="숫자 입력" />
       <button class="popup-submit-btn" onclick="submitAlienAnswer(${idx},${d.problem.a})">제출</button>
     </div>
-    <div style="display:flex;gap:8px;width:100%;">
+    <div style="display:flex;gap:10px;justify-content:center;">
       <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">💡 힌트</button>
-      <button class="popup-close-btn" style="flex:2;" onclick="closeAlienPopup()">닫기</button>
+      <button class="popup-close-btn" onclick="closeAlienPopup()">닫기</button>
     </div>`;
   $('alien-popup-wrap').style.display = 'flex';
   applyTwemoji($('alien-popup'));
