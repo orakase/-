@@ -1075,18 +1075,22 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
 @keyframes alienDrift4{0%,100%{transform:translate(0,0) rotate(2deg);}50%{transform:translate(6px,12px) rotate(-3deg);}}
 @keyframes alienDrift5{0%,100%{transform:translateX(0);}50%{transform:translateX(-8px);}}
 .title-deco{position:absolute;pointer-events:none;user-select:none;}
-/* 부유 계산식 카드 */
+/* 낙하 계산식 카드 */
 .title-eq{
-  position:absolute;pointer-events:none;user-select:none;
+  position:absolute;top:-8%;pointer-events:none;user-select:none;
   font-size:12px;font-weight:800;letter-spacing:.3px;
-  padding:3px 8px;border-radius:5px;
-  border:1px solid currentColor;opacity:.0;
-  animation:eqFloat 0s ease-in-out infinite;
+  padding:4px 9px;opacity:0;
+  animation:eqFall linear infinite;
 }
-@keyframes eqFloatA{0%,100%{transform:translate(0,0);opacity:.28;}50%{transform:translate(5px,-9px);opacity:.38;}}
-@keyframes eqFloatB{0%,100%{transform:translate(0,0);opacity:.22;}50%{transform:translate(-7px,6px);opacity:.32;}}
-@keyframes eqFloatC{0%,100%{transform:translateY(0);opacity:.25;}50%{transform:translateY(-8px);opacity:.35;}}
-@keyframes eqFloatD{0%,100%{transform:translate(0,0);opacity:.2;}50%{transform:translate(4px,10px);opacity:.30;}}
+.title-eq.add{background:rgba(4,6,52,.88);border:1.5px solid #3355ee;color:#aabbff;border-radius:100px;}
+.title-eq.sub{background:rgba(0,34,22,.88);border:1.5px solid #00bb77;color:#88ffcc;border-radius:3px 16px 3px 16px;}
+.title-eq.mul{background:rgba(44,12,0,.88);border:2px solid #ff7700;color:#ffcc88;border-radius:3px 12px 3px 12px;}
+@keyframes eqFall{
+  0%  {transform:translateY(0);   opacity:0;}
+  6%  {opacity:.32;}
+  88% {opacity:.26;}
+  100%{transform:translateY(115vh);opacity:0;}
+}
 
 /* 타이틀 로고 */
 @keyframes earthPulse{0%,100%{filter:drop-shadow(0 0 16px rgba(0,120,255,.7)) drop-shadow(0 0 32px rgba(0,60,200,.4));}50%{filter:drop-shadow(0 0 28px rgba(0,160,255,.95)) drop-shadow(0 0 55px rgba(0,100,255,.5));}}
@@ -1096,8 +1100,9 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
 
 /* 제목 텍스트 */
 @keyframes titleGlow{0%,100%{text-shadow:0 0 20px rgba(100,160,255,.7),0 2px 8px rgba(0,0,0,.8);}50%{text-shadow:0 0 36px rgba(140,190,255,.95),0 0 60px rgba(80,140,255,.4),0 2px 8px rgba(0,0,0,.8);}}
-.title-main{font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.15;animation:titleGlow 3s ease-in-out infinite;}
-.title-tagline{font-size:13px;color:#4488bb;letter-spacing:.5px;margin-top:2px;}
+@keyframes titleEnter{0%{opacity:0;transform:translateY(22px);}100%{opacity:1;transform:translateY(0);}}
+.title-main{font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.15;animation:titleGlow 3s ease-in-out infinite,titleEnter .7s ease-out both;}
+.title-tagline{font-size:13px;color:#4488bb;letter-spacing:.5px;margin-top:2px;animation:titleEnter .7s .15s ease-out both;}
 
 /* 최고 기록 배지 */
 .title-best{
@@ -1115,8 +1120,8 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
   animation:startGlow 2.2s ease-in-out infinite;
 }
 @keyframes startGlow{
-  0%,100%{box-shadow:0 0 14px rgba(55,90,240,.45),0 4px 12px rgba(0,0,0,.5);transform:scale(1);}
-  50%{box-shadow:0 0 26px rgba(80,120,255,.7),0 0 40px rgba(55,90,240,.2),0 4px 14px rgba(0,0,0,.5);transform:scale(1.012);}
+  0%,100%{box-shadow:0 0 18px rgba(55,90,240,.55),0 0 36px rgba(30,60,220,.25),0 4px 14px rgba(0,0,0,.5);transform:scale(1);}
+  50%{box-shadow:0 0 32px rgba(80,130,255,.85),0 0 60px rgba(55,90,240,.35),0 0 80px rgba(40,80,220,.15),0 4px 16px rgba(0,0,0,.5);transform:scale(1.018);}
 }
 
 /* 하단 탭 네비게이션 */
@@ -1459,23 +1464,25 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
   <div class="title-deco" style="top:55%;left:7%;opacity:.25;animation:alienDrift5 6s ease-in-out infinite 1.5s;"><img src="twemoji/1f984.svg" width="18" height="18"></div>
   <div class="title-deco" style="top:60%;right:6%;opacity:.28;animation:alienDrift1 9s ease-in-out infinite 3s;"><img src="twemoji/1f419.svg" width="20" height="20"></div>
   <div class="title-deco" style="top:22%;left:12%;opacity:.2;animation:alienDrift3 5.5s ease-in-out infinite 4s;"><img src="twemoji/26a1.svg" width="13" height="13"></div>
-  <!-- 부유하는 계산식 -->
-  <div class="title-eq" style="top:8%;left:18%;color:#6699ff;animation:eqFloatA 6s ease-in-out infinite;">3 + 5 = ?</div>
-  <div class="title-eq" style="top:11%;right:18%;color:#ffaa44;animation:eqFloatB 7s ease-in-out infinite 1s;">12 × 4 = ?</div>
-  <div class="title-eq" style="top:25%;right:12%;color:#44ee88;animation:eqFloatC 5.5s ease-in-out infinite 2s;">9 - 3 = ?</div>
-  <div class="title-eq" style="top:40%;left:2%;color:#cc88ff;animation:eqFloatD 8s ease-in-out infinite 0.5s;">24 ÷ 6 = ?</div>
-  <div class="title-eq" style="top:47%;right:2%;color:#6699ff;animation:eqFloatA 7.5s ease-in-out infinite 3s;">7 + 8 = ?</div>
-  <div class="title-eq" style="top:62%;left:15%;color:#ffaa44;animation:eqFloatB 6.5s ease-in-out infinite 1.5s;">6 × 7 = ?</div>
-  <div class="title-eq" style="top:68%;right:14%;color:#44ee88;animation:eqFloatC 9s ease-in-out infinite 2.5s;">17 - 8 = ?</div>
-  <div class="title-eq" style="top:75%;left:3%;color:#cc88ff;animation:eqFloatD 7s ease-in-out infinite 4s;">48 ÷ 8 = ?</div>
+  <!-- 낙하하는 계산식 카드 -->
+  <div class="title-eq add" style="left:6%; animation-duration:9s; animation-delay:-1s;">3 + 5 = ?</div>
+  <div class="title-eq mul" style="left:22%;animation-duration:12s;animation-delay:-4s;">6 × 7 = ?</div>
+  <div class="title-eq sub" style="left:38%;animation-duration:10s;animation-delay:-7s;">9 - 3 = ?</div>
+  <div class="title-eq add" style="left:55%;animation-duration:13s;animation-delay:-2s;">7 + 8 = ?</div>
+  <div class="title-eq mul" style="left:72%;animation-duration:11s;animation-delay:-9s;">12 × 4 = ?</div>
+  <div class="title-eq sub" style="left:14%;animation-duration:14s;animation-delay:-5s;">17 - 8 = ?</div>
+  <div class="title-eq add" style="left:46%;animation-duration:8s; animation-delay:-11s;">14 + 6 = ?</div>
+  <div class="title-eq mul" style="left:83%;animation-duration:10s;animation-delay:-3s;">8 × 9 = ?</div>
+  <div class="title-eq sub" style="left:30%;animation-duration:11s;animation-delay:-8s;">23 - 7 = ?</div>
+  <div class="title-eq add" style="left:64%;animation-duration:9s; animation-delay:-6s;">5 + 9 = ?</div>
 
   <!-- 메인 콘텐츠 -->
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px 20px;width:100%;z-index:1;">
 
     <!-- 지구 + 방패 로고 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
-      <div class="title-earth">🌍</div>
-      <div class="title-shield" style="margin-top:-10px;">🛡️</div>
+      <div class="title-earth"><img src="twemoji/1f30d.svg" width="82" height="82"></div>
+      <div class="title-shield" style="margin-top:-14px;"><img src="twemoji/1f6e1.svg" width="42" height="42" style="filter:drop-shadow(0 0 10px rgba(100,200,255,.8));"></div>
     </div>
 
     <!-- 제목 -->
@@ -1493,6 +1500,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
     <!-- 게임 시작 버튼 -->
     <div style="height:4px;"></div>
     <button id="btn-start">▶ &nbsp;게임 시작</button>
+    <div style="font-size:11px;color:#ff6644;letter-spacing:.5px;font-weight:700;animation:startGlow 2.2s ease-in-out infinite;opacity:.75;">⚠ 지구가 위험하다!</div>
 
     <!-- 조작 힌트 -->
     <div style="font-size:10px;color:#334455;letter-spacing:.3px;">
