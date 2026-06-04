@@ -4048,7 +4048,7 @@ function startFeverBGM() {
   const t   = ctx.currentTime + 0.05;
   feverBgmGain = ctx.createGain();
   feverBgmGain.gain.setValueAtTime(0, t);
-  feverBgmGain.gain.linearRampToValueAtTime(0.31, t + 0.25);
+  feverBgmGain.gain.linearRampToValueAtTime(0.25, t + 0.25);
   feverBgmGain.connect(masterOut);
   scheduleFeverLoop(t);
 }
