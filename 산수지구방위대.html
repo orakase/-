@@ -2106,6 +2106,8 @@ const _bgAmbient = (function(){
           ${Array.from({length:10},(_,i)=>`<button onclick="_cheatSpawnBoss(${i});"
             style="background:#1a1030;border:1px solid #6622aa;color:#cc88ff;border-radius:5px;padding:4px 8px;font-size:11px;cursor:pointer;">${i+1}</button>`).join('')}
         </div>
+        <button onclick="if(typeof GSTATS!=='undefined'){GSTATS.bossKills=0;}document.getElementById('cheat-panel')?.remove();alert('보스 진행도 초기화');"
+          style="margin-top:5px;background:#301010;border:1px solid #aa3322;color:#ff8877;border-radius:5px;padding:4px 12px;font-size:11px;cursor:pointer;">진행도 초기화</button>
       </div>
       <div style="margin-top:10px;border-top:1px solid #2a3a5a;padding-top:10px;">
         <div style="font-size:11px;color:#8899cc;margin-bottom:7px;">👾 외계인 즉시 추가 (번호 입력)</div>
@@ -2137,10 +2139,7 @@ const _bgAmbient = (function(){
     S.bossWarning = false;
     if(S.boss){ S.boss.el?.remove(); S.boss=null; }
     document.getElementById('boss-el')?.remove();
-    const _savedKills = GSTATS.bossKills;
-    GSTATS.bossKills = tier;
-    spawnBoss();
-    GSTATS.bossKills = _savedKills;
+    spawnBoss(tier);
   };
   // 키보드: Ctrl+Shift+D
   document.addEventListener('keydown', function(e){
@@ -4813,11 +4812,11 @@ function mkBossSvg(t) {
   `+Z;
 }
 
-function spawnBoss() {
+function spawnBoss(tierOverride) {
   if (S.status !== 'playing') return;
   const gw = gameEl.clientWidth  || 360;
   const gh = gameEl.clientHeight || 500;
-  const _bossTier = Math.min(typeof GSTATS!=='undefined' ? (GSTATS.bossKills||0) : 0, 9);
+  const _bossTier = tierOverride !== undefined ? tierOverride : Math.min(typeof GSTATS!=='undefined' ? (GSTATS.bossKills||0) : 0, 9);
   const bossW   = Math.round(gw * (0.55 + _bossTier * 0.03));
   const centerX = Math.round((gw - bossW) / 2);
   const el = document.createElement('div');
