@@ -991,9 +991,10 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   text-align:center;line-height:1.6;
 }
 .popup-hint-btn{
-  width:100%;padding:8px;border-radius:2px;
-  background:#0e1a08;border:2px solid #44aa22;color:#88dd44;
-  font-size:12px;font-weight:800;cursor:pointer;
+  padding:7px 11px;border-radius:2px;flex-shrink:0;
+  background:#0e1a08;border:2px solid #3a8822;color:#77cc33;
+  font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;
+  box-shadow:0 2px 5px rgba(0,0,0,.45),inset 0 1px 0 rgba(80,180,40,.15);
 }
 .popup-hint-box{
   width:100%;background:rgba(60,120,20,.18);border:1px solid rgba(80,160,30,.4);
@@ -7392,9 +7393,9 @@ function openAlienPending(idx) {
     <div style="font-size:11px;color:#aab;text-align:center;">
       동료로 확정하면 <span style="color:#ffd700;font-weight:800;">⭐ ${d.gradeStars}별</span>을 받아요!
     </div>
-    <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">💡 광고 보고 힌트 받기</button>
     <div class="popup-hint-box" id="alien-hint-box"></div>
     <div class="popup-answer-row">
+      <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">💡 힌트</button>
       <input id="alien-ans-input" type="number" placeholder="숫자 입력" />
       <button class="popup-submit-btn" onclick="submitAlienAnswer(${idx},${d.problem.a})">제출</button>
     </div>
