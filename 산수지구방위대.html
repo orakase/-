@@ -6753,8 +6753,7 @@ function renderMedalBoard() {
       const locked=st.tier===0;
       const tClass=locked?'locked':`t${st.tier}`;
       const tierLbl=locked?'미획득':
-        m.section==='special'?'플래티넘':
-        `${TIER_NAMES[st.tier-1]} · ${['구리','은','금','플래티넘'][st.tier-1]}`;
+        ['구리','은','금','플래티넘'][st.tier-1]||'플래티넘';
       const progBar = !locked && st.tier<st.maxTier
         ? `<div class="medal-prog-wrap"><div class="medal-prog-bar" style="width:${st.pct}%"></div></div>`
         : st.tier===st.maxTier?`<div class="medal-complete-badge">★ 완성</div>`:'';
@@ -6778,8 +6777,7 @@ function showMedalDetail(id) {
   const tierNameArr  = ['구리','은','금','플래티넘'];
   const color = locked ? '#444' : tierColorArr[st.tier-1];
   const tierLbl = locked ? '미획득' :
-    m.section==='special' ? '✨ 플래티넘' :
-    `${TIER_NAMES[st.tier-1]} · ${tierNameArr[st.tier-1]}`;
+    tierNameArr[st.tier-1] || '플래티넘';
 
   let progHtml = '', nextHtml = '';
   if(!locked && m.section!=='special' && st.tier < st.maxTier) {
