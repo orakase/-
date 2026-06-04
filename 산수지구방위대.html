@@ -3217,13 +3217,13 @@ function activateItemWithFX(u) {
         spawnFrag(sx, sy, tx, ty, color, 25 + i * 32,
           i === 3 ? () => {
             const gh = gameEl.clientHeight;
-            const tgts = S.entities.filter(e => e.y >= gh * 0.15);
+            const tgts = S.entities.filter(e => e.y >= gh * 0.05);
             gRecordItem('nuke', tgts.length);
             showNukeBlast(gh);
             chainDestroy(tgts, 160);
             lingerDestroy(() => {
               const gh2 = gameEl.clientHeight;
-              return S.entities.filter(e => e.y >= gh2 * 0.4);
+              return S.entities.filter(e => e.y >= gh2 * 0.05);
             });
           } : null
         );
