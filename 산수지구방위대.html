@@ -4376,30 +4376,47 @@ function sfxHeal() {
 function sfxBigBoom() {
   const ctx = getAC(), t = ctx.currentTime;
   const dest = ctx.destination;
-  // 임팩트: 높은 주파수에서 빠른 하강 (쾅 느낌의 핵심)
-  const o1 = ctx.createOscillator(), g1 = ctx.createGain();
-  o1.type = 'sawtooth';
-  o1.frequency.setValueAtTime(380, t);
-  o1.frequency.exponentialRampToValueAtTime(38, t + 0.12);
-  g1.gain.setValueAtTime(1.1, t);
-  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
-  o1.connect(g1); g1.connect(dest); o1.start(t); o1.stop(t + 0.2);
-  // 고음 어택 (날카로운 크랙)
-  const o2 = ctx.createOscillator(), g2 = ctx.createGain();
-  o2.type = 'square';
-  o2.frequency.setValueAtTime(1800, t);
-  o2.frequency.exponentialRampToValueAtTime(400, t + 0.025);
-  g2.gain.setValueAtTime(0.55, t);
-  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.035);
-  o2.connect(g2); g2.connect(dest); o2.start(t); o2.stop(t + 0.04);
-  // 중음 바디
-  const o3 = ctx.createOscillator(), g3 = ctx.createGain();
-  o3.type = 'triangle';
-  o3.frequency.setValueAtTime(160, t);
-  o3.frequency.exponentialRampToValueAtTime(55, t + 0.08);
-  g3.gain.setValueAtTime(0.7, t);
-  g3.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
-  o3.connect(g3); g3.connect(dest); o3.start(t); o3.stop(t + 0.12);
+
+  // ── 레이어 1: 저주파 오실레이터 (붐 바디) ──
+  const osc = ctx.createOscillator();
+  const oscG = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(180, t);
+  osc.frequency.exponentialRampToValueAtTime(35, t + 0.35);
+  oscG.gain.setValueAtTime(0.55, t);
+  oscG.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+  osc.connect(oscG); oscG.connect(dest);
+  osc.start(t); osc.stop(t + 0.55);
+
+  // ── 레이어 2: 고공명 로우패스 노이즈 (쾅 질감의 핵심) ──
+  const rate = ctx.sampleRate;
+  const buf  = ctx.createBuffer(1, Math.ceil(1.0 * rate), rate);
+  const d    = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  const ns = ctx.createBufferSource();
+  ns.buffer = buf;
+
+  const lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.setValueAtTime(3800, t);
+  lp.frequency.exponentialRampToValueAtTime(180, t + 0.7);
+  lp.Q.setValueAtTime(12, t); // 높은 Q = 공명 = "붐" 느낌
+
+  const nsG = ctx.createGain();
+  nsG.gain.setValueAtTime(0.85, t);
+  nsG.gain.exponentialRampToValueAtTime(0.0001, t + 0.85);
+
+  ns.connect(lp); lp.connect(nsG); nsG.connect(dest);
+  ns.start(t); ns.stop(t + 1.0);
+
+  // ── 레이어 3: 고음 어택 크랙 ──
+  const cr = ctx.createOscillator(), crG = ctx.createGain();
+  cr.type = 'square';
+  cr.frequency.setValueAtTime(1600, t);
+  cr.frequency.exponentialRampToValueAtTime(300, t + 0.03);
+  crG.gain.setValueAtTime(0.45, t);
+  crG.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+  cr.connect(crG); crG.connect(dest); cr.start(t); cr.stop(t + 0.05);
 }
 
 function spawnBigKillFX(vx, vy, color) {
@@ -4446,15 +4463,15 @@ function spawnBigKillFX(vx, vy, color) {
     })(performance.now());
   }
 
-  // 3. 느린 파티클 (8개, 멀고 느림)
+  // 3. 느린 파티클 (8개, 멀리 천천히 사라짐)
   for(let i=0;i<8;i++){
     const a=(i/8)*Math.PI*2+0.2+Math.random()*0.4;
-    const d=65+Math.random()*50;
+    const d=95+Math.random()*80;
     const tx=Math.cos(a)*d, ty=Math.sin(a)*d;
-    const sz=4+Math.random()*4, dur=380+Math.random()*200;
+    const sz=5+Math.random()*5, dur=700+Math.random()*400;
     const p=document.createElement('div');
     p.style.cssText=`position:fixed;width:${sz}px;height:${sz}px;border-radius:50%;
-      background:${c};box-shadow:0 0 ${sz+3}px ${c};
+      background:${c};box-shadow:0 0 ${sz+4}px ${c};
       left:${vx-sz/2}px;top:${vy-sz/2}px;
       pointer-events:none;z-index:99999;`;
     document.body.appendChild(p);
@@ -4464,7 +4481,8 @@ function spawnBigKillFX(vx, vy, color) {
       const prog=Math.min((ts-s)/dur,1);
       const e=1-Math.pow(1-prog,2);
       p.style.left=(vx-sz/2+tx*e)+'px'; p.style.top=(vy-sz/2+ty*e)+'px';
-      p.style.opacity=String(1-prog);
+      // 후반부에만 서서히 투명해짐
+      p.style.opacity=String(prog<0.5 ? 1 : 1-(prog-0.5)*2);
       if(prog<1)requestAnimationFrame(anim);
       else if(p.parentNode)p.parentNode.removeChild(p);
     })(performance.now());
