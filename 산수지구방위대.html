@@ -990,6 +990,16 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   padding:10px 12px;font-size:14px;font-weight:700;color:#fff;
   text-align:center;line-height:1.6;
 }
+.popup-hint-btn{
+  width:100%;padding:8px;border-radius:2px;
+  background:#0e1a08;border:2px solid #44aa22;color:#88dd44;
+  font-size:12px;font-weight:800;cursor:pointer;
+}
+.popup-hint-box{
+  width:100%;background:rgba(60,120,20,.18);border:1px solid rgba(80,160,30,.4);
+  border-radius:2px;padding:10px 12px;font-size:12px;color:#bbdd88;
+  text-align:left;line-height:1.7;white-space:pre-line;display:none;
+}
 .popup-answer-row{display:flex;gap:8px;width:100%;align-items:center;}
 #alien-ans-input{
   flex:1;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);
@@ -7243,6 +7253,62 @@ function renderAlienTab(tab) {
   }
 }
 
+function generateAlienHint(q, a) {
+  const t = q.replace(/\n/g,' ').trim();
+  // 3항 덧셈
+  const a3 = t.match(/(\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)/);
+  if (a3) {
+    const [,x,y,z] = a3.map(Number);
+    return `앞의 두 수를 먼저 더해봐요!\n${x} + ${y} = ${x+y}\n그 다음 ${x+y} + ${z} = ?`;
+  }
+  // 3항 뺄셈
+  const s3 = t.match(/(\d+)\s*-\s*(\d+)\s*-\s*(\d+)/);
+  if (s3) {
+    const [,x,y,z] = s3.map(Number);
+    return `앞부터 차례로 빼봐요!\n${x} - ${y} = ${x-y}\n그 다음 ${x-y} - ${z} = ?`;
+  }
+  // 두자릿수 곱셈
+  const mul = t.match(/(\d+)\s*[×x]\s*(\d+)/);
+  if (mul) {
+    const [,x,y] = mul.map(Number);
+    if (x >= 10 || y >= 10) {
+      const big = Math.max(x,y), sm = Math.min(x,y);
+      const t10 = Math.floor(sm/10)*10, t1 = sm%10;
+      if (t10 > 0 && t1 > 0)
+        return `큰 수를 쪼개서 계산해봐요!\n${big} × ${sm} = ${big} × ${t10} + ${big} × ${t1}\n= ${big*t10} + ${big*t1} = ?`;
+      return `정답은 ${Math.floor(a/100)*100 || Math.floor(a/10)*10}대예요.`;
+    }
+    return `${x}씩 ${y}번 더하면 얼마일까요?`;
+  }
+  // 나눗셈
+  const dv = t.match(/(\d+)\s*[÷/]\s*(\d+)/);
+  if (dv) {
+    const [,x,y] = dv.map(Number);
+    const mid = Math.floor(a/2);
+    return `${y}의 단으로 생각해봐요!\n${y} × ${mid} = ${y*mid}\n${y} × ${a} = ${x}`;
+  }
+  // 서술형/기타 → 범위 힌트
+  if (a >= 1000) return `정답은 네 자리 수예요 (1000 이상).`;
+  if (a >= 100) return `정답은 세 자리 수예요 (${Math.floor(a/100)*100}~${Math.floor(a/100)*100+99}).`;
+  if (a >= 10) return `정답은 두 자리 수예요 (${Math.floor(a/10)*10}대).`;
+  return `정답은 한 자리 수예요 (1~9).`;
+}
+
+function requestAlienHint(idx) {
+  const btn = document.getElementById('alien-hint-btn');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.textContent = '⏳ 광고 시청 중...';
+  // 광고 시뮬레이션 (2초)
+  setTimeout(() => {
+    const d = getAlienData(idx);
+    const hint = generateAlienHint(d.problem.q, d.problem.a);
+    const box = document.getElementById('alien-hint-box');
+    if (box) { box.textContent = hint; box.style.display = 'block'; }
+    btn.textContent = '✅ 힌트 완료';
+  }, 2000);
+}
+
 function openAlienPending(idx) {
   // newAcquired에서 제거 (읽었으니)
   ALIEN_SAVE.newAcquired = ALIEN_SAVE.newAcquired.filter(i=>i!==idx);
@@ -7262,6 +7328,8 @@ function openAlienPending(idx) {
     <div style="font-size:11px;color:#aab;text-align:center;">
       동료로 확정하면 <span style="color:#ffd700;font-weight:800;">⭐ ${d.gradeStars}별</span>을 받아요!
     </div>
+    <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">💡 광고 보고 힌트 받기</button>
+    <div class="popup-hint-box" id="alien-hint-box"></div>
     <div class="popup-answer-row">
       <input id="alien-ans-input" type="number" placeholder="숫자 입력" />
       <button class="popup-submit-btn" onclick="submitAlienAnswer(${idx},${d.problem.a})">제출</button>
