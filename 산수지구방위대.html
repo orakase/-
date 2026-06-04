@@ -4445,7 +4445,8 @@ const _PX = (function() {
     if (particles.length > 0) raf = requestAnimationFrame(loop);
     else raf = null;
   }
-  function spawn(vx, vy, cols) {
+  function spawn(vx, vy, cols, mult) {
+    mult = mult || 1;
     if (!ctx && !init()) return;
 
     // 빠른 파티클 (16개)
