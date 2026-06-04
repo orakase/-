@@ -2768,12 +2768,16 @@ function submit() {
   const enemies = hits.filter(e => e.type !== 'ufo');
 
   // UFOs: 미사일 → 도달 시 아이템 발동
-  if (S.fever) ufos.forEach(u => launchFeverLaser(u, () => {
-    const gr2=gameEl.getBoundingClientRect(),ur=u.el.getBoundingClientRect();
-    spawnBigKillFX(ur.left+ur.width/2, ur.top+ur.height/2, 'rgba(255,220,0,1)');
-    sfxKill();
-  }));
-  ufos.forEach(u => launchMissile(u.el, () => activateItemWithFX(u)));
+  if (S.fever) {
+    ufos.forEach(u => launchFeverLaser(u, () => {
+      const ur=u.el.getBoundingClientRect();
+      spawnBigKillFX(ur.left+ur.width/2, ur.top+ur.height/2, 'rgba(255,220,0,1)');
+      sfxKill();
+      activateItemWithFX(u); // 피버 중엔 레이저 도달 즉시 아이템 발동
+    }));
+  } else {
+    ufos.forEach(u => launchMissile(u.el, () => activateItemWithFX(u)));
+  }
 
   // Track UFO kills; trigger fever every 15 (피버 중 격추는 카운트 안 함)
   if (!S.fever) S.ufoKills += ufos.length;
@@ -4459,7 +4463,7 @@ const _PX = (function() {
       requestAnimationFrame(ringLoop);
     })();
     // 빠른 파티클 (16개)
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 16 * mult; i++) {
       const a = (i/16)*Math.PI*2 + Math.random()*0.4;
       const spd = 8 + Math.random()*8;
       particles.push({
@@ -4471,7 +4475,7 @@ const _PX = (function() {
       });
     }
     // 느린 큰 파티클 (10개)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10 * mult; i++) {
       const a = (i/10)*Math.PI*2 + 0.15 + Math.random()*0.4;
       const spd = 5 + Math.random()*5;
       particles.push({
@@ -4487,7 +4491,8 @@ const _PX = (function() {
   return { spawn };
 })();
 
-function spawnBigKillFX(vx, vy, color) {
+function spawnBigKillFX(vx, vy, color, mult) {
+  mult = mult || 1;
   const palettes = {
     'rgba(255,110,20,1)':  ['#FF8800','#FF5500','#FFCC00','#FF2200','#FFFFFF'],
     'rgba(0,255,200,1)':   ['#00FFCC','#00AAFF','#88FFFF','#FFFFFF','#00FF88'],
@@ -5054,6 +5059,7 @@ function spawnBoss(tierOverride) {
   gameEl.appendChild(el);
   S.boss = {
     el, hp: _bossTier === 0 ? 3 : _bossTier === 1 ? 4 : 5,
+    maxHp: _bossTier === 0 ? 3 : _bossTier === 1 ? 4 : 5,
     y: -200, x: centerX,
     centerX,
     amplitude: gw * 0.08,
@@ -5071,7 +5077,8 @@ function bossRefreshHp() {
   let row = b.el.querySelector('.boss-hp-row');
   if (!row) { row = document.createElement('div'); row.className = 'boss-hp-row'; b.el.prepend(row); }
   row.innerHTML = '';
-  for (let i = 0; i < 5; i++) {
+  const maxHp = b.maxHp || b.hp;
+  for (let i = 0; i < maxHp; i++) {
     const pip = document.createElement('div');
     pip.className = 'boss-hp-pip' + (i >= b.hp ? ' dead' : '');
     row.appendChild(pip);
@@ -5177,9 +5184,13 @@ function onBossDeath() {
   const cy = br.top  + br.height / 2 - gr.top;
   // 보스 사망 파티클 3연발
   const _bdvx=br.left+br.width/2, _bdvy=br.top+br.height/2;
-  spawnBigKillFX(_bdvx, _bdvy, 'rgba(255,80,100,1)');
-  setTimeout(()=>spawnBigKillFX(_bdvx+30, _bdvy+20, 'rgba(255,180,0,1)'), 120);
-  setTimeout(()=>spawnBigKillFX(_bdvx-25, _bdvy-10, 'rgba(255,255,100,1)'), 240);
+  // 보스 사망: 대규모 파티클 폭발
+  spawnBigKillFX(_bdvx,     _bdvy,     'rgba(255,80,100,1)', 3);
+  setTimeout(()=>spawnBigKillFX(_bdvx-55, _bdvy-25, 'rgba(255,220,0,1)',  3), 80);
+  setTimeout(()=>spawnBigKillFX(_bdvx+60, _bdvy+15, 'rgba(255,180,0,1)', 3), 160);
+  setTimeout(()=>spawnBigKillFX(_bdvx-35, _bdvy+35, 'rgba(255,80,100,1)', 3), 240);
+  setTimeout(()=>spawnBigKillFX(_bdvx+45, _bdvy-35, 'rgba(255,255,100,1)',3), 320);
+  setTimeout(()=>spawnBigKillFX(_bdvx,    _bdvy,    'rgba(255,255,255,1)', 3), 420);
   const _eb=getExplColors();
   const blastEl = document.createElement('div');
   blastEl.style.cssText = `position:absolute;left:0;right:0;top:0;bottom:0;
