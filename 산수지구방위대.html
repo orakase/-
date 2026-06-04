@@ -7859,6 +7859,7 @@ function requestAlienHint(idx) {
 }
 
 function openAlienPending(idx) {
+  document.querySelectorAll(".alien-get-pop").forEach(e=>e.remove());
   // newAcquired에서 제거 (읽었으니)
   ALIEN_SAVE.newAcquired = ALIEN_SAVE.newAcquired.filter(i=>i!==idx);
   saveAlienSave(); updateAlienRedDots();
