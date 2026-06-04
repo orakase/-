@@ -7287,133 +7287,242 @@ function _factors(n){const f=[];for(let i=1;i<=n;i++)if(n%i===0)f.push(i);return
 
 function generateAlienHint(q, a) {
   const t = q.replace(/\n/g,' ').trim();
+
+  // ── 혼합연산 ──
   const mxa=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*\+\s*(\d+)/);
-  if(mxa){const[,x,y,z]=mxa.map(Number);return `곱셈 먼저!\n${x}×${y}=${x*y}, 그 다음 ${x*y}+${z}=?`;}
+  if(mxa){const[,x,y,z]=mxa.map(Number);return `곱셈을 먼저 해야 해!\n${x}×${y}를 먼저 계산한 다음,\n그 결과에 ${z}을(를) 더하면 끝~`;}
   const mxs=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*-\s*(\d+)/);
-  if(mxs){const[,x,y,z]=mxs.map(Number);return `곱셈 먼저!\n${x}×${y}=${x*y}, 그 다음 ${x*y}-${z}=?`;}
+  if(mxs){const[,x,y,z]=mxs.map(Number);return `곱셈을 먼저 해야 해!\n${x}×${y}를 먼저 계산한 다음,\n그 결과에서 ${z}을(를) 빼면 끝~`;}
+
+  // ── 3항 덧셈/뺄셈 ──
   const a3=t.match(/(\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)/);
-  if(a3){const[,x,y,z]=a3.map(Number);return `앞 두 수 먼저!\n${x}+${y}=${x+y}, 그 다음 ${x+y}+${z}=?`;}
+  if(a3){const[,x,y,z]=a3.map(Number);return `세 수를 한 번에 더하기 어렵지?\n앞에 두 수 ${x}+${y}를 먼저 계산해봐!\n그 다음 결과에 ${z}를 더하면 끝이야~`;}
   const s3=t.match(/(\d+)\s*-\s*(\d+)\s*-\s*(\d+)/);
-  if(s3){const[,x,y,z]=s3.map(Number);return `앞부터 차례로!\n${x}-${y}=${x-y}, 그 다음 ${x-y}-${z}=?`;}
+  if(s3){const[,x,y,z]=s3.map(Number);return `빼기를 앞에서부터 차례로 해봐!\n${x}에서 ${y}를 빼고,\n그 결과에서 ${z}를 또 빼면 돼~`;}
+
+  // ── 두자릿수 곱셈 ──
   const mul=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*=/);
   if(mul){const[,x,y]=mul.map(Number);const b=Math.max(x,y),s=Math.min(x,y);const t10=Math.floor(s/10)*10,t1=s%10;
-    if(t10>0&&t1>0)return `쪼개서 계산!\n${b}×${s}=${b}×${t10}+${b}×${t1}\n=${b*t10}+${b*t1}=?`;
-    return `${b}씩 ${s}번 더하면?`;}
+    if(t10>0&&t1>0)return `큰 곱셈은 쪼개서 생각해봐!\n${b}×${s} = ${b}×${t10} + ${b}×${t1}\n이렇게 두 덩어리로 나눠서 각각 계산하면 훨씬 쉬워~`;
+    return `${b}를 ${s}번 더하면 어떻게 될까?\n천천히 ${b}씩 세어봐!`;}
+
+  // ── 나눗셈 ──
   const dv=t.match(/^(\d+)\s*÷\s*(\d+)\s*=/);
-  if(dv){const[,x,y]=dv.map(Number);return `${y}의 단!\n${y}×${Math.floor(a/2)}=${y*Math.floor(a/2)}\n${y}×${a}=${x}`;}
-  if(t.match(/^\(.*\)/))return `괄호 안을 먼저 계산!\n그 다음 ×÷ → +- 순서로.`;
-  if(t.match(/\d+.*[×÷].*[+\-]|[+\-].*[×÷]/))return `×÷를 먼저, +- 나중에!`;
-  if(t.includes('삼각형')&&t.includes('나머지')){const angs=t.match(/(\d+)°/g);if(angs&&angs.length>=2){const sum=angs.reduce((s,v)=>s+parseInt(v),0);return `삼각형 세 각의 합=180°\n180°-${angs.join('-')}=${180-sum}°`;}return `삼각형 세 각의 합은 180°예요!`;}
-  if(t.includes('이등변삼각형')&&t.includes('꼭짓')){const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];return `이등변삼각형: 두 밑각이 같아요!\n꼭짓각=180°-${x}°-${x}°=${180-x-x}°`;}}
-  if(t.includes('직각삼각형')&&(t.includes('예각')||t.includes('나머지'))){const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];return `직각삼각형: 한 각=90°\n나머지=180°-90°-${x}°=${90-x}°`;}}
-  if(t.includes('이등변삼각형')&&t.includes('밑각')&&!t.includes('꼭짓')){const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];return `이등변삼각형: 두 밑각이 같아요!\n밑각=(180°-${x}°)÷2=${(180-x)/2}°`;}}
-  if(t.includes('사각형')&&t.includes('나머지')){const angs=t.match(/(\d+)°/g);if(angs&&angs.length>=3){const sum=angs.reduce((s,v)=>s+parseInt(v),0);return `사각형 네 각의 합=360°\n360°-${sum}°=${360-sum}°`;}return `사각형 네 각의 합은 360°예요!`;}
-  if(t.includes('오각형')&&t.includes('나머지')){const angs=t.match(/(\d+)°/g);if(angs){const sum=angs.reduce((s,v)=>s+parseInt(v),0);return `오각형 다섯 각의 합=540°\n540°-${sum}°=${540-sum}°`;}}
-  if(t.includes('삼각형')&&t.includes('각의 합'))return `삼각형 세 꼭짓점을 뜯어서 한 줄로 세우면\n반직선(일직선)이 돼요!\n일직선 = ?°`;
-  if(t.includes('사각형')&&t.includes('각의 합'))return `사각형을 대각선으로 자르면\n삼각형 2개가 나와요!\n삼각형 1개의 각의 합 × 2 = ?`;
-  if(t.includes('정삼각형')&&t.includes('각'))return `정삼각형: 세 각이 모두 같아요!\n삼각형 세 각의 합 ÷ 3 = ?`;
-  if(t.includes('오각형')&&t.includes('내각의 합'))return `다각형 내각의 합 공식:\n180° × (꼭짓점 수 - 2)\n오각형 꼭짓점 = 5개 → 180 × ? = ?`;
-  if(t.includes('정오각형')&&t.includes('한 내각'))return `정오각형 내각의 합을 먼저 구해요:\n180° × (5-2) = ?°\n그 다음 ÷ 5 = ?`;
-  if(t.includes('육각형')&&t.includes('내각의 합'))return `다각형 내각의 합 공식:\n180° × (꼭짓점 수 - 2)\n육각형 꼭짓점 = 6개 → 180 × ? = ?`;
-  if(t.includes('직각')&&t.includes('몇 도'))return `직각은 일직선(180°)의 딱 절반이에요!\n180 ÷ 2 = ?`;
-  if(t.includes('직사각형')&&t.includes('둘레'))return `직사각형 둘레=(가로+세로)×2`;
-  if(t.includes('정사각형')&&t.includes('둘레'))return `정사각형 둘레=한 변×4`;
-  if(t.includes('직사각형')&&t.includes('넓이'))return `직사각형 넓이=가로×세로`;
-  if(t.includes('정사각형')&&t.includes('넓이'))return `정사각형 넓이=한 변×한 변`;
-  if(t.includes('삼각형')&&t.includes('넓이')&&!t.includes('밑변은'))return `삼각형 넓이=밑변×높이÷2`;
-  if(t.includes('밑변은')&&t.includes('넓이'))return `밑변=넓이×2÷높이`;
-  if(t.includes('마름모')&&t.includes('넓이'))return `마름모 넓이=대각선1×대각선2÷2`;
-  if(t.includes('사다리꼴')&&t.includes('넓이'))return `사다리꼴 넓이=(윗변+아랫변)×높이÷2`;
-  if(t.includes('평행사변형')&&t.includes('넓이'))return `평행사변형 넓이=밑변×높이`;
-  if(t.includes('직육면체')&&t.includes('부피'))return `직육면체 부피=가로×세로×높이`;
-  if(t.includes('직육면체')&&t.includes('겉넓이'))return `겉넓이=2×(가로×세로+세로×높이+가로×높이)`;
-  if(t.includes('정육면체')&&t.includes('겉넓이'))return `정육면체 겉넓이=한 면의 넓이×6`;
-  if(t.includes('정육면체')&&t.includes('부피')){const m=t.match(/(\d+)cm/);if(m){const s=+m[1];return `정육면체 부피=한 변³\n${s}×${s}×${s}=${s*s*s}`;}}
-  if(t.includes('원')&&t.includes('둘레'))return `원 둘레=반지름×2×π (π=3으로 계산)`;
-  if(t.includes('원')&&t.includes('넓이'))return `원 넓이=반지름×반지름×π (π=3으로 계산)`;
-  if(t.includes('세로는')&&t.includes('넓이'))return `세로=넓이÷가로`;
-  if(t.match(/\d+\/\d+\s*\+\s*\d+\/\d+/))return `분모가 같으면 분자끼리 더해요! (분모 그대로)`;
-  if(t.match(/\d+\/\d+\s*-\s*\d+\/\d+/))return `분모가 같으면 분자끼리 빼요! (분모 그대로)`;
-  if(t.includes('가분수')&&t.includes('분자'))return `대분수→가분수: (자연수×분모+분자)/분모`;
-  if(t.includes('대분수')&&t.includes('자연수'))return `가분수→대분수: 분자÷분모=몫 나머지…\n→ 몫과 나머지/분모`;
-  if(t.includes('기약분수'))return `기약분수: 분자·분모를 최대공약수로 나눠요!`;
-  if(t.match(/\d+\/\d+\s*[×x]\s*\d+/))return `분수×자연수: 분자에 자연수 곱하기! (분모 그대로)`;
-  if(t.match(/\d+\s*÷\s*\(1\//)){const m=t.match(/1\/(\d+)/);if(m)return `÷(1/${m[1]})=×${m[1]}`;}
-  if(t.includes('어떤 수의')&&t.match(/\d+\/\d+/)){const fr=t.match(/(\d+)\/(\d+)/);if(fr)return `어떤 수의 ${fr[1]}/${fr[2]}=A\n어떤 수=A×${fr[2]}÷${fr[1]}`;}
-  if(t.includes('분모가')&&t.includes('분자는')){const m=t.match(/분모가\s*(\d+)/);if(m)return `분모를 ${m[1]}으로 맞추려면\n분자·분모에 같은 수를 곱해요!`;}
-  if(t.match(/\d+시간\s*\d+분/)){const m=t.match(/(\d+)시간\s*(\d+)분/);if(m)return `1시간=60분\n${m[1]}×60+${m[2]}=${+m[1]*60+ +m[2]}분`;}
-  if(t.match(/\d+분\s*=\s*\?\s*초/)){const m=t.match(/(\d+)분/);if(m)return `1분=60초\n${m[1]}×60=${+m[1]*60}초`;}
-  if(t.match(/\d+km\s*\d+m/)){const m=t.match(/(\d+)km\s*(\d+)m/);if(m)return `1km=1000m\n${+m[1]*1000}+${m[2]}=${+m[1]*1000+ +m[2]}m`;}
-  if(t.includes('mL')&&t.includes('L'))return `1000mL=1L`;
-  if(t.match(/\d+kg\s*\d+g/)){const m=t.match(/(\d+)kg\s*(\d+)g/);if(m)return `1kg=1000g\n${+m[1]*1000}+${m[2]}=${+m[1]*1000+ +m[2]}g`;}
-  if(t.includes('1일')&&t.includes('시간'))return `시계는 하루에 두 바퀴 돌아요!\n시침 한 바퀴 = 12시간\n12 × 2 = ?`;
-  if(t.includes('1년')&&t.includes('개월'))return `계절이 봄·여름·가을·겨울 = 4계절\n각 계절마다 3개월\n4 × 3 = ?`;
-  if(t.includes('최대공약수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)return `최대공약수: 공통 약수 중 가장 큰 것\n${ns[0]}의 약수: ${_factors(ns[0]).join(',')}\n${ns[1]}의 약수: ${_factors(ns[1]).join(',')}`;}
-  if(t.includes('최소공배수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)return `최소공배수: 공통 배수 중 가장 작은 것\n${ns[0]}의 배수: ${[1,2,3,4,5].map(i=>ns[0]*i).join(',')}\n${ns[1]}의 배수: ${[1,2,3,4,5].map(i=>ns[1]*i).join(',')}`;}
-  if(t.includes('약수의 개수'))return `1부터 차례로 나눠보면서 약수를 모두 찾아요!`;
-  if(t.includes('약수')&&t.includes('더하면'))return `약수를 모두 찾아 더해요! (문제 괄호 안 참고)`;
-  if(t.includes('전체는')&&t.includes('%')){const p=t.match(/(\d+)%/),v=t.match(/(\d+)(?=일 때)/);if(p&&v)return `전체=${v[1]}×100÷${p[1]}=?`;}
-  if(t.includes('%')&&t.match(/(\d+)(?:명|개|권|쪽)/)){const p=t.match(/(\d+)%/),n=t.match(/(\d+)(?:명|개|권|쪽)/);if(p&&n)return `${n[1]}×${p[1]}÷100=?`;}
-  if(t.includes('할인')&&t.includes('%')){const p=t.match(/(\d+)%/);if(p)return `원래가격=할인가격÷(1-${p[1]}/100)\n=할인가격×100÷${100-+p[1]}`;}
-  if(t.includes('%인가'))return `A÷B×100=? (%)`;
-  if(t.includes('0.25'))return `0.25=25%`;
-  if(t.match(/\d+\s*:\s*\d+\s*=\s*\d+\s*:\s*□/)){const m=t.match(/(\d+)\s*:\s*(\d+)\s*=\s*(\d+)\s*:/);if(m)return `외항의 곱=내항의 곱\n${m[1]}×□=${m[2]}×${m[3]}\n□=${+m[2]* +m[3]}÷${m[1]}=?`;}
-  if(t.includes('평균')&&t.includes('합은')){const av=t.match(/(\d+)(?=점|의 평균)/),cnt=t.match(/(\d+)(?:번|개|명|회)/);if(av&&cnt)return `합=평균×개수\n=${av[1]}×${cnt[1]}=?`;}
-  if(t.includes('평균')&&t.match(/\d+,\s*\d+/))return `평균=모든 수의 합÷개수`;
-  if(t.includes('개의 자연수')&&t.includes('평균')){const m=t.match(/(\d+)개.*?(\d+)(?=이면|일)/);if(m)return `합=평균×개수\n=?×${m[1]}`;}
-  if(t.includes('피보나치'))return `앞 두 수를 더해요!\n…5, 8, □ → 5+8=?`;
-  if(t.includes('삼각수'))return `차이가 1씩 늘어요: +2,+3,+4,+5,+6…`;
-  if(t.includes('□')&&t.match(/\d+,\s*\d+/)){const ns=t.match(/\d+/g)?.map(Number).filter(n=>n<500);if(ns&&ns.length>=3){const d=ns[1]-ns[0];if(ns[2]-ns[1]===d)return `차이가 ${d}씩 일정!\n마지막+${d}=?`;const r=ns[1]/ns[0];if(Math.abs(ns[2]/ns[1]-r)<0.01)return `${r}배씩 커져요!\n마지막×${r}=?`;}return `수열 규칙을 찾아봐요!\n이웃한 수들의 차이나 비율을 확인해요.`;}
-  if(t.includes('시속')&&t.includes('km')){if(t.includes('걸리는 시간')||t.includes('몇 시간'))return `시간=거리÷속도`;if(t.includes('시속은'))return `속도=거리÷시간`;return `거리=속도×시간`;}
-  if(t.includes('어떤 수에')&&t.includes('더했더니'))return `거꾸로!\n결과-더한 수=원래 수`;
-  if(t.includes('어떤 수에서')&&t.includes('빼면'))return `거꾸로!\n결과+뺀 수=원래 수`;
-  if(t.includes('어떤 수에')&&t.includes('곱하고'))return `거꾸로 계산해요!\n결과에서 나눈 후 더하거나 빼요.`;
-  if(t.includes('7로 나누면')&&t.includes('나머지'))return `어떤 수=나누는 수×몫+나머지`;
-  if(t.includes('나이')&&t.includes('합')&&t.includes('차'))return `큰 수=(합+차)÷2\n작은 수=(합-차)÷2`;
-  if(t.includes('나이')&&t.includes('배')&&t.includes('후'))return `현재 나이를 □로 놓고\n조건으로 방정식을 세워요!`;
-  if(t.includes('일')&&(t.includes('명이 하면')||t.includes('혼자 하면')))return `1일 작업량=1÷걸리는 날수\nA+B 함께 - A 혼자 = B 혼자의 1일 작업량`;
-  if(t.includes('농도')||t.includes('소금물'))return `농도(%)=소금÷소금물 전체×100`;
-  if(t.includes('삼각기둥'))return `삼각기둥: 꼭짓점 6, 모서리 9, 면 5`;
-  if(t.includes('사각뿔'))return `사각뿔: 꼭짓점 5, 모서리 8, 면 5`;
-  if(t.includes('달팽이'))return `낮에 올라가고 밤에 내려와요.\n마지막 날엔 내려오지 않아요!`;
-  if(t.includes('소수')&&t.includes('더하면'))return `소수: 1과 자신만으로 나눠지는 수\n2, 3, 5, 7, 11, 13…`;
-  if(t.includes('배수')&&t.includes('개수'))return `N까지 A의 배수 개수 = N÷A (몫)`;
-  if(t.includes('홀수의 합'))return `연속 홀수 합=(개수)²\n1~9 홀수 5개 → 5²=25`;
-  if(t.includes('연속하는')&&t.includes('합')&&t.includes('큰 수'))return `큰 수=(합+차)÷2`;
+  if(dv){const[,x,y]=dv.map(Number);return `${y}씩 몇 번 더해야 ${x}가 될까?\n${y}, ${y*2}, ${y*3}... 이렇게 세어봐!\n${y}의 몇 배가 ${x}인지 찾으면 돼~`;}
+
+  // ── 괄호 혼합 ──
+  if(t.match(/^\(.*\)/))return `괄호가 있으면 무조건 괄호 안부터!\n수학에서 괄호는 "나 먼저 계산해!" 라는 신호야~`;
+  if(t.match(/\d+.*[×÷].*[+\-]|[+\-].*[×÷]/))return `수학에는 계산 순서가 있어!\n×÷는 먼저, +-는 나중에 계산하는 게 규칙이야~`;
+
+  // ── 삼각형 각도 ──
+  if(t.includes('삼각형')&&t.includes('나머지')){
+    const angs=t.match(/(\d+)°/g);
+    if(angs&&angs.length>=2){const sum=angs.reduce((s,v)=>s+parseInt(v),0);
+      return `삼각형 세 꼭짓점을 종이에서 잘라내서\n한 점에 모아봐! 신기하게도 딱 일직선이 돼!\n일직선은 180°니까, 180°-${angs.join('-')}=?`;}
+    return `삼각형 꼭짓점 세 개를 잘라서 나란히 놓으면\n꼭 일직선이 돼! 일직선=180°~`;}
+
+  if(t.includes('이등변삼각형')&&t.includes('꼭짓')){
+    const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];
+      return `이등변삼각형은 양쪽이 거울처럼 똑같아서\n아래 두 각도가 같아!\n세 각의 합은 180°니까\n꼭짓각 = 180° - ${x}° - ${x}° = ?`;}}
+
+  if(t.includes('이등변삼각형')&&t.includes('밑각')&&!t.includes('꼭짓')){
+    const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];
+      return `이등변삼각형은 양쪽이 거울처럼 똑같아!\n꼭짓각이 ${x}°라면, 나머지 두 각이 똑같이 남아.\n(180°-${x}°)를 2로 나누면 밑각이 나와~`;}}
+
+  if(t.includes('직각삼각형')&&(t.includes('예각')||t.includes('나머지'))){
+    const ang=t.match(/(\d+)°/);if(ang){const x=+ang[1];
+      return `직각삼각형에는 이미 90°짜리 직각이 있어!\n세 각의 합은 180°니까,\n나머지 각 = 180° - 90° - ${x}° = ?`;}}
+
+  if(t.includes('사각형')&&t.includes('나머지')){
+    const angs=t.match(/(\d+)°/g);
+    if(angs&&angs.length>=3){const sum=angs.reduce((s,v)=>s+parseInt(v),0);
+      return `사각형을 대각선으로 잘라봐!\n삼각형 두 개가 나오지? 삼각형 하나가 180°니까\n사각형 네 각의 합 = 360°\n360°-${sum}°=?`;}
+    return `사각형을 대각선으로 자르면 삼각형 두 개!\n삼각형 내각의 합(180°) × 2 = 사각형 내각의 합!`;}
+
+  if(t.includes('오각형')&&t.includes('나머지')){
+    const angs=t.match(/(\d+)°/g);if(angs){const sum=angs.reduce((s,v)=>s+parseInt(v),0);
+      return `오각형 안에 선 하나를 그어봐!\n삼각형 1개 + 사각형 1개가 생기지?\n삼각형 내각의 합(180°) + 사각형 내각의 합(360°) = 540°\n540°-${sum}°=?`;}}
+
+  // ── 각도 개념 ──
+  if(t.includes('삼각형')&&t.includes('각의 합'))
+    return `삼각형 꼭짓점 세 개를 잘라내서\n한 점에 나란히 붙여봐!\n신기하게도 딱 일직선(180°)이 돼~`;
+  if(t.includes('사각형')&&t.includes('각의 합'))
+    return `사각형을 대각선으로 잘라봐!\n삼각형 두 개가 나오지?\n삼각형 내각의 합 × 2 = ?`;
+  if(t.includes('오각형')&&t.includes('내각의 합')&&!t.includes('정오각형'))
+    return `오각형 안에 직선 하나를 그어봐!\n삼각형(180°) + 사각형(360°)으로 나뉘어.\n두 내각의 합을 더해봐~`;
+  if(t.includes('정오각형')&&t.includes('한 내각'))
+    return `정오각형은 다섯 각이 모두 같아!\n먼저 오각형 내각의 합을 구하고 (삼각형+사각형),\n그걸 5로 나누면 한 각이 나와~`;
+  if(t.includes('육각형')&&t.includes('내각의 합'))
+    return `육각형 안에 직선 두 개를 그어봐!\n삼각형 4개로 나뉘어지거든.\n삼각형 내각의 합(180°) × 4 = ?`;
+  if(t.includes('직각')&&t.includes('몇 도'))
+    return `시계에서 12시 방향의 시침과 분침이 이루는 각이 직각이야!\n일직선(180°)을 딱 반으로 나누면 직각이 되지~\n180 ÷ 2 = ?`;
+  if(t.includes('정삼각형')&&t.includes('각'))
+    return `정삼각형은 세 변이 모두 같으니까\n세 각도 모두 똑같아!\n세 각의 합이 180°인데, 세 개가 다 같으니까\n180° ÷ 3 = ?`;
+
+  // ── 넓이·둘레·부피 ──
+  if(t.includes('직사각형')&&t.includes('둘레'))
+    return `직사각형 테두리를 따라 걸어간다면?\n가로 두 번 + 세로 두 번!\n(가로 + 세로) × 2 = 둘레~`;
+  if(t.includes('정사각형')&&t.includes('둘레'))
+    return `정사각형은 네 변이 모두 같아!\n한 변을 4번 더하면 둘레야~`;
+  if(t.includes('직사각형')&&t.includes('넓이'))
+    return `직사각형 넓이는 가로줄 타일 개수!\n한 줄에 가로만큼, 그 줄이 세로만큼 있어.\n가로 × 세로 = 넓이~`;
+  if(t.includes('삼각형')&&t.includes('넓이')&&!t.includes('밑변은'))
+    return `삼각형은 같은 크기의 직사각형 딱 절반이야!\n직사각형(밑변×높이)을 2로 나누면 삼각형 넓이가 돼~`;
+  if(t.includes('밑변은')&&t.includes('넓이'))
+    return `삼각형 넓이 = 밑변 × 높이 ÷ 2 이니까,\n거꾸로 계산하면 밑변 = 넓이 × 2 ÷ 높이!`;
+  if(t.includes('마름모')&&t.includes('넓이'))
+    return `마름모를 반으로 접으면 삼각형 두 개!\n두 대각선이 서로 딱 반씩 자르거든.\n대각선1 × 대각선2 ÷ 2 = 넓이~`;
+  if(t.includes('사다리꼴')&&t.includes('넓이'))
+    return `사다리꼴을 두 개 붙이면 평행사변형이 돼!\n(윗변 + 아랫변) × 높이가 평행사변형 넓이,\n그걸 2로 나누면 사다리꼴 넓이야~`;
+  if(t.includes('직육면체')&&t.includes('부피'))
+    return `직육면체는 밑면에 높이만큼 쌓은 것!\n밑면 넓이(가로×세로) × 높이 = 부피~`;
+  if(t.includes('직육면체')&&t.includes('겉넓이'))
+    return `직육면체 6개 면을 펼쳐봐!\n앞뒤 + 좌우 + 위아래 = 세 쌍의 직사각형.\n각 쌍의 넓이를 더하고 × 2 = 겉넓이~`;
+  if(t.includes('원')&&t.includes('둘레'))
+    return `원의 둘레는 지름의 약 3배야! (π=3으로 계산)\n지름 = 반지름 × 2\n둘레 = 지름 × 3 = 반지름 × 2 × 3~`;
+  if(t.includes('원')&&t.includes('넓이'))
+    return `원을 피자 조각처럼 잘게 잘라서 펼치면\n직사각형 비슷한 모양이 돼!\n반지름 × 반지름 × π (π=3으로 계산)`;
+
+  // ── 분수 ──
+  if(t.match(/\d+\/\d+\s*\+\s*\d+\/\d+/))
+    return `분모가 같은 분수 덧셈은\n분자끼리만 더하면 돼!\n피자 조각 수 세듯이~ (분모는 그대로)`;
+  if(t.match(/\d+\/\d+\s*-\s*\d+\/\d+/))
+    return `분모가 같은 분수 뺄셈은\n분자끼리만 빼면 돼!\n(분모는 절대 바뀌지 않아)`;
+  if(t.includes('어떤 수의')&&t.match(/\d+\/\d+/)){
+    const fr=t.match(/(\d+)\/(\d+)/);if(fr)
+      return `어떤 수의 ${fr[1]}/${fr[2]}가 주어진 값이라면,\n주어진 값 × ${fr[2]} ÷ ${fr[1]} = 어떤 수!\n나눈 걸 다시 곱해서 원래 수를 찾는 거야~`;}
+  if(t.includes('가분수')&&t.includes('분자'))
+    return `대분수를 가분수로 바꾸려면:\n자연수 부분 × 분모 + 분자\n예) 2와 3/4 → 2×4+3 = 11/4~`;
+  if(t.includes('기약분수'))
+    return `기약분수는 더 이상 약분이 안 되는 분수!\n분자와 분모를 나눌 수 있는 가장 큰 수(최대공약수)로\n둘 다 나눠봐~`;
+  if(t.match(/\d+\/\d+\s*[×x]\s*\d+/))
+    return `분수 × 자연수는 분자만 자연수로 곱하면 돼!\n분모는 그대로 두고, 분자만 바꾸는 거야~`;
+
+  // ── 단위변환 ──
+  if(t.match(/\d+시간\s*\d+분/)){const m=t.match(/(\d+)시간\s*(\d+)분/);if(m)
+    return `1시간 = 60분이니까,\n${m[1]}시간은 ${m[1]}×60=${+m[1]*60}분!\n거기에 남은 ${m[2]}분을 더하면?`;}
+  if(t.match(/\d+분\s*=\s*\?\s*초/)){const m=t.match(/(\d+)분/);if(m)
+    return `1분 = 60초! 시계 초침이 한 바퀴 도는 시간이야.\n${m[1]}분은 ${m[1]}×60 = ? 초~`;}
+  if(t.match(/\d+km\s*\d+m/)){const m=t.match(/(\d+)km\s*(\d+)m/);if(m)
+    return `1km = 1000m (천 미터!).\n${m[1]}km를 m로 바꾸면 ${m[1]}×1000=${+m[1]*1000}m,\n거기에 ${m[2]}m를 더하면?`;}
+  if(t.includes('mL')&&t.includes('L'))
+    return `1L = 1000mL. 우유팩 큰 것 한 개가 1L!\n나눗셈으로 L로 바꿔봐~`;
+  if(t.includes('1일')&&t.includes('시간'))
+    return `하루는 낮 12시간과 밤 12시간으로 이루어져!\n12 + 12 = ? 시간~`;
+  if(t.includes('1년')&&t.includes('개월'))
+    return `봄, 여름, 가을, 겨울 4계절이 있고\n각 계절은 3달이야!\n4 × 3 = ? 개월~`;
+
+  // ── 최대공약수·최소공배수 ──
+  if(t.includes('최대공약수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)
+    return `최대공약수는 두 수를 나눌 수 있는\n가장 큰 공통 약수야!\n${ns[0]}의 약수: ${_factors(ns[0]).join(', ')}\n${ns[1]}의 약수: ${_factors(ns[1]).join(', ')}\n공통된 것 중 가장 큰 수는?`;}
+  if(t.includes('최소공배수')){const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)
+    return `최소공배수는 두 수의 공통 배수 중 가장 작은 것!\n${ns[0]}의 배수: ${[1,2,3,4,5,6].map(i=>ns[0]*i).join(', ')}...\n${ns[1]}의 배수: ${[1,2,3,4,5,6].map(i=>ns[1]*i).join(', ')}...\n처음으로 겹치는 수는?`;}
+  if(t.includes('약수')&&t.includes('더하면'))
+    return `약수를 하나씩 찾아봐!\n1부터 차례로 나눠보면서, 딱 떨어지면 약수야.\n찾은 약수들을 모두 더해봐~ (문제 힌트 괄호 참고!)`;
+
+  // ── 백분율·비율 ──
+  if(t.includes('전체는')&&t.includes('%')){const p=t.match(/(\d+)%/),v=t.match(/(\d+)(?=일 때)/);if(p&&v)
+    return `${p[1]}%가 ${v[1]}이라면,\n1%는 ${v[1]}÷${p[1]}이잖아!\n그럼 100%는 (1%값) × 100 = 전체~`;}
+  if(t.includes('%')&&t.match(/(\d+)(?:명|개|권|쪽)/)){const p=t.match(/(\d+)%/),n=t.match(/(\d+)(?:명|개|권|쪽)/);if(p&&n)
+    return `${n[1]}의 ${p[1]}%를 구하려면?\n전체를 100으로 보고, ${p[1]}만큼 가져오는 거야!\n${n[1]} × ${p[1]} ÷ 100 = ?`;}
+  if(t.includes('할인')&&t.includes('%')){const p=t.match(/(\d+)%/);if(p)
+    return `${p[1]}% 할인이면, 원래 가격의 ${100-+p[1]}%만 내는 거야!\n즉, 할인 가격 = 원래 가격 × ${100-+p[1]}/100\n거꾸로 원래 가격 = 할인 가격 ÷ ${100-+p[1]} × 100~`;}
+  if(t.includes('%인가'))
+    return `A가 B의 몇 %인지 알려면?\nA ÷ B × 100 = ?%\n작은 수를 큰 수로 나누고 100을 곱해봐~`;
+
+  // ── 비례식 ──
+  if(t.match(/\d+\s*:\s*\d+\s*=\s*\d+\s*:\s*□/)){const m=t.match(/(\d+)\s*:\s*(\d+)\s*=\s*(\d+)\s*:/);if(m)
+    return `비례식에서는 대각선끼리 곱이 같아!\n(외항의 곱 = 내항의 곱)\n${m[1]} × □ = ${m[2]} × ${m[3]}\n□ = ${+m[2]* +m[3]} ÷ ${m[1]} = ?~`;}
+
+  // ── 평균 ──
+  if(t.includes('평균')&&t.includes('합은')){const av=t.match(/(\d+)(?=점|의 평균)/),cnt=t.match(/(\d+)(?:번|개|명|회)/);if(av&&cnt)
+    return `평균이 ${av[1]}점이라면, 모든 점수를 더하면\n평균 × 개수가 돼!\n${av[1]} × ${cnt[1]} = ?`;}
+  if(t.includes('평균')&&t.match(/\d+,\s*\d+/))
+    return `평균은 "고르게 나눈 값"이야!\n모든 수를 더한 다음, 수의 개수로 나누면 돼~`;
+
+  // ── 수열 ──
+  if(t.includes('피보나치'))
+    return `피보나치 수열의 비밀! 앞 두 수를 더하면 다음 수가 나와.\n1, 1, 2, 3, 5, 8, □ → 마지막 두 수를 더해봐!`;
+  if(t.includes('삼각수'))
+    return `삼각수는 1, 3, 6, 10, 15...처럼 늘어나!\n차이를 보면 2, 3, 4, 5, 6... 1씩 커지지?\n마지막 수에 얼마를 더해야 할까?`;
+  if(t.includes('□')&&t.match(/\d+,\s*\d+/)){
+    const ns=t.match(/\d+/g)?.map(Number).filter(n=>n<500);
+    if(ns&&ns.length>=3){
+      const d=ns[1]-ns[0];
+      if(ns[2]-ns[1]===d)return `수열의 규칙을 찾아봐!\n이웃한 수들의 차이가 ${d}씩 일정하지?\n마지막 수에 ${d}를 더하면 □이야~`;
+      const r=ns[1]/ns[0];
+      if(Math.abs(ns[2]/ns[1]-r)<0.01)return `수열의 규칙을 찾아봐!\n앞 수에 ${r}을 곱하면 다음 수가 되지?\n마지막 수에 ${r}를 곱하면 □이야~`;
+    }
+    return `이웃한 수들의 차이를 확인해봐!\n차이가 일정하면 등차수열,\n배수 관계면 등비수열이야~`;}
+
+  // ── 속도·거리·시간 ──
+  if(t.includes('시속')&&t.includes('km')){
+    if(t.includes('걸리는 시간')||t.includes('몇 시간'))
+      return `시속이란 1시간 동안 가는 거리야!\n총 거리 ÷ 시속 = 걸리는 시간.\n거꾸로 생각해봐~`;
+    if(t.includes('시속은'))
+      return `속도란 1시간 동안 가는 거리야!\n총 거리 ÷ 걸린 시간 = 시속~`;
+    return `1시간에 가는 거리 × 총 시간 = 총 이동 거리!\n시속 × 시간 = 거리~`;}
+
+  // ── 방정식형 ──
+  if(t.includes('어떤 수에')&&t.includes('더했더니'))
+    return `거꾸로 생각해봐! 더했으니까\n결과에서 더한 수를 빼면 원래 수가 나와~`;
+  if(t.includes('어떤 수에서')&&t.includes('빼면'))
+    return `거꾸로 생각해봐! 뺐으니까\n결과에 뺀 수를 더하면 원래 수가 나와~`;
+  if(t.includes('어떤 수에')&&t.includes('곱하고'))
+    return `거꾸로 생각해봐!\n더한 것 → 빼고, 곱한 것 → 나누면\n원래 수를 찾을 수 있어~`;
+  if(t.includes('7로 나누면')&&t.includes('나머지'))
+    return `나누기 공식을 기억해!\n나눠지는 수 = 나누는 수 × 몫 + 나머지\n이걸로 어떤 수를 구해봐~`;
+
+  // ── 나이 문제 ──
+  if(t.includes('나이')&&t.includes('합')&&t.includes('차'))
+    return `합과 차가 주어지면 이렇게!\n큰 수 = (합 + 차) ÷ 2\n작은 수 = (합 - 차) ÷ 2\n왜냐면 두 수를 더하면 합, 빼면 차니까~`;
+  if(t.includes('나이')&&t.includes('배')&&t.includes('후'))
+    return `현재 나이를 □로 놓고\n"몇 년 후"를 □+그 년수로 표현해봐.\n그럼 식을 세울 수 있어~`;
+
+  // ── 작업량 ──
+  if(t.includes('일')&&(t.includes('명이 하면')||t.includes('혼자 하면')))
+    return `작업량으로 생각해봐!\n전체 일=1로 놓으면,\n1일 작업량 = 1 ÷ 걸리는 날수\nA+B 함께의 1일 작업량 - A의 1일 작업량 = B의 1일 작업량~`;
+
+  // ── 농도 ──
+  if(t.includes('농도')||t.includes('소금물'))
+    return `농도는 소금이 전체 소금물에서 차지하는 비율이야!\n소금의 양 ÷ 소금물 전체 양 × 100 = 농도(%)~`;
+
+  // ── 도형 개수 ──
+  if(t.includes('삼각기둥'))
+    return `삼각기둥을 머릿속으로 그려봐!\n삼각형 2개 + 직사각형 3개로 이루어진 입체야.\n꼭짓점 6개, 모서리 9개, 면 5개~`;
+  if(t.includes('사각뿔'))
+    return `사각뿔은 밑면이 사각형, 옆면이 삼각형 4개야!\n꼭짓점 5개, 모서리 8개, 면 5개~`;
+
+  // ── 달팽이 ──
+  if(t.includes('달팽이'))
+    return `달팽이가 꼭대기에 닿는 날은 특별해!\n마지막 날엔 밤이 없어서 내려오지 않거든.\n마지막 한 번만 올라가면 끝나는 날을 생각해봐~`;
+
   // ── 서술형 숫자 패턴 감지 ──
   {
     const ns=[...t.matchAll(/(\d+)/g)].map(m=>+m[1]).filter(n=>n>1&&n<100000);
     if(ns.length>=2){
-      // 나눗셈형: X를 Y명/봉지/등분 → X÷Y
       if(t.includes('나누')||t.includes('등분')||t.includes('몫')){
         for(let i=0;i<ns.length;i++)for(let j=0;j<ns.length;j++){
           if(i!==j&&ns[i]>ns[j]&&ns[i]%ns[j]===0&&ns[i]/ns[j]===a)
-            return `${ns[i]} ÷ ${ns[j]} = ?\n${ns[j]} × ? = ${ns[i]} 을 찾아봐요!`;
+            return `${ns[i]}을(를) ${ns[j]}명(개)이 똑같이 나눈다면?\n${ns[j]}씩 몇 번 더해야 ${ns[i]}이 될까!\n${ns[j]} × ? = ${ns[i]} 이 되는 ?를 찾아봐~`;
         }
       }
-      // 곱셈형: X씩 Y개/명/상자 → X×Y
       if(t.includes('씩')||t.includes('마다')){
         for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){
-          if(ns[i]*ns[j]===a)return `${ns[i]} × ${ns[j]} = ?`;
+          if(ns[i]*ns[j]===a)return `${ns[i]}씩 ${ns[j]}번 있다면?\n${ns[i]}를 ${ns[j]}번 더하면 돼!\n${ns[i]} × ${ns[j]} = ?~`;
         }
       }
-      // 덧셈형: 여러 수 합산
-      if(t.includes('모두')||t.includes('전체')||t.includes('합')){
-        if(ns.length>=3){const s=ns.slice(0,3);if(s.reduce((x,y)=>x+y,0)===a)return `${s.join(' + ')} = ?`;}
-        if(ns.length>=2&&ns[0]+ns[1]===a)return `${ns[0]} + ${ns[1]} = ?`;
-      }
-      // 뺄셈형: 남은 것
       if(t.includes('남은')||t.includes('빼면')){
         for(let i=0;i<ns.length;i++)for(let j=0;j<ns.length;j++){
-          if(i!==j&&ns[i]-ns[j]===a)return `${ns[i]} - ${ns[j]} = ?`;
+          if(i!==j&&ns[i]-ns[j]===a)return `처음 ${ns[i]}에서 ${ns[j]}를 빼면?\n${ns[i]} - ${ns[j]} = ?~`;
         }
       }
-      // 속도×시간 or 단가×수량 → 곱셈
       for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){
-        if(ns[i]*ns[j]===a)return `${ns[i]} × ${ns[j]} = ?`;
+        if(ns[i]*ns[j]===a)return `${ns[i]}과(와) ${ns[j]}을(를) 곱해봐!\n${ns[i]} × ${ns[j]} = ?~`;
       }
     }
   }
+
   if(a>=10000)return `정답은 다섯 자리 수예요 (10000 이상).`;
   if(a>=1000)return `정답은 네 자리 수예요 (${Math.floor(a/1000)*1000}대).`;
   if(a>=100)return `정답은 세 자리 수예요 (${Math.floor(a/100)*100}대).`;
