@@ -1427,6 +1427,20 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 #btn-start{
   border-radius:4px !important;
 }
+/* ── Hit flash (적 타격 순간 번쩍) ── */
+@keyframes hitFlash{
+  0%  {filter:brightness(1);}
+  30% {filter:brightness(8) saturate(0);}
+  100%{filter:brightness(1);}
+}
+.hit-flash{animation:hitFlash .12s ease-out forwards !important;}
+/* ── Kill micro shake (킬 시 미세 진동) ── */
+@keyframes killShake{
+  0%,100%{transform:translateX(0);}
+  25%    {transform:translateX(-3px);}
+  75%    {transform:translateX(3px);}
+}
+.kill-shaking{animation:killShake .1s ease-in-out !important;}
 /* ── Screen shake ── */
 @keyframes screenShake{
   0%,100%{transform:translateX(0);}
@@ -2803,6 +2817,14 @@ function submit() {
 //  ENTITY EXPLOSION (with special effects)
 // ═══════════════════════════════════════
 function onEntityExplode(e, scoreGained = 0) {
+  // 히트 플래시
+  e.el.classList.add('hit-flash');
+  // 킬 미세 진동
+  gameEl.classList.remove('kill-shaking');
+  void gameEl.offsetWidth;
+  gameEl.classList.add('kill-shaking');
+  setTimeout(()=>gameEl.classList.remove('kill-shaking'), 110);
+
   sfxKill();
   if (S.combo > 1) showComboPopup(e.el, S.combo);
   showScorePopup(e.el, scoreGained);
