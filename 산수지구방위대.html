@@ -4376,66 +4376,97 @@ function sfxHeal() {
 function sfxBigBoom() {
   const ctx = getAC(), t = ctx.currentTime;
   const dest = ctx.destination;
-  // 즉각적인 풀스펙트럼 노이즈 버스트 (reverb 우회 → 펀치감 살림)
-  const rate = ctx.sampleRate;
-  const buf  = ctx.createBuffer(1, Math.ceil(0.28 * rate), rate);
-  const d    = buf.getChannelData(0);
-  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-  const src = ctx.createBufferSource();
-  src.buffer = buf;
-  const ng = ctx.createGain();
-  ng.gain.setValueAtTime(1.4, t);
-  ng.gain.setValueAtTime(0.7, t + 0.018);
-  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-  src.connect(ng); ng.connect(dest);
-  src.start(t); src.stop(t + 0.28);
-  // 임팩트 tone (reverb 우회)
+  // 임팩트: 높은 주파수에서 빠른 하강 (쾅 느낌의 핵심)
   const o1 = ctx.createOscillator(), g1 = ctx.createGain();
   o1.type = 'sawtooth';
-  o1.frequency.setValueAtTime(260, t);
-  o1.frequency.exponentialRampToValueAtTime(40, t + 0.1);
-  g1.gain.setValueAtTime(0.9, t);
-  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
-  o1.connect(g1); g1.connect(dest); o1.start(t); o1.stop(t + 0.16);
-  // 고음 크랙 (reverb 우회)
+  o1.frequency.setValueAtTime(380, t);
+  o1.frequency.exponentialRampToValueAtTime(38, t + 0.12);
+  g1.gain.setValueAtTime(1.1, t);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+  o1.connect(g1); g1.connect(dest); o1.start(t); o1.stop(t + 0.2);
+  // 고음 어택 (날카로운 크랙)
   const o2 = ctx.createOscillator(), g2 = ctx.createGain();
   o2.type = 'square';
-  o2.frequency.setValueAtTime(800, t);
-  o2.frequency.exponentialRampToValueAtTime(200, t + 0.04);
-  g2.gain.setValueAtTime(0.4, t);
-  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
-  o2.connect(g2); g2.connect(dest); o2.start(t); o2.stop(t + 0.07);
+  o2.frequency.setValueAtTime(1800, t);
+  o2.frequency.exponentialRampToValueAtTime(400, t + 0.025);
+  g2.gain.setValueAtTime(0.55, t);
+  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.035);
+  o2.connect(g2); g2.connect(dest); o2.start(t); o2.stop(t + 0.04);
+  // 중음 바디
+  const o3 = ctx.createOscillator(), g3 = ctx.createGain();
+  o3.type = 'triangle';
+  o3.frequency.setValueAtTime(160, t);
+  o3.frequency.exponentialRampToValueAtTime(55, t + 0.08);
+  g3.gain.setValueAtTime(0.7, t);
+  g3.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+  o3.connect(g3); g3.connect(dest); o3.start(t); o3.stop(t + 0.12);
 }
 
 function spawnBigKillFX(vx, vy, color) {
-  for (let i = 0; i < 10; i++) {
-    const angle = (i / 10) * Math.PI * 2 + Math.random() * 0.5;
-    const dist  = 60 + Math.random() * 55;
-    const tx    = Math.cos(angle) * dist;
-    const ty    = Math.sin(angle) * dist;
-    const sz    = 9 + Math.random() * 7;
-    const dur   = 380 + Math.random() * 180;
-    const p = document.createElement('div');
-    p.style.position  = 'fixed';
-    p.style.width     = sz + 'px';
-    p.style.height    = sz + 'px';
-    p.style.borderRadius = '50%';
-    p.style.background  = color || '#ff8800';
-    p.style.boxShadow   = `0 0 ${sz+5}px ${color || '#ff8800'}`;
-    p.style.left        = (vx - sz/2) + 'px';
-    p.style.top         = (vy - sz/2) + 'px';
-    p.style.pointerEvents = 'none';
-    p.style.zIndex      = '99999';
+  const c = color || '#ff8800';
+  // 1. 충격파 링
+  const ring = document.createElement('div');
+  ring.style.cssText = `position:fixed;border-radius:50%;border:3px solid ${c};
+    left:${vx}px;top:${vy}px;width:0;height:0;
+    pointer-events:none;z-index:99999;transform:translate(-50%,-50%);`;
+  document.body.appendChild(ring);
+  let rs=null;
+  (function animRing(ts){
+    if(!rs)rs=ts;
+    const p=Math.min((ts-rs)/220,1);
+    const r=p*55;
+    ring.style.width=r*2+'px'; ring.style.height=r*2+'px';
+    ring.style.opacity=String(1-p);
+    if(p<1)requestAnimationFrame(animRing);
+    else if(ring.parentNode)ring.parentNode.removeChild(ring);
+  })(performance.now());
+
+  // 2. 빠른 파티클 (8개, 가깝고 빠름)
+  for(let i=0;i<8;i++){
+    const a=(i/8)*Math.PI*2+Math.random()*0.4;
+    const d=40+Math.random()*30;
+    const tx=Math.cos(a)*d, ty=Math.sin(a)*d;
+    const sz=6+Math.random()*5, dur=200+Math.random()*100;
+    const p=document.createElement('div');
+    p.style.cssText=`position:fixed;width:${sz}px;height:${sz*0.5}px;border-radius:${sz}px;
+      background:${c};box-shadow:0 0 ${sz+4}px ${c};
+      left:${vx-sz/2}px;top:${vy-sz*0.25}px;
+      pointer-events:none;z-index:99999;
+      transform-origin:center;transform:rotate(${Math.atan2(ty,tx)}rad);`;
     document.body.appendChild(p);
-    let start = null;
-    (function animate(ts) {
-      if (!start) start = ts;
-      const prog = Math.min((ts - start) / dur, 1);
-      const ease = 1 - Math.pow(1 - prog, 2);
-      p.style.transform = `translate(${(tx * ease).toFixed(1)}px,${(ty * ease).toFixed(1)}px) scale(${1 - prog * 0.9})`;
-      p.style.opacity = String(1 - prog);
-      if (prog < 1) requestAnimationFrame(animate);
-      else if (p.parentNode) p.parentNode.removeChild(p);
+    let s=null;
+    (function anim(ts){
+      if(!s)s=ts;
+      const prog=Math.min((ts-s)/dur,1);
+      const e=1-Math.pow(1-prog,3);
+      p.style.left=(vx-sz/2+tx*e)+'px'; p.style.top=(vy-sz*0.25+ty*e)+'px';
+      p.style.opacity=String(1-prog*prog);
+      if(prog<1)requestAnimationFrame(anim);
+      else if(p.parentNode)p.parentNode.removeChild(p);
+    })(performance.now());
+  }
+
+  // 3. 느린 파티클 (8개, 멀고 느림)
+  for(let i=0;i<8;i++){
+    const a=(i/8)*Math.PI*2+0.2+Math.random()*0.4;
+    const d=65+Math.random()*50;
+    const tx=Math.cos(a)*d, ty=Math.sin(a)*d;
+    const sz=4+Math.random()*4, dur=380+Math.random()*200;
+    const p=document.createElement('div');
+    p.style.cssText=`position:fixed;width:${sz}px;height:${sz}px;border-radius:50%;
+      background:${c};box-shadow:0 0 ${sz+3}px ${c};
+      left:${vx-sz/2}px;top:${vy-sz/2}px;
+      pointer-events:none;z-index:99999;`;
+    document.body.appendChild(p);
+    let s=null;
+    (function anim(ts){
+      if(!s)s=ts;
+      const prog=Math.min((ts-s)/dur,1);
+      const e=1-Math.pow(1-prog,2);
+      p.style.left=(vx-sz/2+tx*e)+'px'; p.style.top=(vy-sz/2+ty*e)+'px';
+      p.style.opacity=String(1-prog);
+      if(prog<1)requestAnimationFrame(anim);
+      else if(p.parentNode)p.parentNode.removeChild(p);
     })(performance.now());
   }
 }
