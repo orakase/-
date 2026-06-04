@@ -4375,43 +4375,54 @@ function sfxHeal() {
 
 function sfxBigBoom() {
   const ctx = getAC(), t = ctx.currentTime;
-  // 날카로운 임팩트 - 밝은 주파수 하강 (펀치감)
+  // 폭발의 핵심: 밴드패스 노이즈 (펑/쾅 질감)
+  const rate = ctx.sampleRate;
+  const len  = Math.ceil(0.35 * rate);
+  const buf  = ctx.createBuffer(1, len, rate);
+  const d    = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const bp = ctx.createBiquadFilter();
+  bp.type = 'bandpass';
+  bp.frequency.setValueAtTime(900, t);
+  bp.frequency.exponentialRampToValueAtTime(180, t + 0.18);
+  bp.Q.value = 1.2;
+  const ng = ctx.createGain();
+  ng.gain.setValueAtTime(0.9, t);
+  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+  src.connect(bp); bp.connect(ng); audioConnect(ng);
+  src.start(t); src.stop(t + 0.35);
+  // 임팩트 tone: 빠른 주파수 하강
   const o1 = ctx.createOscillator(), g1 = ctx.createGain();
   o1.type = 'triangle';
-  o1.frequency.setValueAtTime(620, t);
-  o1.frequency.exponentialRampToValueAtTime(85, t + 0.18);
-  g1.gain.setValueAtTime(0.72, t);
-  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-  o1.connect(g1); audioConnect(g1); o1.start(t); o1.stop(t + 0.25);
-  // 고음 크랙 (명확한 타격감)
-  const o2 = ctx.createOscillator(), g2 = ctx.createGain();
-  o2.type = 'square';
-  o2.frequency.setValueAtTime(420, t);
-  o2.frequency.exponentialRampToValueAtTime(65, t + 0.07);
-  g2.gain.setValueAtTime(0.38, t);
-  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-  o2.connect(g2); audioConnect(g2); o2.start(t); o2.stop(t + 0.11);
-  // 밝은 노이즈 버스트
-  pHiNoise(0.38, t, t + 0.1, 2800);
+  o1.frequency.setValueAtTime(480, t);
+  o1.frequency.exponentialRampToValueAtTime(55, t + 0.14);
+  g1.gain.setValueAtTime(0.6, t);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+  o1.connect(g1); audioConnect(g1); o1.start(t); o1.stop(t + 0.2);
+  // 밝은 크랙
+  pHiNoise(0.45, t, t + 0.06, 3500);
 }
 
-function spawnBigKillFX(cx, cy, color) {
+function spawnBigKillFX(vx, vy, color) {
+  // vx, vy: viewport 좌표 (document.body 기준 fixed 포지셔닝)
   for (let i = 0; i < 8; i++) {
-    const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.5;
-    const dist  = 55 + Math.random() * 50;
+    const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.55;
+    const dist  = 60 + Math.random() * 55;
     const px    = Math.cos(angle) * dist;
     const py    = Math.sin(angle) * dist;
-    const sz    = 5 + Math.random() * 5;
-    const dur   = 280 + Math.random() * 180;
+    const sz    = 7 + Math.random() * 6;
+    const dur   = 300 + Math.random() * 200;
     const p = document.createElement('div');
-    p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;
-      left:${(cx - sz/2).toFixed(0)}px;top:${(cy - sz/2).toFixed(0)}px;
-      background:${color};box-shadow:0 0 ${sz+4}px ${color};
-      pointer-events:none;z-index:25;`;
-    gameEl.appendChild(p);
+    p.style.cssText = `position:fixed;width:${sz}px;height:${sz}px;border-radius:50%;
+      left:${(vx - sz/2).toFixed(0)}px;top:${(vy - sz/2).toFixed(0)}px;
+      background:${color};box-shadow:0 0 ${sz+5}px ${color};
+      pointer-events:none;z-index:9999;`;
+    document.body.appendChild(p);
     p.animate([
       {opacity:1, transform:'translate(0,0) scale(1)'},
-      {opacity:0, transform:`translate(${px.toFixed(0)}px,${py.toFixed(0)}px) scale(0.15)`}
+      {opacity:0, transform:`translate(${px.toFixed(0)}px,${py.toFixed(0)}px) scale(0.1)`}
     ], {duration:dur, easing:'ease-out', fill:'forwards'}).onfinish = () => p.remove();
   }
 }
@@ -4421,9 +4432,8 @@ function bigBoomEl(el, y, color) {
   if (y !== undefined) { el.style.top = y + 'px'; el.style.transform = ''; }
   el.classList.add('big-boom');
   sfxBigBoom();
-  const gr = gameEl.getBoundingClientRect();
   const er = el.getBoundingClientRect();
-  spawnBigKillFX(er.left + er.width/2 - gr.left, er.top + er.height/2 - gr.top, color);
+  spawnBigKillFX(er.left + er.width/2, er.top + er.height/2, color);
   gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth;
   gameEl.classList.add('kill-shaking'); setTimeout(()=>gameEl.classList.remove('kill-shaking'),110);
 }
@@ -5061,7 +5071,8 @@ function onBossPhaseComplete() {
   gameEl.appendChild(fx);
   setTimeout(() => fx.remove(), 560);
   sfxNukeBoom();
-  spawnBigKillFX(cx, cy, 'rgba(255,80,100,1)');
+  const _bpvx=br.left+br.width/2, _bpvy=br.top+br.height/2;
+  spawnBigKillFX(_bpvx, _bpvy, 'rgba(255,80,100,1)');
 
   // 보스 흔들기
   b.el.style.animation = 'bossShake .42s ease-out';
@@ -5090,9 +5101,10 @@ function onBossDeath() {
   const cx = br.left + br.width / 2 - gr.left;
   const cy = br.top  + br.height / 2 - gr.top;
   // 보스 사망 파티클 3연발
-  spawnBigKillFX(cx, cy, 'rgba(255,80,100,1)');
-  setTimeout(()=>spawnBigKillFX(cx+30, cy+20, 'rgba(255,180,0,1)'), 120);
-  setTimeout(()=>spawnBigKillFX(cx-25, cy-10, 'rgba(255,255,100,1)'), 240);
+  const _bdvx=br.left+br.width/2, _bdvy=br.top+br.height/2;
+  spawnBigKillFX(_bdvx, _bdvy, 'rgba(255,80,100,1)');
+  setTimeout(()=>spawnBigKillFX(_bdvx+30, _bdvy+20, 'rgba(255,180,0,1)'), 120);
+  setTimeout(()=>spawnBigKillFX(_bdvx-25, _bdvy-10, 'rgba(255,255,100,1)'), 240);
   const _eb=getExplColors();
   const blastEl = document.createElement('div');
   blastEl.style.cssText = `position:absolute;left:0;right:0;top:0;bottom:0;
