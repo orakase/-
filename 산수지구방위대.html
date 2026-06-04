@@ -1341,28 +1341,56 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   border-radius:2px !important;
   border:3px solid #5577cc !important;
   box-shadow:inset 0 0 0 2px #1a2a66, 0 0 28px rgba(0,20,100,.7) !important;
-  background:#080c28 !important;
+  /* 배경 + 코너 픽셀 장식 + 도트 그리드 */
+  background-color:#080c28 !important;
+  background-image:
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(rgba(80,120,200,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(80,120,200,.04) 1px,transparent 1px) !important;
+  background-size:6px 6px,6px 6px,6px 6px,6px 6px,8px 8px,8px 8px !important;
+  background-position:0 0,100% 0,0 100%,100% 100%,0 0,0 0 !important;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat !important;
 }
+/* 헤더 — 더 뚜렷한 타이틀바 */
 #shop-popup .shop-header,
 #medals-popup .ov-sub-header,
 #aliens-popup .ov-sub-header,
 #report-popup .ov-sub-header{
-  border-bottom:2px solid #2a3a77 !important;
-  background:#0c1035 !important;
+  border-bottom:2px solid #4466aa !important;
+  background:linear-gradient(90deg,#0d1245 0%,#1a2268 50%,#0d1245 100%) !important;
 }
 /* 메달 상세 팝업 */
 #medal-popup-wrap #medal-popup{
   border-radius:2px;
   border:3px solid #5577cc;
   box-shadow:inset 0 0 0 2px #1a2a66;
-  background:#080c28;
+  background-color:#080c28;
+  background-image:
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff);
+  background-size:6px 6px,6px 6px,6px 6px,6px 6px;
+  background-position:0 0,100% 0,0 100%,100% 100%;
+  background-repeat:no-repeat;
 }
 /* 일시정지 패널 */
 #pause-panel{
   border-radius:2px !important;
   border:3px solid #5577cc !important;
   box-shadow:inset 0 0 0 2px #1a2a66, 0 0 28px rgba(0,20,100,.7) !important;
-  background:#080c28 !important;
+  background-color:#080c28 !important;
+  background-image:
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff),
+    linear-gradient(#aaccff,#aaccff) !important;
+  background-size:6px 6px,6px 6px,6px 6px,6px 6px !important;
+  background-position:0 0,100% 0,0 100%,100% 100% !important;
+  background-repeat:no-repeat !important;
 }
 /* 버튼 RPG 스타일 */
 .pause-action-btn{
