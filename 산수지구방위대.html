@@ -7380,6 +7380,40 @@ function generateAlienHint(q, a) {
   if(t.includes('배수')&&t.includes('개수'))return `N까지 A의 배수 개수 = N÷A (몫)`;
   if(t.includes('홀수의 합'))return `연속 홀수 합=(개수)²\n1~9 홀수 5개 → 5²=25`;
   if(t.includes('연속하는')&&t.includes('합')&&t.includes('큰 수'))return `큰 수=(합+차)÷2`;
+  // ── 서술형 숫자 패턴 감지 ──
+  {
+    const ns=[...t.matchAll(/(\d+)/g)].map(m=>+m[1]).filter(n=>n>1&&n<100000);
+    if(ns.length>=2){
+      // 나눗셈형: X를 Y명/봉지/등분 → X÷Y
+      if(t.includes('나누')||t.includes('등분')||t.includes('몫')){
+        for(let i=0;i<ns.length;i++)for(let j=0;j<ns.length;j++){
+          if(i!==j&&ns[i]>ns[j]&&ns[i]%ns[j]===0&&ns[i]/ns[j]===a)
+            return `${ns[i]} ÷ ${ns[j]} = ?\n${ns[j]} × ? = ${ns[i]} 을 찾아봐요!`;
+        }
+      }
+      // 곱셈형: X씩 Y개/명/상자 → X×Y
+      if(t.includes('씩')||t.includes('마다')){
+        for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){
+          if(ns[i]*ns[j]===a)return `${ns[i]} × ${ns[j]} = ?`;
+        }
+      }
+      // 덧셈형: 여러 수 합산
+      if(t.includes('모두')||t.includes('전체')||t.includes('합')){
+        if(ns.length>=3){const s=ns.slice(0,3);if(s.reduce((x,y)=>x+y,0)===a)return `${s.join(' + ')} = ?`;}
+        if(ns.length>=2&&ns[0]+ns[1]===a)return `${ns[0]} + ${ns[1]} = ?`;
+      }
+      // 뺄셈형: 남은 것
+      if(t.includes('남은')||t.includes('빼면')){
+        for(let i=0;i<ns.length;i++)for(let j=0;j<ns.length;j++){
+          if(i!==j&&ns[i]-ns[j]===a)return `${ns[i]} - ${ns[j]} = ?`;
+        }
+      }
+      // 속도×시간 or 단가×수량 → 곱셈
+      for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){
+        if(ns[i]*ns[j]===a)return `${ns[i]} × ${ns[j]} = ?`;
+      }
+    }
+  }
   if(a>=10000)return `정답은 다섯 자리 수예요 (10000 이상).`;
   if(a>=1000)return `정답은 네 자리 수예요 (${Math.floor(a/1000)*1000}대).`;
   if(a>=100)return `정답은 세 자리 수예요 (${Math.floor(a/100)*100}대).`;
