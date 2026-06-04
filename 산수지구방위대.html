@@ -1139,7 +1139,8 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
 }
 .title-nav-btn:last-child{border-right:none;}
 .title-nav-btn:active{background:rgba(255,255,255,.06);}
-.title-nav-icon{font-size:26px;}
+.title-nav-icon{font-size:26px;height:58px;display:flex;align-items:center;justify-content:center;}
+.title-nav-icon img{height:100%;width:auto;object-fit:contain;}
 .title-nav-btn:nth-child(1) .title-nav-icon{filter:drop-shadow(0 0 7px rgba(255,210,0,.7));}
 .title-nav-btn:nth-child(2) .title-nav-icon{filter:drop-shadow(0 0 7px rgba(0,220,160,.6));}
 .title-nav-btn:nth-child(3) .title-nav-icon{filter:drop-shadow(0 0 7px rgba(180,100,255,.7));}
@@ -1510,17 +1511,17 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Apple SD Got
   <!-- 하단 탭 네비게이션 -->
   <nav class="title-nav">
     <button class="title-nav-btn" id="btn-medals-s">
-      <span class="title-nav-icon"><img src="ui/tab_medal.png" style="width:50px;height:50px;object-fit:contain;"></span>훈장
+      <span class="title-nav-icon"><img src="ui/tab_medal.png"></span>훈장
     </button>
     <button class="title-nav-btn" id="btn-report-s">
-      <span class="title-nav-icon"><img src="ui/tab_report.png" style="width:50px;height:50px;object-fit:contain;"></span>리포트
+      <span class="title-nav-icon"><img src="ui/tab_report.png"></span>리포트
     </button>
     <button class="title-nav-btn" id="btn-aliens-s" style="position:relative;">
-      <span class="title-nav-icon"><img src="ui/tab_alien.png" style="width:80px;height:80px;object-fit:contain;"></span>동료
+      <span class="title-nav-icon"><img src="ui/tab_alien.png"></span>동료
       <span class="red-dot" id="rd-aliens-s" style="display:none;top:4px;right:8px;"></span>
     </button>
     <button class="title-nav-btn" id="btn-shop-s">
-      <span class="title-nav-icon"><img src="ui/tab_shop.png" style="width:50px;height:50px;object-fit:contain;"></span>상점
+      <span class="title-nav-icon"><img src="ui/tab_shop.png"></span>상점
     </button>
   </nav>
 </div>
