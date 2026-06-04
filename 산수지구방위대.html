@@ -2768,7 +2768,11 @@ function submit() {
   const enemies = hits.filter(e => e.type !== 'ufo');
 
   // UFOs: 미사일 → 도달 시 아이템 발동
-  if (S.fever) ufos.forEach(u => launchFeverLaser(u, () => {}));
+  if (S.fever) ufos.forEach(u => launchFeverLaser(u, () => {
+    const gr2=gameEl.getBoundingClientRect(),ur=u.el.getBoundingClientRect();
+    spawnBigKillFX(ur.left+ur.width/2, ur.top+ur.height/2, 'rgba(255,220,0,1)');
+    sfxBigBoom();
+  }));
   ufos.forEach(u => launchMissile(u.el, () => activateItemWithFX(u)));
 
   // Track UFO kills; trigger fever every 15 (피버 중 격추는 카운트 안 함)
@@ -4377,53 +4381,40 @@ function sfxHeal() {
 function sfxBigBoom() {
   const ctx = getAC(), t = ctx.currentTime;
   const dest = ctx.destination;
-
-  // ── 레이어 1: 저주파 오실레이터 (붐 바디) ──
-  const osc = ctx.createOscillator();
-  const oscG = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(180, t);
-  osc.frequency.exponentialRampToValueAtTime(35, t + 0.35);
-  oscG.gain.setValueAtTime(0.55, t);
-  oscG.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
-  osc.connect(oscG); oscG.connect(dest);
-  osc.start(t); osc.stop(t + 0.55);
-
-  // ── 레이어 2: 고공명 로우패스 노이즈 (쾅 질감의 핵심) ──
+  // 쾅: 필터 없는 순수 노이즈 버스트 (로우패스 제거 → "퓨욱" 없앰)
   const rate = ctx.sampleRate;
-  const buf  = ctx.createBuffer(1, Math.ceil(1.0 * rate), rate);
+  const buf  = ctx.createBuffer(1, Math.ceil(0.18 * rate), rate);
   const d    = buf.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-  const ns = ctx.createBufferSource();
+  const ns  = ctx.createBufferSource();
   ns.buffer = buf;
-
-  const lp = ctx.createBiquadFilter();
-  lp.type = 'lowpass';
-  lp.frequency.setValueAtTime(3800, t);
-  lp.frequency.exponentialRampToValueAtTime(180, t + 0.7);
-  lp.Q.setValueAtTime(12, t); // 높은 Q = 공명 = "붐" 느낌
-
   const nsG = ctx.createGain();
-  nsG.gain.setValueAtTime(0.85, t);
-  nsG.gain.exponentialRampToValueAtTime(0.0001, t + 0.85);
-
-  ns.connect(lp); lp.connect(nsG); nsG.connect(dest);
-  ns.start(t); ns.stop(t + 1.0);
-
-  // ── 레이어 3: 고음 어택 크랙 ──
-  const cr = ctx.createOscillator(), crG = ctx.createGain();
-  cr.type = 'square';
-  cr.frequency.setValueAtTime(1600, t);
-  cr.frequency.exponentialRampToValueAtTime(300, t + 0.03);
-  crG.gain.setValueAtTime(0.45, t);
-  crG.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
-  cr.connect(crG); crG.connect(dest); cr.start(t); cr.stop(t + 0.05);
+  nsG.gain.setValueAtTime(1.6, t);
+  nsG.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+  ns.connect(nsG); nsG.connect(dest);
+  ns.start(t); ns.stop(t + 0.18);
+  // 바디 저음 (짧고 강하게)
+  const o1 = ctx.createOscillator(), g1 = ctx.createGain();
+  o1.type = 'sine';
+  o1.frequency.setValueAtTime(130, t);
+  o1.frequency.exponentialRampToValueAtTime(38, t + 0.18);
+  g1.gain.setValueAtTime(0.8, t);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+  o1.connect(g1); g1.connect(dest); o1.start(t); o1.stop(t + 0.24);
+  // 고음 크랙
+  const o2 = ctx.createOscillator(), g2 = ctx.createGain();
+  o2.type = 'square';
+  o2.frequency.setValueAtTime(1400, t);
+  o2.frequency.exponentialRampToValueAtTime(280, t + 0.025);
+  g2.gain.setValueAtTime(0.5, t);
+  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+  o2.connect(g2); g2.connect(dest); o2.start(t); o2.stop(t + 0.04);
 }
 
 // ── 픽셀 파티클 엔진 ──
 const _PX = (function() {
   let cvs, ctx, particles = [], raf = null;
-  const GRAVITY = 0.18;
+  const GRAVITY = 0;
   function init() {
     cvs = document.getElementById('fx-canvas');
     if (!cvs) return false;
