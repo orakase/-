@@ -1061,18 +1061,19 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 .alien-get-pop .agp-name{font-size:20px;font-weight:900;color:#fff;margin-top:4px;}
 /* ── 별 획득 알림 ── */
 @keyframes starNotifFloat{
-  0%  {transform:translateX(-50%) translateY(0);   opacity:1;}
-  60% {transform:translateX(-50%) translateY(-32px);opacity:1;}
-  100%{transform:translateX(-50%) translateY(-60px);opacity:0;}
+  0%  {transform:translateX(-50%) translateY(-100%);opacity:0;}
+  12% {transform:translateX(-50%) translateY(0);    opacity:1;}
+  75% {transform:translateX(-50%) translateY(0);    opacity:1;}
+  100%{transform:translateX(-50%) translateY(-100%);opacity:0;}
 }
 .star-notif{
-  position:absolute;left:50%;top:28%;
-  transform:translateX(-50%);
+  position:fixed;left:50%;top:0;
+  transform:translateX(-50%) translateY(-100%);
   background:rgba(255,210,0,.15);
   border:1.5px solid rgba(255,210,0,.45);
   color:#ffd700;font-size:14px;font-weight:900;
   padding:5px 16px;border-radius:20px;
-  pointer-events:none;z-index:310;white-space:nowrap;
+  pointer-events:none;z-index:99998;white-space:nowrap;
   text-shadow:0 0 8px rgba(255,210,0,.6);
   animation:starNotifFloat 2.6s ease-in-out forwards;
 }
@@ -1889,7 +1890,7 @@ const progFill  = $('prog-fill');
     const el = document.createElement('div');
     el.className = 'nebula';
     el.style.cssText = `left:${n.left};top:${n.top};width:${n.w}px;height:${n.h}px;background:radial-gradient(ellipse,${n.color} 0%,transparent 70%);`;
-    wrap.appendChild(el);
+    document.body.appendChild(el);
   });
 
   // ── 극소 별 (80개) ──
@@ -5970,7 +5971,7 @@ function showStarNotif(n, reason='') {
   const el = document.createElement('div');
   el.className = 'star-notif';
   el.textContent = `⭐ +${n}${reason?' · '+reason:''}`;
-  wrap.appendChild(el);
+  document.body.appendChild(el);
   setTimeout(() => el.remove(), 2700);
 }
 
