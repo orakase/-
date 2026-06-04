@@ -4818,7 +4818,7 @@ function spawnBoss(tierOverride) {
   if (S.status !== 'playing') return;
   const gw = gameEl.clientWidth  || 360;
   const gh = gameEl.clientHeight || 500;
-  const _bossTier = tierOverride !== undefined ? tierOverride : Math.min(typeof GSTATS!=='undefined' ? (GSTATS.bossKills||0) : 0, 9);
+  const _bossTier = tierOverride !== undefined ? tierOverride : Math.min(typeof GSESS!=='undefined' ? (GSESS.bossKills||0) : 0, 9);
   const bossW   = Math.round(gw * (0.55 + _bossTier * 0.03));
   const centerX = Math.round((gw - bossW) / 2);
   const el = document.createElement('div');
