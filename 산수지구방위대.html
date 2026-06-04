@@ -2771,7 +2771,7 @@ function submit() {
   if (S.fever) ufos.forEach(u => launchFeverLaser(u, () => {
     const gr2=gameEl.getBoundingClientRect(),ur=u.el.getBoundingClientRect();
     spawnBigKillFX(ur.left+ur.width/2, ur.top+ur.height/2, 'rgba(255,220,0,1)');
-    sfxBigBoom();
+    sfxKill();
   }));
   ufos.forEach(u => launchMissile(u.el, () => activateItemWithFX(u)));
 
@@ -4461,25 +4461,25 @@ const _PX = (function() {
     // 빠른 파티클 (16개)
     for (let i = 0; i < 16; i++) {
       const a = (i/16)*Math.PI*2 + Math.random()*0.4;
-      const spd = 4 + Math.random()*5;
+      const spd = 8 + Math.random()*8;
       particles.push({
         x: vx, y: vy,
-        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd - 1,
+        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd,
         sz: 3 + Math.floor(Math.random()*4),
         col: cols[Math.floor(Math.random()*cols.length)],
-        life: 1, decay: 0.045 + Math.random()*0.02
+        life: 1, decay: 0.04 + Math.random()*0.02
       });
     }
     // 느린 큰 파티클 (10개)
     for (let i = 0; i < 10; i++) {
       const a = (i/10)*Math.PI*2 + 0.15 + Math.random()*0.4;
-      const spd = 2.5 + Math.random()*3.5;
+      const spd = 5 + Math.random()*5;
       particles.push({
         x: vx, y: vy,
-        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd - 0.5,
+        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd,
         sz: 5 + Math.floor(Math.random()*5),
         col: cols[Math.floor(Math.random()*cols.length)],
-        life: 1, decay: 0.018 + Math.random()*0.01
+        life: 1, decay: 0.016 + Math.random()*0.008
       });
     }
     if (!raf) raf = requestAnimationFrame(loop);
@@ -4506,7 +4506,7 @@ function bigBoomEl(el, y, color) {
   if (!color) color = 'rgba(255,160,40,1)';
   if (y !== undefined) { el.style.top = y + 'px'; el.style.transform = ''; }
   el.classList.add('big-boom');
-  sfxBigBoom();
+  sfxKill();
   const er = el.getBoundingClientRect();
   spawnBigKillFX(er.left + er.width/2, er.top + er.height/2, color);
   gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth;
@@ -5169,7 +5169,7 @@ function onBossDeath() {
   if (!b) return;
 
   // 대폭발 — 화면 전체
-  sfxBigBoom();
+  sfxKill();
   sfxNukeBoom();
   const gr = gameEl.getBoundingClientRect();
   const br = b.el.getBoundingClientRect();
