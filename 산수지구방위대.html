@@ -1429,6 +1429,18 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 #btn-start{
   border-radius:4px !important;
 }
+/* ── Big kill explosion ── */
+@keyframes bigExplode{
+  0%  {transform:scale(1);   opacity:1; filter:brightness(1);}
+  10% {transform:scale(1.15);opacity:1; filter:brightness(14) saturate(0);}
+  34% {transform:scale(2.4); opacity:.9;filter:brightness(5);}
+  100%{transform:scale(.05); opacity:0;}
+}
+.ent.big-boom{animation:bigExplode .45s ease-out forwards !important;}
+@keyframes killParticle{
+  0%  {opacity:1;transform:translate(0,0) scale(1);}
+  100%{opacity:0;transform:translate(var(--px),var(--py)) scale(0.2);}
+}
 /* ── Hit flash (적 타격 순간 번쩍) ── */
 @keyframes hitFlash{
   0%  {filter:brightness(1);}
@@ -2790,8 +2802,8 @@ function submit() {
     S.pending++;
     if (S.fever) {
       launchFeverLaser(e, () => {
-        onEntityExplode(e, sc);
-        setTimeout(() => { S.pending--; }, 420);
+        onEntityExplode(e, sc, true);
+        setTimeout(() => { S.pending--; }, 460);
       });
     } else {
       launchMissile(e.el, () => {
@@ -2818,14 +2830,17 @@ function submit() {
 // ═══════════════════════════════════════
 //  ENTITY EXPLOSION (with special effects)
 // ═══════════════════════════════════════
-function onEntityExplode(e, scoreGained = 0) {
-  // 킬 미세 진동
-  gameEl.classList.remove('kill-shaking');
-  void gameEl.offsetWidth;
-  gameEl.classList.add('kill-shaking');
-  setTimeout(()=>gameEl.classList.remove('kill-shaking'), 110);
-
-  sfxKill();
+function onEntityExplode(e, scoreGained = 0, big = false) {
+  if (big) {
+    bigBoomEl(e.el, e.y, 'rgba(255,220,0,1)');
+  } else {
+    gameEl.classList.remove('kill-shaking');
+    void gameEl.offsetWidth;
+    gameEl.classList.add('kill-shaking');
+    setTimeout(()=>gameEl.classList.remove('kill-shaking'), 110);
+    sfxKill();
+    boomEl(e.el, e.y);
+  }
   if (S.combo > 1) showComboPopup(e.el, S.combo);
   showScorePopup(e.el, scoreGained);
 
@@ -2840,7 +2855,7 @@ function onEntityExplode(e, scoreGained = 0) {
     );
     showBubbleBlast(cx, cy, RADIUS);
     gRecordItem('bubble', nearby.length);
-    chainDestroy(nearby, 90);
+    chainDestroy(nearby, 90, true, 'rgba(255,110,20,1)');
     lingerDestroy(() => S.entities.filter(o =>
       Math.hypot((o.x + (o.el.offsetWidth||90)/2) - bcx,
                  (o.y + (o.el.offsetHeight||34)/2) - bcy) < RADIUS
@@ -2854,7 +2869,7 @@ function onEntityExplode(e, scoreGained = 0) {
     );
     showCrossBlast(cx, cy);
     gRecordItem('cross', targets.length);
-    chainDestroy(targets, 70);
+    chainDestroy(targets, 70, true, 'rgba(0,255,200,1)');
     lingerDestroy(() => S.entities.filter(o =>
       o !== e && (Math.abs(o.y - cey) < 24 || Math.abs(o.x - cex) < 40)
     ));
@@ -2876,7 +2891,7 @@ function onEntityExplode(e, scoreGained = 0) {
     });
     showXBlast(cx, cy);
     gRecordItem('xblade', targets.length);
-    chainDestroy(targets, 70);
+    chainDestroy(targets, 70, true, 'rgba(255,160,0,1)');
     lingerDestroy(() => S.entities.filter(o => {
       if (o === e) return false;
       const ox = o.x + (o.el.offsetWidth  || 90) / 2;
@@ -3073,7 +3088,7 @@ function maybeTriggerBomb(e) {
   }
 }
 
-function chainDestroy(targets, delay) {
+function chainDestroy(targets, delay, big=false, bigColor='rgba(255,160,40,1)') {
   const lm = 1 + getSpeedTier() * 0.1;
   targets.forEach(t => {
     const idx = S.entities.indexOf(t);
@@ -3088,13 +3103,14 @@ function chainDestroy(targets, delay) {
   S.pending++;
   setTimeout(() => {
     targets.forEach(t => {
-      boomEl(t.el, t.y);
-      setTimeout(() => t.el.remove(), 380);
+      if (big) bigBoomEl(t.el, t.y, bigColor);
+      else boomEl(t.el, t.y);
+      setTimeout(() => t.el.remove(), 460);
       maybeTriggerBomb(t);
     });
     refreshHUD();
     checkClearBonus();
-    setTimeout(() => { S.pending--; }, 420);
+    setTimeout(() => { S.pending--; }, 500);
   }, delay);
 }
 
@@ -3283,7 +3299,7 @@ function activateItemWithFX(u) {
             const tgts = S.entities.filter(e => e.y >= gh * 0.10);
             gRecordItem('nuke', tgts.length);
             showNukeBlast(gh);
-            chainDestroy(tgts, 160);
+            chainDestroy(tgts, 160, true, 'rgba(255,70,0,1)');
             lingerDestroy(() => {
               const gh2 = gameEl.clientHeight;
               return S.entities.filter(e => e.y >= gh2 * 0.05);
@@ -4361,6 +4377,62 @@ function sfxHeal() {
     pOsc('sine', f, 0.22, t + i * 0.075, t + i * 0.075 + 0.3));
 }
 
+function sfxBigBoom() {
+  const ctx = getAC(), t = ctx.currentTime;
+  // 저음 베이스 쿵
+  const o1 = ctx.createOscillator(), g1 = ctx.createGain();
+  o1.type = 'sine';
+  o1.frequency.setValueAtTime(95, t);
+  o1.frequency.exponentialRampToValueAtTime(26, t + 0.28);
+  g1.gain.setValueAtTime(0, t);
+  g1.gain.linearRampToValueAtTime(0.68, t + 0.008);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.36);
+  o1.connect(g1); audioConnect(g1); o1.start(t); o1.stop(t + 0.4);
+  // 중음 크랙
+  const o2 = ctx.createOscillator(), g2 = ctx.createGain();
+  o2.type = 'sawtooth';
+  o2.frequency.setValueAtTime(340, t);
+  o2.frequency.exponentialRampToValueAtTime(42, t + 0.13);
+  g2.gain.setValueAtTime(0, t);
+  g2.gain.linearRampToValueAtTime(0.32, t + 0.005);
+  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+  o2.connect(g2); audioConnect(g2); o2.start(t); o2.stop(t + 0.22);
+  // 노이즈 버스트
+  pHiNoise(0.28, t, t + 0.14, 1800);
+}
+
+function spawnBigKillFX(cx, cy, color) {
+  for (let i = 0; i < 8; i++) {
+    const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.5;
+    const dist  = 52 + Math.random() * 48;
+    const px    = Math.cos(angle) * dist;
+    const py    = Math.sin(angle) * dist;
+    const sz    = 5 + Math.random() * 4;
+    const dur   = 270 + Math.random() * 180;
+    const p = document.createElement('div');
+    p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;
+      left:${(cx - sz/2).toFixed(0)}px;top:${(cy - sz/2).toFixed(0)}px;
+      background:${color};box-shadow:0 0 ${sz+3}px ${color};
+      pointer-events:none;z-index:8;
+      --px:${px.toFixed(0)}px;--py:${py.toFixed(0)}px;
+      animation:killParticle ${dur}ms ease-out forwards;`;
+    gameEl.appendChild(p);
+    setTimeout(() => p.remove(), dur + 60);
+  }
+}
+
+function bigBoomEl(el, y, color) {
+  if (!color) color = 'rgba(255,160,40,1)';
+  if (y !== undefined) { el.style.top = y + 'px'; el.style.transform = ''; }
+  el.classList.add('big-boom');
+  sfxBigBoom();
+  const gr = gameEl.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  spawnBigKillFX(er.left + er.width/2 - gr.left, er.top + er.height/2 - gr.top, color);
+  gameEl.classList.remove('kill-shaking'); void gameEl.offsetWidth;
+  gameEl.classList.add('kill-shaking'); setTimeout(()=>gameEl.classList.remove('kill-shaking'),110);
+}
+
 function sfxFreeze() {
   const ctx = getAC(), t = ctx.currentTime;
   [2093, 1760, 1568, 1319, 1047, 880].forEach((f, i) =>
@@ -4994,6 +5066,7 @@ function onBossPhaseComplete() {
   gameEl.appendChild(fx);
   setTimeout(() => fx.remove(), 560);
   sfxNukeBoom();
+  spawnBigKillFX(cx, cy, 'rgba(255,80,100,1)');
 
   // 보스 흔들기
   b.el.style.animation = 'bossShake .42s ease-out';
@@ -5015,11 +5088,16 @@ function onBossDeath() {
   if (!b) return;
 
   // 대폭발 — 화면 전체
+  sfxBigBoom();
   sfxNukeBoom();
   const gr = gameEl.getBoundingClientRect();
   const br = b.el.getBoundingClientRect();
   const cx = br.left + br.width / 2 - gr.left;
   const cy = br.top  + br.height / 2 - gr.top;
+  // 보스 사망 파티클 3연발
+  spawnBigKillFX(cx, cy, 'rgba(255,80,100,1)');
+  setTimeout(()=>spawnBigKillFX(cx+30, cy+20, 'rgba(255,180,0,1)'), 120);
+  setTimeout(()=>spawnBigKillFX(cx-25, cy-10, 'rgba(255,255,100,1)'), 240);
   const _eb=getExplColors();
   const blastEl = document.createElement('div');
   blastEl.style.cssText = `position:absolute;left:0;right:0;top:0;bottom:0;
