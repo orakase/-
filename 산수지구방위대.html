@@ -7497,7 +7497,113 @@ function generateAlienHint(q, a) {
   if(t.includes('달팽이'))
     return `달팽이가 꼭대기에 닿는 날은 특별해!\n마지막 날엔 밤이 없어서 내려오지 않거든.\n마지막 한 번만 올라가면 끝나는 날을 생각해봐~`;
 
-  // ── 서술형 숫자 패턴 감지 ──
+  // ── 누락된 도형 넓이/부피 케이스 ──
+  if(t.includes('정사각형')&&t.includes('넓이'))
+    return `정사각형은 가로와 세로가 똑같아!\n한 변 × 한 변 = 넓이야~\n(예: 한 변이 9면 9×9=?)`;
+  if(t.includes('정육면체')&&t.includes('꼭짓점'))
+    return `정육면체를 머릿속에 그려봐!\n위 4개 + 아래 4개 = 꼭짓점 총 8개야~`;
+  if(t.includes('정육면체')&&t.includes('모서리'))
+    return `정육면체 모서리를 세어봐!\n위 4개 + 아래 4개 + 기둥 4개 = 모서리 총 12개야~`;
+  if(t.includes('정오각형')&&t.includes('내각의 합'))
+    return `오각형 안에 선 하나를 그어봐!\n삼각형(180°) + 사각형(360°)으로 나뉘어.\n180 + 360 = ?°~`;
+  if((t.includes('울타리')||t.includes('총 길이'))&&(t.includes('직사각형')||t.includes('가로')))
+    return `울타리는 직사각형 테두리를 따라 한 바퀴!\n가로 두 번 + 세로 두 번\n(가로 + 세로) × 2 = 총 길이~`;
+  if(t.includes('빗변을 제외')&&t.includes('둘레'))
+    return `직각삼각형의 두 직각변을 더해봐!\n3-4-5 비율이 유명해: 6cm, 8cm라면 빗변은?\n6²+8²=100, 빗변=10cm\n6+8+10=? (빗변 포함 전체 둘레)`;
+  if(t.includes('세로는')&&t.includes('넓이'))
+    return `넓이 = 가로 × 세로 이니까\n거꾸로 세로 = 넓이 ÷ 가로!`;
+  if(t.includes('약수의 개수')||(t.includes('약수')&&t.includes('개수')))
+    return `약수를 하나씩 찾아봐!\n1부터 시작해서 나누어 떨어지는 수를 체크.\n그 개수를 세면 돼~`;
+
+  // ── 분수 통분/동치분수 ──
+  if(t.includes('분모가')&&t.includes('분자는')&&t.match(/분모가\s*(\d+)/)){
+    const dm=t.match(/분모가\s*(\d+)/);const fr=t.match(/(\d+)\/(\d+)/);
+    if(dm&&fr)return `${fr[1]}/${fr[2]}에서 분모를 ${dm[1]}으로 만들려면?\n${fr[2]}×?=${dm[1]} 인 ?를 찾아.\n분자도 그 수만큼 곱하면 돼~`;}
+  if(t.includes('분자가')&&t.includes('분모는')&&t.match(/분자가\s*(\d+)/)){
+    const fn=t.match(/분자가\s*(\d+)/);const fr=t.match(/(\d+)\/(\d+)/);
+    if(fn&&fr)return `${fr[1]}/${fr[2]}에서 분자를 ${fn[1]}으로 만들려면?\n${fr[1]}×?=${fn[1]} 인 ?를 찾아.\n분모도 그 수만큼 곱하면 돼~`;}
+  if(t.includes('피자')&&t.includes('조각')&&t.includes('분자'))
+    return `전체를 조각 수로 나눈 것이 분모!\n먹은 조각 수가 분자야.\n피자 8조각 중 3조각 = 3/8, 분자는?`;
+  if(t.includes('대분수')&&t.includes('자연수'))
+    return `가분수 → 대분수: 분자 ÷ 분모를 해봐!\n13 ÷ 4 = 3 나머지 1\n→ 자연수 부분은 몫인 3이야~`;
+
+  // ── Lv1 서술형 패턴 ──
+  if((t.includes('모두 몇')&&t.match(/(\d+)개.*(\d+)개.*(\d+)개/))||
+     (t.includes('하루 총')&&t.match(/(\d+)개.*(\d+)개.*(\d+)개/))){
+    const ns=t.match(/(\d+)(?=개)/g)?.map(Number);
+    if(ns&&ns.length>=3)return `세 수를 순서대로 더해봐!\n${ns[0]}+${ns[1]}=${ns[0]+ns[1]}\n그 다음 ${ns[0]+ns[1]}+${ns[2]}=?~`;}
+  if(t.includes('팔고')&&t.includes('다시')&&t.includes('남은')){
+    const ns=t.match(/(\d+)(?=개)/g)?.map(Number);
+    if(ns&&ns.length>=3)return `두 번 팔았으니 두 번 빼야 해!\n${ns[0]}-${ns[1]}=${ns[0]-ns[1]}\n그 다음 ${ns[0]-ns[1]}-${ns[2]}=?~`;}
+  if(t.includes('자르고')&&t.includes('더 잘랐')&&t.includes('남은')){
+    const ns=t.match(/(\d+)(?=cm)/g)?.map(Number);
+    if(ns&&ns.length>=3)return `두 번 잘랐으니 두 번 빼야 해!\n${ns[0]}-${ns[1]}=${ns[0]-ns[1]}\n그 다음 ${ns[0]-ns[1]}-${ns[2]}=?~`;}
+  if(t.includes('결석')&&t.includes('출석')){
+    const ns=t.match(/\d+/g)?.map(Number);
+    if(ns&&ns.length>=2)return `전체 학생에서 결석한 학생을 빼면\n출석한 학생 수가 나와!\n${ns[0]}-${ns[1]}=?`;}
+  if(t.includes('알약')&&t.includes('번')&&t.includes('일')){
+    return `하루에 몇 개 먹는지 먼저 구해봐!\n(한 번에 먹는 수) × (하루 횟수) = 하루 복용량\n그 다음 × 일수 = 총 알약 수~`;}
+  if(t.includes('봉지')&&t.includes('개씩')&&t.includes('몇 개')){
+    const ns=t.match(/\d+/g)?.map(Number);
+    if(ns&&ns.length>=2)return `봉지 수 × 한 봉지 개수 = 전체!\n${ns[1]}개씩 ${ns[0]}봉지라면?\n${ns[0]} × ${ns[1]} = ?~`;}
+  if(t.includes('캔')&&t.includes('봉지')&&t.includes('원')){
+    return `가격 × 수량을 각각 구한 다음 더해봐!\n(캔 가격 × 캔 수) + (과자 가격 × 봉지 수) = ?~`;}
+
+  // ── Lv3/4 누락 케이스 ──
+  if(t.includes('3의 배수')&&t.includes('5의 배수'))
+    return `3의 배수이면서 5의 배수? → 15의 배수!\n15, 30, 45... 중 조건에 맞는 것을 찾아봐~`;
+  if(t.includes('배수')&&t.includes('개수')&&t.match(/\d+까지/))
+    return `N까지 A의 배수 개수 = N ÷ A (나머지 버리기)\n예) 100까지 4의 배수 = 100÷4 = 25개~`;
+  if(t.includes('홀수의 합')&&t.match(/1부터\s*\d+/))
+    return `1부터 연속 홀수를 더하면 (개수)²!\n1~9까지 홀수: 1,3,5,7,9 → 5개 → 5²=25\n1~10 홀수도 5개이니까 5²=?~`;
+  if(t.includes('두 수의 합')&&t.includes('비가'))
+    return `합이 주어지고 비율이 있으면\n비율에 맞게 나눠봐!\n합 × (큰 비율) ÷ (비율의 합) = 큰 수~`;
+  if(t.includes('연속하는')&&t.includes('홀수')&&t.includes('합'))
+    return `연속 홀수 3개의 합은 가운데 수의 3배야!\n합 ÷ 3 = 가운데 수\n가운데 수 + 2 = 가장 큰 수~`;
+  if(t.includes('연속하는')&&t.includes('짝수'))
+    return `연속 짝수 2개의 합이 주어지면:\n큰 수 = (합 ÷ 2) + 1\n작은 수 = (합 ÷ 2) - 1~`;
+  if(t.includes('200의')&&t.includes('%'))
+    return `200의 40%는 200을 100으로 보고 40만큼!\n200 × 40 ÷ 100 = ?~`;
+  if(t.includes('시계')&&t.includes('분침')&&t.includes('시침')&&t.includes('겹'))
+    return `시침과 분침은 1시간마다 한 번씩 겹쳐!\n12시간에 12번 겹칠 것 같지만,\n12시 방향에서 동시 출발하면 11번만 겹쳐~`;
+  if(t.includes('3%')&&t.includes('배'))
+    return `어떤 수의 3/4이 주어진 값이라면\n주어진 값 ÷ 3 × 4 = 원래 수!\n거꾸로 나눈 다음 곱하면 돼~`;
+
+
+    // ── 추가 패치: 나머지 12케이스 ──
+  if(t.match(/\d+kg\s*\d+g/)||t.match(/\d+kg\s+\d+g/)){
+    const m=t.match(/(\d+)\s*kg\s*(\d+)\s*g/);if(m)
+      return `1kg = 1000g!\n${m[1]}kg을 g으로 바꾸면 ${m[1]}×1000=${+m[1]*1000}g\n거기에 ${m[2]}g를 더하면?~`;}
+  if(t.includes('최대한 많은')&&t.includes('나누려')&&t.includes('명에게'))
+    return `남김없이 나눌 수 있는 최대 명수?\n두 수를 모두 나눌 수 있는 수 중 가장 큰 것!\n그게 바로 최대공약수야~\n24와 36의 공약수 중 가장 큰 것은?`;
+  if(t.includes('전구')&&t.includes('분마다')&&t.includes('동시'))
+    return `두 전구가 동시에 깜빡이는 시간?\n두 숫자의 공배수 중 가장 작은 것!\n그게 바로 최소공배수야~\n6과 9의 공배수: 18, 36...`;
+  if(t.includes('봉지에')&&t.includes('남김없이')&&t.includes('최대'))
+    return `두 수를 모두 남김없이 나눌 수 있는\n가장 큰 수? 그게 최대공약수야!\n18과 24의 공약수 중 가장 큰 것은?`;
+  if(t.includes('7의 배수')&&t.includes('50보다 작은')&&t.includes('가장 큰'))
+    return `7의 배수를 거꾸로 세어봐!\n7×7=49, 7×6=42...\n50보다 작은 7의 배수 중 가장 큰 것은?`;
+  if(t.includes('정육면체')&&t.includes('부피')&&t.match(/(\d+)cm/)){
+    const m=t.match(/(\d+)cm/);if(m)
+      return `정육면체는 가로=세로=높이가 모두 같아!\n한 변을 세 번 곱하면 부피!\n${m[1]}×${m[1]}×${m[1]}=?~`;}
+  if(t.includes('두 수의 합')&&t.includes('차')&&!t.includes('비가')){
+    const ns=t.match(/(\d+)/g)?.map(Number);if(ns&&ns.length>=2)
+      return `합과 차가 있으면 이 공식!\n큰 수 = (합 + 차) ÷ 2\n작은 수 = (합 - 차) ÷ 2\n(합+차)가 항상 짝수인 이유를 생각해봐~`;}
+  if(t.includes('전체 금액의')&&t.includes('%')&&t.includes('원이면')){
+    const p=t.match(/(\d+)%/),v=t.match(/(\d+)원이면/);if(p&&v)
+      return `${p[1]}%가 ${v[1]}원이라면,\n1%는 ${v[1]}÷${p[1]}원!\n전체 100%는 그것×100 = ?원~`;}
+  if(t.includes('나눌 때')&&t.includes('남는')){
+    const ns=t.match(/\d+/g)?.map(Number);if(ns&&ns.length>=2)
+      return `${ns[0]}개를 ${ns[1]}명에게 나누면?\n${ns[1]}×?가 ${ns[0]}에 가장 가까운 수를 찾아!\n나머지 = ${ns[0]} - (${ns[1]}×몫)~`;}
+  if(t.includes('어떤 수에서')&&t.includes('빼고')&&t.includes('곱했더니'))
+    return `거꾸로 계산해봐!\n결과 → ÷곱한수 → +뺀수 = 원래 수\n16÷2=8, 8+7=?~`;
+  if(t.includes('한 면의 넓이')&&t.includes('정육면체')&&t.includes('겉넓이')){
+    const ns=t.match(/\d+/g)?.map(Number);if(ns)
+      return `정육면체는 면이 6개, 모두 똑같은 크기!\n겉넓이 = 한 면의 넓이 × 6\n${ns[0]} × 6 = ?~`;}
+  if(t.includes('형제')&&t.includes('합')&&t.includes('5년 전')&&t.includes('2배'))
+    return `현재 형의 나이를 □로 놓으면\n동생은 (합-□)살!\n5년 전엔 형이 (□-5), 동생이 (합-□-5)\n형이 동생의 2배: □-5 = 2×(합-□-5)로 풀어봐~`;
+
+
+    // ── 서술형 숫자 패턴 감지 ──
   {
     const ns=[...t.matchAll(/(\d+)/g)].map(m=>+m[1]).filter(n=>n>1&&n<100000);
     if(ns.length>=2){
