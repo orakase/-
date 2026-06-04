@@ -4447,21 +4447,7 @@ const _PX = (function() {
   }
   function spawn(vx, vy, cols) {
     if (!ctx && !init()) return;
-    // 충격파 링 (canvas)
-    let ringR = 0, ringAlpha = 1;
-    (function ringLoop() {
-      if (ringAlpha <= 0) return;
-      ringR += 5; ringAlpha -= 0.07;
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, ringAlpha);
-      ctx.strokeStyle = cols[0];
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(vx, vy, ringR, 0, Math.PI*2);
-      ctx.stroke();
-      ctx.restore();
-      requestAnimationFrame(ringLoop);
-    })();
+
     // 빠른 파티클 (16개)
     for (let i = 0; i < 16 * mult; i++) {
       const a = (i/16)*Math.PI*2 + Math.random()*0.4;
