@@ -2090,12 +2090,12 @@ es:{privH1:'Datos Recopilados',privB1:'Esta app no recopila información persona
 Object.keys(LANG_DATA_EXT2).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT2[lang]);});
 ['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT2.en,LANG_DATA[lang]);});
 const LANG_DATA_EXT3 = {
-ko:{abilitySidebarTitle:'합산 능력치',alienNoneConfirmed:'확정된 동료가 없어요',unitSec:'초',unitCount:'카운트',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (느리게)',hintWatching:'⏳ 시청 중...',hintDone:'✅ 완료',alienConfirmedReason:'동료 확정',starAttendance:'출석 보너스'},
-en:{abilitySidebarTitle:'Total Abilities',alienNoneConfirmed:'No allies confirmed yet',unitSec:'s',unitCount:'count',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (slower)',hintWatching:'⏳ Watching...',hintDone:'✅ Done',alienConfirmedReason:'Ally Confirmed',starAttendance:'Login Bonus'},
-ja:{abilitySidebarTitle:'合算能力',alienNoneConfirmed:'確定した仲間がいません',unitSec:'秒',unitCount:'カウント',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (遅く)',hintWatching:'⏳ 視聴中...',hintDone:'✅ 完了',alienConfirmedReason:'仲間確定',starAttendance:'出席ボーナス'},
-'zh-TW':{abilitySidebarTitle:'合計能力',alienNoneConfirmed:'還沒有確定的夥伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (較慢)',hintWatching:'⏳ 觀看中...',hintDone:'✅ 完成',alienConfirmedReason:'夥伴確定',starAttendance:'登入獎勵'},
-'zh-CN':{abilitySidebarTitle:'合计能力',alienNoneConfirmed:'还没有确定的伙伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (较慢)',hintWatching:'⏳ 观看中...',hintDone:'✅ 完成',alienConfirmedReason:'伙伴确定',starAttendance:'登录奖励'},
-es:{abilitySidebarTitle:'Habilidades Totales',alienNoneConfirmed:'Aún no hay aliados confirmados',unitSec:'s',unitCount:'veces',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (más lento)',hintWatching:'⏳ Viendo...',hintDone:'✅ Listo',alienConfirmedReason:'Aliado Confirmado',starAttendance:'Bono Asistencia'},
+ko:{feverStartDesc:'무적 · 범위폭발 · 속도 2배!',abilitySidebarTitle:'합산 능력치',alienNoneConfirmed:'확정된 동료가 없어요',unitSec:'초',unitCount:'카운트',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (느리게)',hintWatching:'⏳ 시청 중...',hintDone:'✅ 완료',alienConfirmedReason:'동료 확정',starAttendance:'출석 보너스'},
+en:{feverStartDesc:'Invincible · AoE Blast · 2x Speed!',abilitySidebarTitle:'Total Abilities',alienNoneConfirmed:'No allies confirmed yet',unitSec:'s',unitCount:'count',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (slower)',hintWatching:'⏳ Watching...',hintDone:'✅ Done',alienConfirmedReason:'Ally Confirmed',starAttendance:'Login Bonus'},
+ja:{feverStartDesc:'無敵 · 範囲爆発 · 速度2倍！',abilitySidebarTitle:'合算能力',alienNoneConfirmed:'確定した仲間がいません',unitSec:'秒',unitCount:'カウント',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (遅く)',hintWatching:'⏳ 視聴中...',hintDone:'✅ 完了',alienConfirmedReason:'仲間確定',starAttendance:'出席ボーナス'},
+'zh-TW':{feverStartDesc:'無敵 · 範圍爆炸 · 速度2倍！',abilitySidebarTitle:'合計能力',alienNoneConfirmed:'還沒有確定的夥伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (較慢)',hintWatching:'⏳ 觀看中...',hintDone:'✅ 完成',alienConfirmedReason:'夥伴確定',starAttendance:'登入獎勵'},
+'zh-CN':{feverStartDesc:'无敌 · 范围爆炸 · 速度2倍！',abilitySidebarTitle:'合计能力',alienNoneConfirmed:'还没有确定的伙伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (较慢)',hintWatching:'⏳ 观看中...',hintDone:'✅ 完成',alienConfirmedReason:'伙伴确定',starAttendance:'登录奖励'},
+es:{feverStartDesc:'Invencible · Explosión AoE · ¡Velocidad 2x!',abilitySidebarTitle:'Habilidades Totales',alienNoneConfirmed:'Aún no hay aliados confirmados',unitSec:'s',unitCount:'veces',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (más lento)',hintWatching:'⏳ Viendo...',hintDone:'✅ Listo',alienConfirmedReason:'Aliado Confirmado',starAttendance:'Bono Asistencia'},
 };
 Object.keys(LANG_DATA_EXT3).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT3[lang]);});
 ['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT3.en,LANG_DATA[lang]);});
@@ -6090,7 +6090,7 @@ function endFever() {
 function showFeverBanner() {
   const p = document.createElement('div');
   p.className = 'fever-start-pop';
-  p.innerHTML = '🔥 FEVER MODE!! 🔥<br><span style="font-size:13px;letter-spacing:1px;opacity:.9;">무적 · 범위폭발 · 속도 2배!</span>';
+  p.innerHTML = `🔥 FEVER MODE!! 🔥<br><span style="font-size:13px;letter-spacing:1px;opacity:.9;">${tr('feverStartDesc')}</span>`;
   gameEl.appendChild(p);
   setTimeout(() => p.remove(), 2700);
   // 피버 보이스는 startFever()의 sfxFeverVoiceEcho()가 처리
