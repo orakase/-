@@ -2089,6 +2089,17 @@ es:{privH1:'Datos Recopilados',privB1:'Esta app no recopila información persona
 };
 Object.keys(LANG_DATA_EXT2).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT2[lang]);});
 ['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT2.en,LANG_DATA[lang]);});
+const LANG_DATA_EXT3 = {
+ko:{abilitySidebarTitle:'합산 능력치',alienNoneConfirmed:'확정된 동료가 없어요',unitSec:'초',unitCount:'카운트',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (느리게)',hintWatching:'⏳ 시청 중...',hintDone:'✅ 완료',alienConfirmedReason:'동료 확정',starAttendance:'출석 보너스'},
+en:{abilitySidebarTitle:'Total Abilities',alienNoneConfirmed:'No allies confirmed yet',unitSec:'s',unitCount:'count',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (slower)',hintWatching:'⏳ Watching...',hintDone:'✅ Done',alienConfirmedReason:'Ally Confirmed',starAttendance:'Login Bonus'},
+ja:{abilitySidebarTitle:'合算能力',alienNoneConfirmed:'確定した仲間がいません',unitSec:'秒',unitCount:'カウント',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (遅く)',hintWatching:'⏳ 視聴中...',hintDone:'✅ 完了',alienConfirmedReason:'仲間確定',starAttendance:'出席ボーナス'},
+'zh-TW':{abilitySidebarTitle:'合計能力',alienNoneConfirmed:'還沒有確定的夥伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (較慢)',hintWatching:'⏳ 觀看中...',hintDone:'✅ 完成',alienConfirmedReason:'夥伴確定',starAttendance:'登入獎勵'},
+'zh-CN':{abilitySidebarTitle:'合计能力',alienNoneConfirmed:'还没有确定的伙伴',unitSec:'秒',unitCount:'次',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (较慢)',hintWatching:'⏳ 观看中...',hintDone:'✅ 完成',alienConfirmedReason:'伙伴确定',starAttendance:'登录奖励'},
+es:{abilitySidebarTitle:'Habilidades Totales',alienNoneConfirmed:'Aún no hay aliados confirmados',unitSec:'s',unitCount:'veces',unitMs:'ms',unitPct:'%',unitHp:'HP',unitPctSlower:'% (más lento)',hintWatching:'⏳ Viendo...',hintDone:'✅ Listo',alienConfirmedReason:'Aliado Confirmado',starAttendance:'Bono Asistencia'},
+};
+Object.keys(LANG_DATA_EXT3).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT3[lang]);});
+['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT3.en,LANG_DATA[lang]);});
+
 
 
 function applyAudioSettings(){
@@ -6422,7 +6433,7 @@ setTimeout(function checkDailyStars(){
   const today=new Date().toISOString().slice(0,10);
   if(SKIN_SAVE.lastStarDate===today) return;
   SKIN_SAVE.lastStarDate=today;
-  giveStars(5, '출석 보너스');
+  giveStars(5, tr('starAttendance'));
   // 7일 연속 출석 보너스
   if((GSTATS.loginStreak||0)>=7 && GSTATS.loginStreak%7===0) giveStars(30, '7일 연속 출석');
 }, 0);
@@ -7093,6 +7104,8 @@ function getAlienData(idx) {
     abilityId,
     abilityLabel: ab ? ab.label : '',
     abilityUnit:  ab ? ab.unit  : '',
+    abilityLk: ab ? ab.lk : null,
+    abilityUk: ab ? ab.uk : null,
   };
 }
 
@@ -7487,7 +7500,7 @@ function showMedalDetail(id) {
     ${st.tier < st.maxTier
       ? `<div style="font-size:11px;color:#aab;margin-top:2px;">${trf('tierStarRewardFmt',{n:MEDAL_TIER_STARS[st.tier+1]||100})}</div>`
       : `<div style="font-size:11px;color:#44ffaa;margin-top:2px;">${tr('tierAllStars')}</div>`}
-    <button class="mpop-close" onclick="closeMedalPopup()" data-i18n="closeBtnTxt">닫기</button>`; 
+    <button class="mpop-close" onclick="closeMedalPopup()">${tr('closeBtnTxt')}</button>`;
   $('medal-popup-wrap').style.display = 'flex';
   sfxPopupOpen();
 }
@@ -7845,7 +7858,7 @@ function renderAlienTab(tab) {
       if(!n) return '';
       const total = (n * ab.value);
       const totalStr = Number.isInteger(total) ? total : total.toFixed(1);
-      return `<div class="ability-row"><b>${ab.lk?tr(ab.lk):ab.label}</b><br>${ab.unit.replace(/[+-]/,'').replace(/[\d.]+/,totalStr)}${ab.unit.startsWith('+')?(' '+tr('abilityAdded')):(' '+tr('abilityReduced'))}</div>`;
+      const _unitStr=ab.uk?tr(ab.uk):ab.unit.replace(/[+-]/g,'').replace(/[\d.]+/g,''); return `<div class="ability-row"><b>${ab.lk?tr(ab.lk):ab.label}</b><br>${totalStr}${_unitStr} ${ab.unit.startsWith('+')?tr('abilityAdded'):tr('abilityReduced')}</div>`;
     }).join('');
 
     const sortBtns = ['acquired','number','grade','ability'].map((s,i)=>{
@@ -7887,7 +7900,7 @@ function renderAlienTab(tab) {
       unknowns.forEach(i => { html += mkUnknown(i); });
     }
     html += '</div>';
-    html += `<div class="ability-sidebar"><div class="ability-sidebar-title">📊 합산 능력치</div>${abSummary||'<div style="color:#445">확정된 동료가 없어요</div>'}</div>`;
+    html += `<div class="ability-sidebar"><div class="ability-sidebar-title">📊 ${tr('abilitySidebarTitle')}</div>${abSummary||'<div style="color:#445">${tr('alienNoneConfirmed')}</div>'}</div>`;
     html += '</div>';
     scroll.innerHTML = html;
   applyTwemoji(scroll);
@@ -8275,13 +8288,13 @@ function requestAlienHint(idx) {
   yesBtn.onclick = () => {
     overlay.style.display = 'none';
     const btn = document.getElementById('alien-hint-btn');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ 시청 중...'; }
+    if (btn) { btn.disabled = true; btn.textContent = tr('hintWatching'); }
     setTimeout(() => {
       const d = getAlienData(idx);
       const hint = generateAlienHint(d.problem.q, d.problem.a);
       const box = document.getElementById('alien-hint-box');
       if (box) { box.textContent = hint; box.style.display = 'block'; }
-      if (btn) btn.textContent = '✅ 완료';
+      if (btn) btn.textContent = tr('hintDone');
     }, 2000);
   };
 }
@@ -8341,7 +8354,7 @@ function submitAlienAnswer(idx, correct) {
     if (!ALIEN_SAVE.confirmed.includes(idx)) {
       ALIEN_SAVE.confirmed.push(idx);
       ALIEN_SAVE.newConfirmed.push(idx);
-      giveStars(d.gradeStars, `${d.name} 동료 확정`);
+      giveStars(d.gradeStars, `${d.name} ${tr('alienConfirmedReason')}`);
       saveAlienSave(); updateAlienRedDots();
     }
     closeAlienPopup();
@@ -8367,7 +8380,7 @@ function openAlienProfile(idx, isNew=false, correctMsg='') {
       <span class="grade-badge grade-${d.grade}" style="position:static;display:inline-block;font-size:11px;">${d.grade}</span>
       <span style="font-size:11px;color:#aab;margin-left:6px;">${trf('alienConfirmRewardLbl',{n:d.gradeStars})}</span>
     </div>
-    <div class="profile-section"><b>${tr('alienAbility')}</b><br><span class="profile-ability-chip">${d.abilityLabel} ${d.abilityUnit}</span></div>
+    <div class="profile-section"><b>${tr('alienAbility')}</b><br><span class="profile-ability-chip">${d.abilityLk?tr(d.abilityLk):d.abilityLabel} ${d.abilityUk?d.abilityUnit.replace(/[^+\-\d.]/g,'')+tr(d.abilityUk):d.abilityUnit}</span></div>
     <button class="popup-close-btn" onclick="closeAlienPopup()" style="margin-top:4px;">${tr('closeBtnTxt')}</button>`;
   $('alien-popup-wrap').style.display = 'flex';
   document.querySelectorAll('.alien-get-pop').forEach(e=>e.remove());
