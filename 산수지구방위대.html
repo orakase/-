@@ -2232,8 +2232,6 @@ es:{
   hintBracket:'¡Siempre resuelve dentro de los paréntesis primero!\nEn matemáticas, los paréntesis dicen "¡calcúlame primero!"~',
   hintOrderOps:'¡Las matemáticas tienen un orden de operaciones!\n×÷ antes que +-, esa es la regla~',
 },
-};
-
 pt:{
   agPerso:['corajoso/a e direto/a','tímido/a e gentil','curioso/a e enérgico/a','frio/a e lógico/a','alegre e excêntrico/a','misterioso/a e quieto/a','teimoso/a mas determinado/a','caloroso/a e gentil','sério/a e sincero/a','livre e otimista'],
   agReasons:['para proteger a paz','para vingar a família perdida','por curiosidade científica','para restaurar o equilíbrio cósmico','basicamente por tédio'],
@@ -2306,6 +2304,7 @@ vi:{
   agWrongs:(i)=>['Không phải vậy! Nghĩ lại đi!','Ồ... sai rồi... không sao, thử lại đi.','Hmm, tôi nghĩ không đúng? Thêm một lần nữa!','Sai. Tôi khuyên bạn nên xem lại.','Buzz! Sai! Thử lại~','...Không... quay lại...','Không bỏ cuộc, nhưng sai rồi. Lại!','Ôi không... suýt rồi. Lần sau chắc chắn!','Chưa đúng lắm. Hãy thử lại.','Ối, sai! Lần sau nhé!'][i]??AG.wrongs[i%AG.wrongs.length],
   agCorrects:(i)=>['Đúng! Hãy chiến đấu cùng nhau!','Đúng rồi! Cảm ơn... tôi sẽ là đồng minh của bạn!','Đúng! Giải được bài này... bạn là thiên tài à?!','Chính xác. Tôi công nhận bạn là đồng minh.','Wow, làm được rồi! Tôi biết mình có con mắt tinh tường~','...Đúng rồi... tôi xúc động lắm...','Làm được rồi! Với quyết tâm đó chúng ta có thể làm việc cùng nhau!','Đúng như mong đợi! Hãy cùng nhau phiêu lưu!','Xuất sắc. Chúng ta sẽ thực hiện nhiệm vụ cùng nhau.','Làm được rồi! Thú vị quá! Cùng nhau chơi nào!'][i]??AG.corrects[i%AG.corrects.length],
 },
+};
 Object.keys(LANG_DATA_EXT4).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT4[lang]);});
 
 
