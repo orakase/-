@@ -1921,9 +1921,9 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <div id="shop-popup-wrap">
   <div id="shop-popup">
     <div class="shop-header">
-      <span class="shop-title"><img src="twemoji/1f31f.svg" width="16" height="16" style="vertical-align:middle;margin-right:4px;">스킨 상점</span>
+      <span class="shop-title"><img src="twemoji/1f31f.svg" width="16" height="16" style="vertical-align:middle;margin-right:4px;"><span data-i18n="shopTitle">스킨 상점</span></span>
       <div class="shop-stars-badge"><img src="twemoji/2b50.svg" width="14" height="14" style="vertical-align:middle;"> <span id="shop-stars-val">0</span></div>
-      <button class="ov-back-btn" id="btn-shop-back">✕</button>
+      <button class="ov-back-btn" id="btn-shop-back" data-i18n="closeX">✕</button>
     </div>
     <div class="shop-cat-tabs" id="shop-cat-tabs"></div>
     <div class="shop-body" id="shop-body"></div>
@@ -1932,11 +1932,11 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <!-- 힌트 광고 확인 팝업 -->
 <div id="hint-confirm-overlay">
   <div id="hint-confirm-box">
-    <div class="hcb-title">💡 힌트 받기</div>
-    <div class="hcb-desc">짧은 광고를 시청하면<br>이 문제의 힌트를 받을 수 있어요!</div>
+    <div class="hcb-title" data-i18n="hintTitle">💡 힌트 받기</div>
+    <div class="hcb-desc" data-i18n="hintDesc">짧은 광고를 시청하면 이 문제의 힌트를 받을 수 있어요!</div>
     <div class="hcb-row">
-      <button class="hcb-btn-yes" id="hcb-btn-yes">▶ 광고 보기</button>
-      <button class="hcb-btn-no" onclick="document.getElementById('hint-confirm-overlay').style.display='none'">취소</button>
+      <button class="hcb-btn-yes" id="hcb-btn-yes" data-i18n="watchAd">▶ 광고 보기</button>
+      <button class="hcb-btn-no" onclick="document.getElementById('hint-confirm-overlay').style.display='none'" data-i18n="cancel">취소</button>
     </div>
   </div>
 </div>
@@ -1945,12 +1945,12 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <div id="aliens-popup-wrap">
   <div id="aliens-popup">
     <div class="ov-sub-header">
-      <span class="ov-sub-title"><img src="twemoji/1f47e.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;">외계인 동료</span>
-      <button class="ov-back-btn" id="btn-aliens-back">✕ 닫기</button>
+      <span class="ov-sub-title"><img src="twemoji/1f47e.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><span data-i18n="aliensPopTitle">외계인 동료</span></span>
+      <button class="ov-back-btn" id="btn-aliens-back" data-i18n="closeBtnX">✕ 닫기</button>
     </div>
     <div class="alien-tabs">
-      <div class="alien-tab active" id="atab-confirmed" onclick="switchAlienTab('confirmed')">동료 확정<span class="red-dot" id="rd-confirmed" style="display:none;"></span></div>
-      <div class="alien-tab" id="atab-pending" onclick="switchAlienTab('pending')">동료 고민<span class="red-dot" id="rd-pending" style="display:none;"></span></div>
+      <div class="alien-tab active" id="atab-confirmed" onclick="switchAlienTab('confirmed')"><span data-i18n="confirmedTab">동료 확정</span><span class="red-dot" id="rd-confirmed" style="display:none;"></span></div>
+      <div class="alien-tab" id="atab-pending" onclick="switchAlienTab('pending')"><span data-i18n="pendingTab">동료 고민</span><span class="red-dot" id="rd-pending" style="display:none;"></span></div>
     </div>
     <div class="alien-scroll" id="alien-scroll"></div>
   </div>
@@ -1958,9 +1958,9 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <!-- 점수 기록 팝업 -->
 <div id="scores-popup-wrap">
   <div id="scores-popup">
-    <div style="text-align:center;font-size:16px;font-weight:900;color:#ffd700;margin-bottom:4px;">🏆 역대 Top 10</div>
+    <div style="text-align:center;font-size:16px;font-weight:900;color:#ffd700;margin-bottom:4px;" data-i18n="scoresTitle">🏆 역대 Top 10</div>
     <div id="scores-list"></div>
-    <button class="mpop-close" onclick="$('scores-popup-wrap').style.display='none'" style="margin-top:6px;">닫기</button>
+    <button class="mpop-close" onclick="$('scores-popup-wrap').style.display='none'" style="margin-top:6px;" data-i18n="closeBtnTxt">닫기</button>
   </div>
 </div>
 <!-- 메달 상세 팝업 -->
@@ -1975,8 +1975,8 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <div id="medals-popup-wrap">
   <div id="medals-popup">
     <div class="ov-sub-header">
-      <span class="ov-sub-title"><img src="twemoji/1f3c5.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;">훈장 진열장</span>
-      <button class="ov-back-btn" id="btn-medals-back">✕ 닫기</button>
+      <span class="ov-sub-title"><img src="twemoji/1f3c5.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><span data-i18n="medalsTitle">훈장 진열장</span></span>
+      <button class="ov-back-btn" id="btn-medals-back" data-i18n="closeBtnX">✕ 닫기</button>
     </div>
     <div class="medals-scroll" id="medals-scroll"></div>
   </div>
@@ -1986,15 +1986,15 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <div id="report-popup-wrap">
   <div id="report-popup">
     <div class="ov-sub-header">
-      <span class="ov-sub-title"><img src="twemoji/1f4ca.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;">학습 리포트</span>
+      <span class="ov-sub-title"><img src="twemoji/1f4ca.svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><span data-i18n="reportPageTitle">학습 리포트</span></span>
       <div style="display:flex;gap:6px;align-items:center;">
-        <button class="ov-back-btn" onclick="shareReport()" style="border-color:rgba(100,200,255,.3);color:#88ccff;">📤 공유</button>
-        <button class="ov-back-btn" id="btn-report-back">✕ 닫기</button>
+        <button class="ov-back-btn" onclick="shareReport()" style="border-color:rgba(100,200,255,.3);color:#88ccff;" data-i18n="shareBtnIcon">📤 공유</button>
+        <button class="ov-back-btn" id="btn-report-back" data-i18n="closeBtnX">✕ 닫기</button>
       </div>
     </div>
     <div class="report-tabs">
-      <div class="report-tab active" id="tab-daily" onclick="switchReportTab('daily')">오늘</div>
-      <div class="report-tab" id="tab-weekly" onclick="switchReportTab('weekly')">이번 주</div>
+      <div class="report-tab active" id="tab-daily" onclick="switchReportTab('daily')" data-i18n="tabToday">오늘</div>
+      <div class="report-tab" id="tab-weekly" onclick="switchReportTab('weekly')" data-i18n="tabWeekly">이번 주</div>
     </div>
     <div class="report-body" id="report-body"></div>
   </div>
@@ -2011,6 +2011,7 @@ let GSETTINGS = Object.assign({}, SETT_DEF);
 (function(){ try { const r=localStorage.getItem(SETTINGS_KEY); if(r) GSETTINGS=Object.assign({},SETT_DEF,JSON.parse(r)); } catch(e){} })();
 function saveSettings(){ try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(GSETTINGS));}catch(e){} }
 function tr(k){ return ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko)[k])||(LANG_DATA.ko[k])||k; }
+function trf(k,p){ let s=tr(k); if(p) Object.keys(p).forEach(v=>s=s.replace('{'+v+'}',p[v])); return s; }
 function loadLangFont(lang){
   const FONTS={
     'ja':  {name:'DotGothic16',   url:'https://fonts.googleapis.com/css2?family=DotGothic16&display=swap'},
@@ -2047,6 +2048,22 @@ function applyLang(){
 function settLangChange(lang){
   GSETTINGS.lang=lang; saveSettings(); applyLang();
 }
+
+const LANG_DATA_EXT = {
+ko:{feverLabel:'피버',shopTitle:'스킨 상점',closeX:'✕',closeBtnX:'✕ 닫기',closeBtnTxt:'닫기',aliensPopTitle:'외계인 동료',confirmedTab:'동료 확정',pendingTab:'동료 고민',scoresTitle:'🏆 역대 Top 10',medalsTitle:'훈장 진열장',reportPageTitle:'학습 리포트',tabToday:'오늘',tabWeekly:'이번 주',shareBtnIcon:'📤 공유',hintTitle:'💡 힌트 받기',hintDesc:'짧은 광고를 시청하면 이 문제의 힌트를 받을 수 있어요!',watchAd:'▶ 광고 보기',cancel:'취소',catRocket:'로켓',catMissile:'미사일',catLaser:'피버 레이저',catBg:'배경',catFever:'피버 테마',catCard:'계산식 카드',catExplosion:'특수 폭발',equipped:'장착 중',equip:'장착',skinRocketDefault:'방위대 로켓',skinRocketUfo:'포획 UFO',skinRocketBattleship:'우주전함',skinRocketDragon:'수호 드래곤',skinRocketWhale:'우주 고래',skinMissileDefault:'화염탄',skinMissileIce:'냉동탄',skinMissileThunder:'번개탄',skinMissileToxic:'독소탄',skinMissileAurora:'오로라탄',skinLaserDefault:'화염',skinLaserCyan:'사이안',skinLaserPlasma:'플라즈마',skinLaserEmerald:'에메랄드',skinLaserGalaxy:'은하',skinBgDefault:'심우주',skinBgMars:'화성',skinBgNebula:'성운',skinBgIce:'얼음 행성',skinBgBlackhole:'블랙홀',skinFeverDefault:'보라 폭풍',skinFeverAurora:'오로라',skinFeverFlame:'화염',skinFeverGold:'황금 폭풍',skinFeverCyber:'사이버',skinCardDefault:'우주군',skinCardJungle:'정글',skinCardOcean:'심해',skinCardMagma:'마그마',skinCardGold:'황금 제국',skinExplosionDefault:'화염',skinExplosionIce:'냉기',skinExplosionPlasma:'플라즈마',skinExplosionToxic:'독기',skinExplosionGalaxy:'은하',reportDailyProblems:'일별 풀이 문제 수',reportOpBreakdown:'연산별 풀이',totalCorrect:'총 정답',accuracy:'정답률',daysPlayedLbl:'출석일',weekdays:'일,월,화,수,목,금,토',assessNoPlayDaily:'오늘은 아직 플레이하지 않았어요. 지금 시작해볼까요? 🚀',assessNoPlayWeekly:'이번 주는 플레이 기록이 없어요. 내일부터 조금씩 시작해봐요! 😊',assessDays6:'이번 주 <b>{n}일</b>이나 빠짐없이 열심히 했어요! 정말 대단한 꾸준함이에요. 🌟',assessDays4:'이번 주 <b>{n}일</b> 접속했어요. 꾸준히 하고 있네요! 💪',assessDays2:'이번 주 <b>{n}일</b> 플레이했어요. 조금 더 자주 하면 더 빨리 늘 거예요.',assessDays1:'이번 주는 많이 바빴나봐요. 하루에 5분이라도 꾸준히 해보면 어떨까요?',assessProb50:'하루 평균 <b>{n}문제</b>를 풀었어요. 정말 열심히 하고 있어요!',assessProb20:'하루 <b>{n}문제</b> 정도 풀었어요.',assessProbFew:'문제를 조금 더 많이 풀어보면 실력이 더 빨리 늘어요.',assessAcc95:'정답률 <b>{n}%</b>로 아주 정확해요! 🎯',assessAcc85:'정답률 <b>{n}%</b>로 꽤 정확한 편이에요.',assessAcc70:'정답률이 <b>{n}%</b>예요. 서두르지 말고 잘 생각하고 답해봐요.',assessAccLow:'정답률 <b>{n}%</b>로 아직 실수가 좀 있어요. 천천히 정확하게 하는 연습이 필요해요.',assessWeakOp:'<b>{op}</b> 문제를 상대적으로 적게 풀었어요. 더 연습해봐요.',opAdd:'덧셈',opSub:'뺄셈',opMul:'곱셈',medalSecMath:'📐 수학 능력 훈장',medalSecBattle:'⚔️ 전투 기록 훈장',medalSecTactic:'🎯 전술 기록 훈장',medalSecSpecial:'💎 특별 훈장',tierLocked:'미획득',tierBronze:'구리',tierSilver:'은',tierGold:'금',tierPlatinum:'플래티넘',tierComplete:'★ 완성',tierMaxAchieved:'최고 등급 달성!',tierNextFmt:'다음 등급({tier})까지 {n} 남음',tierCumulative:'누적',tierBestRecord:'최고 기록',tierSeconds:'초',tierStarRewardFmt:'다음 등급 달성 시 ⭐ {n}별 획득',tierAllStars:'✓ 모든 별 보상 획득 완료!',rankPrivate:'신병',rankSoldier:'병사',rankOfficer:'장교',rankCommander:'사령관',medalAdd:'덧셈 훈장',medalSub:'뺄셈 훈장',medalMul:'곱셈 훈장',medalDiv:'나눗셈 훈장',medalCombo:'콤보 훈장',medalFever:'피버 훈장',medalBoss:'보스 훈장',medalAllclear:'올클리어 훈장',medalLevel:'생존 훈장',medalScore:'점수 훈장',medalOneshot:'한방 다중격추',medalCrossshot:'크로스빔 신궁',medalBubbleshot:'버블봄 폭격수',medalNukeshot:'핵폭탄 섬멸자',medalXshot:'X크래시 달인',medalBosstime:'보스 처치 속도',medalFreezekill:'정지 저격수',medalFeverkill:'피버 학살자',medalNohit:'무피해 수호자',medalCompanions:'동료 수집가',medalSkins:'패션 리더',medalStreak7:'7일 전사',medalStreak30:'한달 전설',medalFeverall:'무아지경',medalNodmg:'무적 사냥꾼',medalCombo100:'백연속',medalFeverstorm:'불꽃 폭풍',hintLevel:'최고 도달 레벨',hintOneshot:'답 1회 제출로 동시에 격추한 최대 마리',hintCrossshot:'크로스빔 1회로 격추한 최대 마리',hintBubbleshot:'버블봄 1회로 격추한 최대 마리',hintNukeshot:'핵폭탄 1회로 격추한 최대 마리',hintXshot:'X크래시 1회로 격추한 최대 마리',hintBosstime:'보스를 가장 빠르게 처치한 기록 (낮을수록 좋음)',hintFreezekill:'정지 1회 동안 격추한 최대 마리',hintFeverkill:'피버 1회 동안 격추한 최대 마리',hintNohit:'HP 손실 없이 버틴 최고 레벨',hintCompanions:'동료로 확정한 외계인 수',hintSkins:'구매한 스킨 수 (기본 제외)',reqStreak7:'7일 연속 접속',reqStreak30:'30일 연속 접속',reqFeverall:'피버 중 올클리어',reqNodmg:'보스전 중 HP 손실 없이 격파',reqCombo100:'콤보 100 달성',reqFeverstorm:'한 게임 피버 5회 이상',sortAcquired:'확정순',sortNumber:'번호순',sortGrade:'등급순',sortAbility:'능력순',confirmedCountFmt:'{n} / {total}명',alienNone:'아직 만난 외계인이 없어요.\n보스를 격파하면 외계인이 찾아와요! 👾',alienAll200:'🎉 200명의 외계인을 모두 만났어요!<br>동료 고민 목록이 비어있다면 모두 확정한 거예요!',alienNoPendingFmt:'현재 고민 중인 외계인이 없어요.<br><br>아직 만나지 못한 외계인이 <b style="color:#fff">{n}명</b> 더 있어요.<br>보스를 격파하면 새로운 외계인이 찾아와요! 👾',alienConfirmReward:'동료로 확정하면 <span style="color:#ffd700;font-weight:800;">⭐ {n}별</span>을 받아요!',alienRetry:'다시 도전',alienNewMember:'동료가 됐다!',alienConfirmRewardLbl:'동료 확정 보상 ⭐ {n}개',alienAbility:'특수 능력:',alienPersonality:'성격:',alienGetBanner:'새로운 외계인이 만나고 싶어합니다',alienSubmitBtn:'제출',alienHintBtn:'💡 힌트',abilityStartHp:'게임 시작 HP',abilityFeverDur:'피버 지속시간',abilityComboTime:'콤보 연결 시간',abilityCoverDur:'동료 로켓 지속',abilityCoverCool:'동료 로켓 쿨타임',abilityNukeRange:'핵폭탄 범위',abilityScoreMult:'점수 배율',abilityFeverExt:'피버 연장 최솟값',abilityBossFever:'보스 격파 피버',abilityUfoSpeed:'UFO 이동속도',abilityFeverUfo:'피버 발동 UFO',abilityCoverFrz:'동결 지속시간',abilityFallSpeed:'낙하 속도',abilityAdded:'추가',abilityReduced:'감소'},
+en:{feverLabel:'Fever',shopTitle:'Skin Shop',closeX:'✕',closeBtnX:'✕ Close',closeBtnTxt:'Close',aliensPopTitle:'Alien Allies',confirmedTab:'Confirmed',pendingTab:'Pending',scoresTitle:'🏆 Top 10 Scores',medalsTitle:'Medal Cabinet',reportPageTitle:'Learning Report',tabToday:'Today',tabWeekly:'This Week',shareBtnIcon:'📤 Share',hintTitle:'💡 Get Hint',hintDesc:'Watch a short ad to get a hint for this problem!',watchAd:'▶ Watch Ad',cancel:'Cancel',catRocket:'Rocket',catMissile:'Missile',catLaser:'Fever Laser',catBg:'Background',catFever:'Fever Theme',catCard:'Card Style',catExplosion:'Explosion FX',equipped:'Equipped',equip:'Equip',skinRocketDefault:'Defense Rocket',skinRocketUfo:'Captured UFO',skinRocketBattleship:'Space Battleship',skinRocketDragon:'Guardian Dragon',skinRocketWhale:'Space Whale',skinMissileDefault:'Flame Shot',skinMissileIce:'Ice Shot',skinMissileThunder:'Thunder Shot',skinMissileToxic:'Toxic Shot',skinMissileAurora:'Aurora Shot',skinLaserDefault:'Flame',skinLaserCyan:'Cyan',skinLaserPlasma:'Plasma',skinLaserEmerald:'Emerald',skinLaserGalaxy:'Galaxy',skinBgDefault:'Deep Space',skinBgMars:'Mars',skinBgNebula:'Nebula',skinBgIce:'Ice Planet',skinBgBlackhole:'Black Hole',skinFeverDefault:'Purple Storm',skinFeverAurora:'Aurora',skinFeverFlame:'Flame',skinFeverGold:'Gold Storm',skinFeverCyber:'Cyber',skinCardDefault:'Space Corps',skinCardJungle:'Jungle',skinCardOcean:'Deep Sea',skinCardMagma:'Magma',skinCardGold:'Gold Empire',skinExplosionDefault:'Flame',skinExplosionIce:'Ice',skinExplosionPlasma:'Plasma',skinExplosionToxic:'Toxic',skinExplosionGalaxy:'Galaxy',reportDailyProblems:'Daily Problems Solved',reportOpBreakdown:'By Operation',totalCorrect:'Total Correct',accuracy:'Accuracy',daysPlayedLbl:'Days Played',weekdays:'Sun,Mon,Tue,Wed,Thu,Fri,Sat',assessNoPlayDaily:"You haven't played today yet. Start now? 🚀",assessNoPlayWeekly:"No records this week. Try a little each day! 😊",assessDays6:'You played <b>{n} days</b> this week without missing any! Amazing consistency! 🌟',assessDays4:'You logged in <b>{n} days</b> this week. Keep it up! 💪',assessDays2:'You played <b>{n} days</b> this week. Play more often to improve faster.',assessDays1:'Seems you were busy this week. How about 5 minutes a day?',assessProb50:'You solved an average of <b>{n} problems</b> per day. Really working hard!',assessProb20:'You solved about <b>{n} problems</b> per day.',assessProbFew:'Try solving a few more problems to improve faster.',assessAcc95:'Accuracy <b>{n}%</b> — very precise! 🎯',assessAcc85:'Accuracy <b>{n}%</b> — quite accurate.',assessAcc70:'Accuracy <b>{n}%</b>. Take your time and think carefully.',assessAccLow:'Accuracy <b>{n}%</b>. Still some mistakes. Practice being slow and accurate.',assessWeakOp:'You solved relatively few <b>{op}</b> problems. Practice more!',opAdd:'Addition',opSub:'Subtraction',opMul:'Multiplication',medalSecMath:'📐 Math Skill Medals',medalSecBattle:'⚔️ Battle Record Medals',medalSecTactic:'🎯 Tactic Record Medals',medalSecSpecial:'💎 Special Medals',tierLocked:'Locked',tierBronze:'Bronze',tierSilver:'Silver',tierGold:'Gold',tierPlatinum:'Platinum',tierComplete:'★ Complete',tierMaxAchieved:'Max Tier Achieved!',tierNextFmt:'{n} more to {tier}',tierCumulative:'Cumulative',tierBestRecord:'Best Record',tierSeconds:'s',tierStarRewardFmt:'Next tier reward: ⭐ {n} stars',tierAllStars:'✓ All star rewards collected!',rankPrivate:'Private',rankSoldier:'Soldier',rankOfficer:'Officer',rankCommander:'Commander',medalAdd:'Addition Medal',medalSub:'Subtraction Medal',medalMul:'Multiplication Medal',medalDiv:'Division Medal',medalCombo:'Combo Medal',medalFever:'Fever Medal',medalBoss:'Boss Medal',medalAllclear:'All Clear Medal',medalLevel:'Survival Medal',medalScore:'Score Medal',medalOneshot:'Multi-Kill',medalCrossshot:'Crossbeam Ace',medalBubbleshot:'Bubble Bomber',medalNukeshot:'Nuke Destroyer',medalXshot:'X-Crash Master',medalBosstime:'Boss Speed Kill',medalFreezekill:'Freeze Sniper',medalFeverkill:'Fever Slayer',medalNohit:'No-Damage Guardian',medalCompanions:'Ally Collector',medalSkins:'Fashion Leader',medalStreak7:'7-Day Warrior',medalStreak30:'Monthly Legend',medalFeverall:'In The Zone',medalNodmg:'Invincible Hunter',medalCombo100:'Century Combo',medalFeverstorm:'Fireworks Storm',hintLevel:'Max level reached',hintOneshot:'Max enemies killed in 1 answer',hintCrossshot:'Max enemies killed by 1 Crossbeam',hintBubbleshot:'Max enemies killed by 1 Bubble Bomb',hintNukeshot:'Max enemies killed by 1 Nuke',hintXshot:'Max enemies killed by 1 X-Crash',hintBosstime:'Fastest boss kill time (lower is better)',hintFreezekill:'Max enemies killed during 1 Freeze',hintFeverkill:'Max enemies killed during 1 Fever',hintNohit:'Max level reached without taking damage',hintCompanions:'Number of aliens confirmed as allies',hintSkins:'Number of skins purchased (excluding default)',reqStreak7:'Log in 7 days in a row',reqStreak30:'Log in 30 days in a row',reqFeverall:'All Clear during Fever',reqNodmg:'Defeat boss without taking damage',reqCombo100:'Achieve combo of 100',reqFeverstorm:'Trigger Fever 5+ times in one game',sortAcquired:'Acquired',sortNumber:'Number',sortGrade:'Grade',sortAbility:'Ability',confirmedCountFmt:'{n} / {total}',alienNone:'No aliens met yet.\nDefeat a boss to encounter aliens! 👾',alienAll200:'🎉 You met all 200 aliens!<br>If your pending list is empty, you confirmed them all!',alienNoPendingFmt:'No aliens pending.<br><br><b style="color:#fff">{n} more aliens</b> haven\'t met you yet.<br>Defeat bosses to meet new aliens! 👾',alienConfirmReward:'Confirm as ally to receive <span style="color:#ffd700;font-weight:800;">⭐ {n} stars</span>!',alienRetry:'Try Again',alienNewMember:'Joined the team!',alienConfirmRewardLbl:'Ally reward ⭐ {n} stars',alienAbility:'Special Ability:',alienPersonality:'Personality:',alienGetBanner:'A new alien wants to meet you',alienSubmitBtn:'Submit',alienHintBtn:'💡 Hint',abilityStartHp:'Starting HP',abilityFeverDur:'Fever Duration',abilityComboTime:'Combo Time',abilityCoverDur:'Cover Fire Duration',abilityCoverCool:'Cover Fire Cooldown',abilityNukeRange:'Nuke Range',abilityScoreMult:'Score Multiplier',abilityFeverExt:'Fever Extension Min',abilityBossFever:'Boss Kill Fever',abilityUfoSpeed:'UFO Move Speed',abilityFeverUfo:'Fever Trigger UFOs',abilityCoverFrz:'Freeze Duration',abilityFallSpeed:'Fall Speed',abilityAdded:'bonus',abilityReduced:'reduced'},
+ja:{feverLabel:'フィーバー',shopTitle:'スキンショップ',closeX:'✕',closeBtnX:'✕ 閉じる',closeBtnTxt:'閉じる',aliensPopTitle:'仲間エイリアン',confirmedTab:'確定済み',pendingTab:'検討中',scoresTitle:'🏆 歴代 Top 10',medalsTitle:'勲章棚',reportPageTitle:'学習レポート',tabToday:'今日',tabWeekly:'今週',shareBtnIcon:'📤 シェア',hintTitle:'💡 ヒントを貰う',hintDesc:'短い広告を見るとヒントが貰えます！',watchAd:'▶ 広告を見る',cancel:'キャンセル',catRocket:'ロケット',catMissile:'ミサイル',catLaser:'フィーバーレーザー',catBg:'背景',catFever:'フィーバーテーマ',catCard:'カードスタイル',catExplosion:'爆発エフェクト',equipped:'装備中',equip:'装備',skinRocketDefault:'防衛ロケット',skinRocketUfo:'捕獲UFO',skinRocketBattleship:'宇宙戦艦',skinRocketDragon:'守護ドラゴン',skinRocketWhale:'宇宙クジラ',skinMissileDefault:'炎弾',skinMissileIce:'冷凍弾',skinMissileThunder:'雷弾',skinMissileToxic:'毒素弾',skinMissileAurora:'オーロラ弾',skinLaserDefault:'炎',skinLaserCyan:'シアン',skinLaserPlasma:'プラズマ',skinLaserEmerald:'エメラルド',skinLaserGalaxy:'銀河',skinBgDefault:'深宇宙',skinBgMars:'火星',skinBgNebula:'星雲',skinBgIce:'氷の惑星',skinBgBlackhole:'ブラックホール',skinFeverDefault:'紫の嵐',skinFeverAurora:'オーロラ',skinFeverFlame:'炎',skinFeverGold:'黄金の嵐',skinFeverCyber:'サイバー',skinCardDefault:'宇宙軍',skinCardJungle:'ジャングル',skinCardOcean:'深海',skinCardMagma:'マグマ',skinCardGold:'黄金帝国',skinExplosionDefault:'炎',skinExplosionIce:'冷気',skinExplosionPlasma:'プラズマ',skinExplosionToxic:'毒気',skinExplosionGalaxy:'銀河',reportDailyProblems:'日別の解答数',reportOpBreakdown:'演算別内訳',totalCorrect:'正解数',accuracy:'正答率',daysPlayedLbl:'出席日数',weekdays:'日,月,火,水,木,金,土',assessNoPlayDaily:'今日はまだプレイしていません。今始めましょう！🚀',assessNoPlayWeekly:'今週はプレイ記録がありません。少しずつ始めましょう！😊',assessDays6:'今週は<b>{n}日</b>も欠かさず頑張りました！すごい継続力です！🌟',assessDays4:'今週は<b>{n}日</b>ログインしました。続けていますね！💪',assessDays2:'今週は<b>{n}日</b>プレイしました。もっと頻繁にやると上達が早いですよ。',assessDays1:'今週は忙しかったようですね。毎日5分だけでもやってみましょう！',assessProb50:'1日平均<b>{n}問</b>解きました。本当に頑張っています！',assessProb20:'1日約<b>{n}問</b>解きました。',assessProbFew:'もう少し多く解くと上達が早くなりますよ。',assessAcc95:'正答率<b>{n}%</b>でとても正確です！🎯',assessAcc85:'正答率<b>{n}%</b>でかなり正確な方です。',assessAcc70:'正答率<b>{n}%</b>です。焦らず考えて答えましょう。',assessAccLow:'正答率<b>{n}%</b>でまだミスがあります。ゆっくり正確に練習しましょう。',assessWeakOp:'<b>{op}</b>の問題が比較的少ないです。もっと練習しましょう。',opAdd:'足し算',opSub:'引き算',opMul:'掛け算',medalSecMath:'📐 数学能力勲章',medalSecBattle:'⚔️ 戦闘記録勲章',medalSecTactic:'🎯 戦術記録勲章',medalSecSpecial:'💎 特別勲章',tierLocked:'未獲得',tierBronze:'ブロンズ',tierSilver:'シルバー',tierGold:'ゴールド',tierPlatinum:'プラチナ',tierComplete:'★ 完成',tierMaxAchieved:'最高ランク達成！',tierNextFmt:'{tier}まで残り{n}',tierCumulative:'累計',tierBestRecord:'最高記録',tierSeconds:'秒',tierStarRewardFmt:'次のランク達成で⭐{n}スター獲得',tierAllStars:'✓ 全スター報酬取得済み！',rankPrivate:'新兵',rankSoldier:'兵士',rankOfficer:'将校',rankCommander:'司令官',medalAdd:'足し算勲章',medalSub:'引き算勲章',medalMul:'掛け算勲章',medalDiv:'割り算勲章',medalCombo:'コンボ勲章',medalFever:'フィーバー勲章',medalBoss:'ボス勲章',medalAllclear:'オールクリア勲章',medalLevel:'生存勲章',medalScore:'スコア勲章',medalOneshot:'一発多重撃墜',medalCrossshot:'クロスビームの達人',medalBubbleshot:'バブル爆撃手',medalNukeshot:'核爆弾の殲滅者',medalXshot:'Xクラッシュ達人',medalBosstime:'ボス撃破速度',medalFreezekill:'凍結狙撃手',medalFeverkill:'フィーバー虐殺者',medalNohit:'無被弾の守護者',medalCompanions:'仲間コレクター',medalSkins:'ファッションリーダー',medalStreak7:'7日戦士',medalStreak30:'月間伝説',medalFeverall:'没入状態',medalNodmg:'無敵ハンター',medalCombo100:'百連続',medalFeverstorm:'花火の嵐',hintLevel:'最高到達レベル',hintOneshot:'1回の答えで同時撃墜した最大数',hintCrossshot:'クロスビーム1回で撃墜した最大数',hintBubbleshot:'バブルボム1回で撃墜した最大数',hintNukeshot:'核爆弾1回で撃墜した最大数',hintXshot:'Xクラッシュ1回で撃墜した最大数',hintBosstime:'最速ボス撃破時間(低いほど良)',hintFreezekill:'凍結1回中の最大撃墜数',hintFeverkill:'フィーバー1回中の最大撃墜数',hintNohit:'ダメージなしで耐えた最高レベル',hintCompanions:'仲間として確定したエイリアン数',hintSkins:'購入したスキン数(デフォルト除く)',reqStreak7:'7日連続ログイン',reqStreak30:'30日連続ログイン',reqFeverall:'フィーバー中にオールクリア',reqNodmg:'ボス戦でHPなしで撃破',reqCombo100:'コンボ100達成',reqFeverstorm:'一ゲームでフィーバー5回以上',sortAcquired:'確定順',sortNumber:'番号順',sortGrade:'グレード順',sortAbility:'能力順',confirmedCountFmt:'{n} / {total}体',alienNone:'まだ出会ったエイリアンがいません。\nボスを倒すとエイリアンが現れます！👾',alienAll200:'🎉 200体すべてのエイリアンに会いました！<br>検討中リストが空なら全員確定したはずです！',alienNoPendingFmt:'現在検討中のエイリアンはいません。<br><br>まだ出会っていないエイリアンが<b style="color:#fff">{n}体</b>います。<br>ボスを倒すと新しいエイリアンが現れます！👾',alienConfirmReward:'仲間に確定すると<span style="color:#ffd700;font-weight:800;">⭐ {n}スター</span>がもらえます！',alienRetry:'もう一度',alienNewMember:'仲間になった！',alienConfirmRewardLbl:'仲間確定報酬 ⭐ {n}個',alienAbility:'特殊能力:',alienPersonality:'性格:',alienGetBanner:'新しいエイリアンがあなたに会いたがっています',alienSubmitBtn:'送信',alienHintBtn:'💡 ヒント',abilityStartHp:'ゲーム開始HP',abilityFeverDur:'フィーバー持続時間',abilityComboTime:'コンボ連結時間',abilityCoverDur:'援護ロケット持続',abilityCoverCool:'援護ロケットクールタイム',abilityNukeRange:'核爆弾範囲',abilityScoreMult:'スコア倍率',abilityFeverExt:'フィーバー延長最小値',abilityBossFever:'ボス撃破フィーバー',abilityUfoSpeed:'UFO移動速度',abilityFeverUfo:'フィーバー発動UFO',abilityCoverFrz:'凍結持続時間',abilityFallSpeed:'落下速度',abilityAdded:'ボーナス',abilityReduced:'減少'},
+'zh-TW':{feverLabel:'狂熱',shopTitle:'皮膚商店',closeX:'✕',closeBtnX:'✕ 關閉',closeBtnTxt:'關閉',aliensPopTitle:'外星夥伴',confirmedTab:'已確定',pendingTab:'待確定',scoresTitle:'🏆 歷代 Top 10',medalsTitle:'勳章展示櫃',reportPageTitle:'學習報告',tabToday:'今天',tabWeekly:'本週',shareBtnIcon:'📤 分享',hintTitle:'💡 取得提示',hintDesc:'觀看短廣告即可獲得提示！',watchAd:'▶ 看廣告',cancel:'取消',catRocket:'火箭',catMissile:'飛彈',catLaser:'狂熱雷射',catBg:'背景',catFever:'狂熱主題',catCard:'計算卡',catExplosion:'爆炸特效',equipped:'裝備中',equip:'裝備',skinRocketDefault:'防衛火箭',skinRocketUfo:'捕獲UFO',skinRocketBattleship:'宇宙戰艦',skinRocketDragon:'守護龍',skinRocketWhale:'宇宙鯨魚',skinMissileDefault:'火焰彈',skinMissileIce:'冰凍彈',skinMissileThunder:'閃電彈',skinMissileToxic:'毒素彈',skinMissileAurora:'極光彈',skinLaserDefault:'火焰',skinLaserCyan:'青色',skinLaserPlasma:'電漿',skinLaserEmerald:'翡翠',skinLaserGalaxy:'銀河',skinBgDefault:'深宇宙',skinBgMars:'火星',skinBgNebula:'星雲',skinBgIce:'冰星球',skinBgBlackhole:'黑洞',skinFeverDefault:'紫色風暴',skinFeverAurora:'極光',skinFeverFlame:'火焰',skinFeverGold:'黃金風暴',skinFeverCyber:'賽博',skinCardDefault:'宇宙軍',skinCardJungle:'叢林',skinCardOcean:'深海',skinCardMagma:'熔岩',skinCardGold:'黃金帝國',skinExplosionDefault:'火焰',skinExplosionIce:'冰氣',skinExplosionPlasma:'電漿',skinExplosionToxic:'毒氣',skinExplosionGalaxy:'銀河',reportDailyProblems:'每日解題數',reportOpBreakdown:'運算分布',totalCorrect:'答對總數',accuracy:'正確率',daysPlayedLbl:'出席天數',weekdays:'日,一,二,三,四,五,六',assessNoPlayDaily:'今天還沒開始玩。現在開始吧？🚀',assessNoPlayWeekly:'本週沒有遊戲紀錄。每天一點點開始吧！😊',assessDays6:'本週<b>{n}天</b>都沒有缺席！真棒的堅持！🌟',assessDays4:'本週登入了<b>{n}天</b>。繼續保持！💪',assessDays2:'本週玩了<b>{n}天</b>。更頻繁地玩可以進步更快。',assessDays1:'本週似乎很忙。每天5分鐘也好！',assessProb50:'每天平均解了<b>{n}題</b>。真的很努力！',assessProb20:'每天解了約<b>{n}題</b>。',assessProbFew:'多解幾題可以進步更快哦。',assessAcc95:'正確率<b>{n}%</b>，非常準確！🎯',assessAcc85:'正確率<b>{n}%</b>，相當準確。',assessAcc70:'正確率<b>{n}%</b>。不要急，仔細想再回答。',assessAccLow:'正確率<b>{n}%</b>，還有些錯誤。練習慢而準確的解題。',assessWeakOp:'<b>{op}</b>題目解得相對較少。多多練習吧！',opAdd:'加法',opSub:'減法',opMul:'乘法',medalSecMath:'📐 數學能力勳章',medalSecBattle:'⚔️ 戰鬥記錄勳章',medalSecTactic:'🎯 戰術記錄勳章',medalSecSpecial:'💎 特別勳章',tierLocked:'未獲得',tierBronze:'銅',tierSilver:'銀',tierGold:'金',tierPlatinum:'白金',tierComplete:'★ 完成',tierMaxAchieved:'最高等級達成！',tierNextFmt:'距{tier}還差{n}',tierCumulative:'累計',tierBestRecord:'最佳記錄',tierSeconds:'秒',tierStarRewardFmt:'升級可獲得⭐{n}顆星',tierAllStars:'✓ 已領取所有星星獎勵！',rankPrivate:'新兵',rankSoldier:'士兵',rankOfficer:'軍官',rankCommander:'司令官',medalAdd:'加法勳章',medalSub:'減法勳章',medalMul:'乘法勳章',medalDiv:'除法勳章',medalCombo:'連擊勳章',medalFever:'狂熱勳章',medalBoss:'Boss勳章',medalAllclear:'全清勳章',medalLevel:'生存勳章',medalScore:'分數勳章',medalOneshot:'一擊多殺',medalCrossshot:'十字光束神射手',medalBubbleshot:'泡泡轟炸手',medalNukeshot:'核彈殲滅者',medalXshot:'X碰撞達人',medalBosstime:'Boss擊殺速度',medalFreezekill:'凍結狙擊手',medalFeverkill:'狂熱殺手',medalNohit:'無傷守護者',medalCompanions:'夥伴收集家',medalSkins:'時尚領袖',medalStreak7:'7日戰士',medalStreak30:'月度傳說',medalFeverall:'心流狀態',medalNodmg:'無敵獵人',medalCombo100:'百連擊',medalFeverstorm:'煙火風暴',hintLevel:'最高到達等級',hintOneshot:'1次答題同時擊落最多數',hintCrossshot:'1次十字光束擊落最多數',hintBubbleshot:'1次泡泡炸彈擊落最多數',hintNukeshot:'1次核彈擊落最多數',hintXshot:'1次X碰撞擊落最多數',hintBosstime:'最快Boss擊殺時間(越低越好)',hintFreezekill:'1次凍結期間擊落最多數',hintFeverkill:'1次狂熱期間擊落最多數',hintNohit:'無傷撐過的最高等級',hintCompanions:'確認為夥伴的外星人數',hintSkins:'購買的皮膚數(不含預設)',reqStreak7:'連續登入7天',reqStreak30:'連續登入30天',reqFeverall:'狂熱中全部清除',reqNodmg:'Boss戰中無傷擊破',reqCombo100:'達成100連擊',reqFeverstorm:'一場遊戲中觸發狂熱5次以上',sortAcquired:'確定順',sortNumber:'編號順',sortGrade:'等級順',sortAbility:'能力順',confirmedCountFmt:'{n} / {total}隻',alienNone:'還沒遇見任何外星人。\n擊敗Boss就能遇見外星人！👾',alienAll200:'🎉 遇見了所有200名外星人！<br>如果待確定清單空了，代表全部確定了！',alienNoPendingFmt:'目前沒有待確定的外星人。<br><br>還有<b style="color:#fff">{n}名</b>外星人等待相遇。<br>擊敗Boss就能遇見新外星人！👾',alienConfirmReward:'確認為夥伴可獲得<span style="color:#ffd700;font-weight:800;">⭐ {n}顆星</span>！',alienRetry:'再試一次',alienNewMember:'成為夥伴了！',alienConfirmRewardLbl:'夥伴確認獎勵 ⭐ {n}個',alienAbility:'特殊能力:',alienPersonality:'個性:',alienGetBanner:'有新的外星人想見你',alienSubmitBtn:'提交',alienHintBtn:'💡 提示',abilityStartHp:'遊戲開始HP',abilityFeverDur:'狂熱持續時間',abilityComboTime:'連擊連結時間',abilityCoverDur:'支援火箭持續',abilityCoverCool:'支援火箭冷卻',abilityNukeRange:'核彈範圍',abilityScoreMult:'分數倍率',abilityFeverExt:'狂熱延長最小值',abilityBossFever:'Boss擊破狂熱',abilityUfoSpeed:'UFO移動速度',abilityFeverUfo:'狂熱觸發UFO',abilityCoverFrz:'凍結持續時間',abilityFallSpeed:'下落速度',abilityAdded:'增加',abilityReduced:'減少'},
+'zh-CN':{feverLabel:'狂热',shopTitle:'皮肤商店',closeX:'✕',closeBtnX:'✕ 关闭',closeBtnTxt:'关闭',aliensPopTitle:'外星伙伴',confirmedTab:'已确定',pendingTab:'待确定',scoresTitle:'🏆 历代 Top 10',medalsTitle:'勋章展示柜',reportPageTitle:'学习报告',tabToday:'今天',tabWeekly:'本周',shareBtnIcon:'📤 分享',hintTitle:'💡 获取提示',hintDesc:'观看短广告即可获得提示！',watchAd:'▶ 看广告',cancel:'取消',catRocket:'火箭',catMissile:'导弹',catLaser:'狂热激光',catBg:'背景',catFever:'狂热主题',catCard:'计算卡',catExplosion:'爆炸特效',equipped:'已装备',equip:'装备',skinRocketDefault:'防卫火箭',skinRocketUfo:'捕获UFO',skinRocketBattleship:'宇宙战舰',skinRocketDragon:'守护龙',skinRocketWhale:'宇宙鲸鱼',skinMissileDefault:'火焰弹',skinMissileIce:'冷冻弹',skinMissileThunder:'闪电弹',skinMissileToxic:'毒素弹',skinMissileAurora:'极光弹',skinLaserDefault:'火焰',skinLaserCyan:'青色',skinLaserPlasma:'等离子',skinLaserEmerald:'翡翠',skinLaserGalaxy:'银河',skinBgDefault:'深宇宙',skinBgMars:'火星',skinBgNebula:'星云',skinBgIce:'冰星球',skinBgBlackhole:'黑洞',skinFeverDefault:'紫色风暴',skinFeverAurora:'极光',skinFeverFlame:'火焰',skinFeverGold:'黄金风暴',skinFeverCyber:'赛博',skinCardDefault:'宇宙军',skinCardJungle:'丛林',skinCardOcean:'深海',skinCardMagma:'熔岩',skinCardGold:'黄金帝国',skinExplosionDefault:'火焰',skinExplosionIce:'冰气',skinExplosionPlasma:'等离子',skinExplosionToxic:'毒气',skinExplosionGalaxy:'银河',reportDailyProblems:'每日解题数',reportOpBreakdown:'运算分布',totalCorrect:'答对总数',accuracy:'正确率',daysPlayedLbl:'出席天数',weekdays:'日,一,二,三,四,五,六',assessNoPlayDaily:'今天还没开始玩。现在开始吧？🚀',assessNoPlayWeekly:'本周没有游戏记录。每天一点点开始吧！😊',assessDays6:'本周<b>{n}天</b>都没有缺席！真棒的坚持！🌟',assessDays4:'本周登录了<b>{n}天</b>。继续保持！💪',assessDays2:'本周玩了<b>{n}天</b>。更频繁地玩可以进步更快。',assessDays1:'本周似乎很忙。每天5分钟也好！',assessProb50:'每天平均解了<b>{n}题</b>。真的很努力！',assessProb20:'每天解了约<b>{n}题</b>。',assessProbFew:'多解几题可以进步更快哦。',assessAcc95:'正确率<b>{n}%</b>，非常准确！🎯',assessAcc85:'正确率<b>{n}%</b>，相当准确。',assessAcc70:'正确率<b>{n}%</b>。不要急，仔细想再回答。',assessAccLow:'正确率<b>{n}%</b>，还有些错误。练习慢而准确的解题。',assessWeakOp:'<b>{op}</b>题目解得相对较少。多多练习吧！',opAdd:'加法',opSub:'减法',opMul:'乘法',medalSecMath:'📐 数学能力勋章',medalSecBattle:'⚔️ 战斗记录勋章',medalSecTactic:'🎯 战术记录勋章',medalSecSpecial:'💎 特别勋章',tierLocked:'未获得',tierBronze:'铜',tierSilver:'银',tierGold:'金',tierPlatinum:'白金',tierComplete:'★ 完成',tierMaxAchieved:'最高等级达成！',tierNextFmt:'距{tier}还差{n}',tierCumulative:'累计',tierBestRecord:'最佳记录',tierSeconds:'秒',tierStarRewardFmt:'升级可获得⭐{n}颗星',tierAllStars:'✓ 已领取所有星星奖励！',rankPrivate:'新兵',rankSoldier:'士兵',rankOfficer:'军官',rankCommander:'司令官',medalAdd:'加法勋章',medalSub:'减法勋章',medalMul:'乘法勋章',medalDiv:'除法勋章',medalCombo:'连击勋章',medalFever:'狂热勋章',medalBoss:'Boss勋章',medalAllclear:'全清勋章',medalLevel:'生存勋章',medalScore:'分数勋章',medalOneshot:'一击多杀',medalCrossshot:'十字光束神射手',medalBubbleshot:'泡泡轰炸手',medalNukeshot:'核弹歼灭者',medalXshot:'X碰撞达人',medalBosstime:'Boss击杀速度',medalFreezekill:'冻结狙击手',medalFeverkill:'狂热杀手',medalNohit:'无伤守护者',medalCompanions:'伙伴收集家',medalSkins:'时尚领袖',medalStreak7:'7日战士',medalStreak30:'月度传说',medalFeverall:'心流状态',medalNodmg:'无敌猎人',medalCombo100:'百连击',medalFeverstorm:'烟花风暴',hintLevel:'最高到达等级',hintOneshot:'1次答题同时击落最多数',hintCrossshot:'1次十字光束击落最多数',hintBubbleshot:'1次泡泡炸弹击落最多数',hintNukeshot:'1次核弹击落最多数',hintXshot:'1次X碰撞击落最多数',hintBosstime:'最快Boss击杀时间(越低越好)',hintFreezekill:'1次冻结期间击落最多数',hintFeverkill:'1次狂热期间击落最多数',hintNohit:'无伤撑过的最高等级',hintCompanions:'确认为伙伴的外星人数',hintSkins:'购买的皮肤数(不含预设)',reqStreak7:'连续登录7天',reqStreak30:'连续登录30天',reqFeverall:'狂热中全部清除',reqNodmg:'Boss战中无伤击破',reqCombo100:'达成100连击',reqFeverstorm:'一场游戏中触发狂热5次以上',sortAcquired:'确定顺',sortNumber:'编号顺',sortGrade:'等级顺',sortAbility:'能力顺',confirmedCountFmt:'{n} / {total}只',alienNone:'还没遇见任何外星人。\n击败Boss就能遇见外星人！👾',alienAll200:'🎉 遇见了所有200名外星人！<br>如果待确定清单空了，代表全部确定了！',alienNoPendingFmt:'目前没有待确定的外星人。<br><br>还有<b style="color:#fff">{n}名</b>外星人等待相遇。<br>击败Boss就能遇见新外星人！👾',alienConfirmReward:'确认为伙伴可获得<span style="color:#ffd700;font-weight:800;">⭐ {n}颗星</span>！',alienRetry:'再试一次',alienNewMember:'成为伙伴了！',alienConfirmRewardLbl:'伙伴确认奖励 ⭐ {n}个',alienAbility:'特殊能力:',alienPersonality:'性格:',alienGetBanner:'有新的外星人想见你',alienSubmitBtn:'提交',alienHintBtn:'💡 提示',abilityStartHp:'游戏开始HP',abilityFeverDur:'狂热持续时间',abilityComboTime:'连击连结时间',abilityCoverDur:'支援火箭持续',abilityCoverCool:'支援火箭冷却',abilityNukeRange:'核弹范围',abilityScoreMult:'分数倍率',abilityFeverExt:'狂热延长最小值',abilityBossFever:'Boss击破狂热',abilityUfoSpeed:'UFO移动速度',abilityFeverUfo:'狂热触发UFO',abilityCoverFrz:'冻结持续时间',abilityFallSpeed:'下落速度',abilityAdded:'增加',abilityReduced:'减少'},
+es:{feverLabel:'Fiebre',shopTitle:'Tienda de Skins',closeX:'✕',closeBtnX:'✕ Cerrar',closeBtnTxt:'Cerrar',aliensPopTitle:'Aliados Alienígenas',confirmedTab:'Confirmados',pendingTab:'Pendientes',scoresTitle:'🏆 Top 10 Histórico',medalsTitle:'Vitrina de Medallas',reportPageTitle:'Informe de Aprendizaje',tabToday:'Hoy',tabWeekly:'Esta Semana',shareBtnIcon:'📤 Compartir',hintTitle:'💡 Obtener Pista',hintDesc:'¡Ve un anuncio corto y obtén una pista!',watchAd:'▶ Ver Anuncio',cancel:'Cancelar',catRocket:'Cohete',catMissile:'Misil',catLaser:'Láser Fiebre',catBg:'Fondo',catFever:'Tema Fiebre',catCard:'Estilo Carta',catExplosion:'Efecto Explosión',equipped:'Equipado',equip:'Equipar',skinRocketDefault:'Cohete Defensa',skinRocketUfo:'UFO Capturado',skinRocketBattleship:'Acorazado Espacial',skinRocketDragon:'Dragón Guardián',skinRocketWhale:'Ballena Espacial',skinMissileDefault:'Bala de Fuego',skinMissileIce:'Bala de Hielo',skinMissileThunder:'Bala de Trueno',skinMissileToxic:'Bala Tóxica',skinMissileAurora:'Bala Aurora',skinLaserDefault:'Llama',skinLaserCyan:'Cian',skinLaserPlasma:'Plasma',skinLaserEmerald:'Esmeralda',skinLaserGalaxy:'Galaxia',skinBgDefault:'Espacio Profundo',skinBgMars:'Marte',skinBgNebula:'Nebulosa',skinBgIce:'Planeta Hielo',skinBgBlackhole:'Agujero Negro',skinFeverDefault:'Tormenta Púrpura',skinFeverAurora:'Aurora',skinFeverFlame:'Llama',skinFeverGold:'Tormenta Dorada',skinFeverCyber:'Cibernético',skinCardDefault:'Cuerpo Espacial',skinCardJungle:'Jungla',skinCardOcean:'Mar Profundo',skinCardMagma:'Magma',skinCardGold:'Imperio Dorado',skinExplosionDefault:'Llama',skinExplosionIce:'Hielo',skinExplosionPlasma:'Plasma',skinExplosionToxic:'Tóxico',skinExplosionGalaxy:'Galaxia',reportDailyProblems:'Problemas Diarios',reportOpBreakdown:'Por Operación',totalCorrect:'Total Correcto',accuracy:'Precisión',daysPlayedLbl:'Días Jugados',weekdays:'Dom,Lun,Mar,Mié,Jue,Vie,Sáb',assessNoPlayDaily:'Aún no has jugado hoy. ¿Empezamos? 🚀',assessNoPlayWeekly:'No hay registros esta semana. ¡Empieza poco a poco! 😊',assessDays6:'¡Jugaste <b>{n} días</b> esta semana sin faltar! ¡Increíble constancia! 🌟',assessDays4:'Iniciaste sesión <b>{n} días</b> esta semana. ¡Sigue así! 💪',assessDays2:'Jugaste <b>{n} días</b> esta semana. Jugar más seguido te ayudará a mejorar.',assessDays1:'Parece que estuviste ocupado. ¡5 minutos al día es suficiente!',assessProb50:'Resolviste un promedio de <b>{n} problemas</b> al día. ¡Muy bien!',assessProb20:'Resolviste unos <b>{n} problemas</b> al día.',assessProbFew:'Intenta resolver más problemas para mejorar más rápido.',assessAcc95:'Precisión <b>{n}%</b> — ¡muy preciso! 🎯',assessAcc85:'Precisión <b>{n}%</b> — bastante preciso.',assessAcc70:'Precisión <b>{n}%</b>. Tómate tu tiempo y piensa bien.',assessAccLow:'Precisión <b>{n}%</b>. Aún hay errores. Practica despacio y con precisión.',assessWeakOp:'Resolviste relativamente pocos problemas de <b>{op}</b>. ¡Practica más!',opAdd:'Suma',opSub:'Resta',opMul:'Multiplicación',medalSecMath:'📐 Medallas de Matemáticas',medalSecBattle:'⚔️ Medallas de Batalla',medalSecTactic:'🎯 Medallas de Táctica',medalSecSpecial:'💎 Medallas Especiales',tierLocked:'Bloqueado',tierBronze:'Bronce',tierSilver:'Plata',tierGold:'Oro',tierPlatinum:'Platino',tierComplete:'★ Completo',tierMaxAchieved:'¡Nivel Máximo Alcanzado!',tierNextFmt:'{n} más para {tier}',tierCumulative:'Acumulado',tierBestRecord:'Mejor Marca',tierSeconds:'s',tierStarRewardFmt:'Próximo nivel: ⭐{n} estrellas',tierAllStars:'✓ ¡Todas las estrellas recogidas!',rankPrivate:'Recluta',rankSoldier:'Soldado',rankOfficer:'Oficial',rankCommander:'Comandante',medalAdd:'Medalla Suma',medalSub:'Medalla Resta',medalMul:'Medalla Multi',medalDiv:'Medalla Div',medalCombo:'Medalla Combo',medalFever:'Medalla Fiebre',medalBoss:'Medalla Jefe',medalAllclear:'Medalla Todo Limpio',medalLevel:'Medalla Supervivencia',medalScore:'Medalla Puntuación',medalOneshot:'Multi-Kill',medalCrossshot:'As del Cruce',medalBubbleshot:'Bombardero Burbuja',medalNukeshot:'Destructor Nuclear',medalXshot:'Maestro X-Crash',medalBosstime:'Velocidad Jefe',medalFreezekill:'Francotirador Hielo',medalFeverkill:'Asesino Fiebre',medalNohit:'Guardián Sin Daño',medalCompanions:'Coleccionista',medalSkins:'Líder de Moda',medalStreak7:'Guerrero 7 Días',medalStreak30:'Leyenda Mensual',medalFeverall:'En La Zona',medalNodmg:'Cazador Invencible',medalCombo100:'Combo Centenario',medalFeverstorm:'Tormenta de Fuegos',hintLevel:'Nivel máximo alcanzado',hintOneshot:'Máx enemigos eliminados en 1 respuesta',hintCrossshot:'Máx eliminados con 1 Cruce',hintBubbleshot:'Máx eliminados con 1 Burbuja',hintNukeshot:'Máx eliminados con 1 Nuke',hintXshot:'Máx eliminados con 1 X-Crash',hintBosstime:'Tiempo más rápido para matar jefe',hintFreezekill:'Máx eliminados en 1 Congelación',hintFeverkill:'Máx eliminados en 1 Fiebre',hintNohit:'Nivel máx sin recibir daño',hintCompanions:'Alienígenas confirmados como aliados',hintSkins:'Skins comprados (sin predeterminado)',reqStreak7:'Iniciar sesión 7 días seguidos',reqStreak30:'Iniciar sesión 30 días seguidos',reqFeverall:'Todo limpio durante Fiebre',reqNodmg:'Derrotar jefe sin daño',reqCombo100:'Alcanzar combo 100',reqFeverstorm:'Activar Fiebre 5+ veces en un juego',sortAcquired:'Adquirido',sortNumber:'Número',sortGrade:'Grado',sortAbility:'Habilidad',confirmedCountFmt:'{n} / {total}',alienNone:'Aún no conociste alienígenas.\n¡Derrota un jefe para encontrarlos! 👾',alienAll200:'🎉 ¡Conociste a los 200 alienígenas!<br>Si tu lista está vacía, ¡los confirmaste a todos!',alienNoPendingFmt:'No hay alienígenas pendientes.<br><br>Quedan <b style="color:#fff">{n} alienígenas</b> por conocer.<br>¡Derrota jefes para conocer nuevos! 👾',alienConfirmReward:'Confirmar aliado te da <span style="color:#ffd700;font-weight:800;">⭐ {n} estrellas</span>!',alienRetry:'Reintentar',alienNewMember:'¡Se unió al equipo!',alienConfirmRewardLbl:'Recompensa aliado ⭐ {n} estrellas',alienAbility:'Habilidad Especial:',alienPersonality:'Personalidad:',alienGetBanner:'Un nuevo alienígena quiere conocerte',alienSubmitBtn:'Enviar',alienHintBtn:'💡 Pista',abilityStartHp:'HP Inicial',abilityFeverDur:'Duración Fiebre',abilityComboTime:'Tiempo Combo',abilityCoverDur:'Duración Cobertura',abilityCoverCool:'Cooldown Cobertura',abilityNukeRange:'Alcance Nuke',abilityScoreMult:'Multiplicador Puntos',abilityFeverExt:'Ext. Mínima Fiebre',abilityBossFever:'Fiebre Jefe',abilityUfoSpeed:'Velocidad UFO',abilityFeverUfo:'UFOs Activación Fiebre',abilityCoverFrz:'Duración Congelación',abilityFallSpeed:'Velocidad Caída',abilityAdded:'bonus',abilityReduced:'reducido'},
+};
+Object.keys(LANG_DATA_EXT).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT[lang]);});
+// Copy es→pt,fr,de,id,th,vi with language-specific overrides already in LANG_DATA
+['pt','fr','de','id','th','vi'].forEach(lang=>{
+  const base={...LANG_DATA_EXT.en};
+  Object.assign(LANG_DATA[lang],base,LANG_DATA[lang]);
+});
+
 const LANG_DATA = {
 ko:{kills:'격추',level:'레벨',best:'최고점수',score:'점수',fire:'발사',fire2:'발사↑',gameTitle:'산수 지구 방위대',tagline:'산수로 지구를 지켜라!',bestRecord:'🏆 최고 기록',gameStart:'▶  게임 시작',controlHint:'모바일: 숫자패드 → 발사  |  PC: 숫자 → Enter',medals:'훈장',report:'리포트',allies:'동료',shop:'상점',pauseTitle:'|| 일시 정지',pauseScore:'점수',resume:'▶ 계속하기',settingsBtn:'⚙ 설정',toTitle:'🏠 타이틀로',quitConfirm:'정말 나가시겠어요?',quitAction:'📋 결과 보고 나가기',quitCancel2:'↩ 계속 하기',settTitle:'⚙ 설정',settSoundSec:'사운드',settSoundToggle:'마스터 ON/OFF',settVolMaster:'전체 볼륨',settVolSfx:'효과음',settVolKp:'키패드 음성',settVibSec:'진동',settVibLabel:'강도',settVibWeak:'약',settVibMid:'중',settVibStrong:'강',settGfxSec:'그래픽 품질',settGfxLabel:'파티클 효과',settGfxLow:'낮음',settGfxMid:'보통',settGfxHigh:'높음',settCtrlSec:'조작',settHandLabel:'손잡이',settHandRight:'오른손',settHandLeft:'왼손',settLangSec:'언어',settDataSec:'데이터',settResetBtn:'기록 및 데이터 초기화',settPrivacyBtn:'개인정보처리방침 보기',settCloseBtn:'닫기',resetTitle:'⚠ 데이터를 초기화할까요?',resetDesc:'점수 기록, 획득한 별, 동료 외계인, 스킨 구매 내역이 모두 삭제됩니다. 되돌릴 수 없습니다.',resetCancel:'취소',resetConfirm:'초기화',privTitle:'개인정보처리방침',reportTitle:'전투 보고서',retry:'↩ 다시 도전',share:'공유',rptCalcTitle:'📐 연산 기록',rptBattleTitle:'⚔️ 전투 기록',rptAddLbl:'➕ 덧셈',rptSubLbl:'➖ 뺄셈',rptMulLbl:'✖️ 곱셈',rptDivLbl:'➗ 나눗셈',rptHitRate:'격추율',rptWrongRate:'오답률',rptFinalScore:'최종 점수',rptMaxCombo:'최대 콤보',rptLevel:'도달 레벨',rptUfoKills:'UFO 격추',rptBossKills:'보스 격파',rptMedalTitle:'달성 훈장',rptAlienTitle:'새 외계인 동료',rptAlienGuide:"당신을 만나고 싶어합니다. '동료' 버튼을 눌러보세요!",rptStarTitle:'획득 별',rptStarTotal:'합계',invincible:'무적',scoreX2:'점수×2',bossAlert:'보스 등장!',bossDefeated:'BOSS DEFEATED!',levelUp:'레벨 업!',allClear:'올 클리어!',comboLabel:'콤보',marisUnit:'마리'},
 en:{kills:'Kills',level:'Level',best:'Best',score:'Score',fire:'Fire',fire2:'Fire↑',gameTitle:'MATH EARTH DEFENSE',tagline:'Defend Earth with Math!',bestRecord:'🏆 Best Score',gameStart:'▶  PLAY',controlHint:'Mobile: Numpad → Fire  |  PC: Numbers → Enter',medals:'Medals',report:'Report',allies:'Allies',shop:'Shop',pauseTitle:'|| PAUSED',pauseScore:'Score',resume:'▶ Resume',settingsBtn:'⚙ Settings',toTitle:'🏠 Title',quitConfirm:'Quit the game?',quitAction:'📋 See Results',quitCancel2:'↩ Keep Playing',settTitle:'⚙ Settings',settSoundSec:'SOUND',settSoundToggle:'Master ON/OFF',settVolMaster:'Master Volume',settVolSfx:'Sound FX',settVolKp:'Keypad Voice',settVibSec:'VIBRATION',settVibLabel:'Intensity',settVibWeak:'Weak',settVibMid:'Mid',settVibStrong:'Strong',settGfxSec:'GRAPHICS',settGfxLabel:'Particles',settGfxLow:'Low',settGfxMid:'Mid',settGfxHigh:'High',settCtrlSec:'CONTROLS',settHandLabel:'Handedness',settHandRight:'Right',settHandLeft:'Left',settLangSec:'LANGUAGE',settDataSec:'DATA',settResetBtn:'Reset All Data',settPrivacyBtn:'Privacy Policy',settCloseBtn:'Close',resetTitle:'⚠ Reset all data?',resetDesc:'Scores, stars, alien allies, and skin purchases will all be deleted. This cannot be undone.',resetCancel:'Cancel',resetConfirm:'Reset',privTitle:'Privacy Policy',reportTitle:'Battle Report',retry:'↩ Retry',share:'Share',rptCalcTitle:'📐 Math Stats',rptBattleTitle:'⚔️ Battle Stats',rptAddLbl:'➕ Add',rptSubLbl:'➖ Sub',rptMulLbl:'✖️ Mul',rptDivLbl:'➗ Div',rptHitRate:'Kill Rate',rptWrongRate:'Miss Rate',rptFinalScore:'Final Score',rptMaxCombo:'Max Combo',rptLevel:'Max Level',rptUfoKills:'UFO Kills',rptBossKills:'Boss Kills',rptMedalTitle:'New Medals',rptAlienTitle:'New Alien Allies',rptAlienGuide:"They want to meet you! Check the Allies tab!",rptStarTitle:'Stars Earned',rptStarTotal:'Total',invincible:'Shield',scoreX2:'Score×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'LEVEL UP!',allClear:'ALL CLEAR!',comboLabel:'COMBO',marisUnit:''},
@@ -6234,13 +6251,13 @@ resetState();
 
 const _ti = (f,s=14) => `<img src="twemoji/${f}" width="${s}" height="${s}" style="vertical-align:middle;margin-right:3px;">`;
 const CAT_INFO = [
-  {id:'rocket',    label:_ti('1f680.svg')+'로켓'},
-  {id:'missile',   label:_ti('1f4ab.svg')+'미사일'},
-  {id:'laser',     label:_ti('26a1.svg')+'피버 레이저'},
-  {id:'bg',        label:_ti('1f30c.svg')+'배경'},
-  {id:'fever',     label:_ti('1f525.svg')+'피버 테마'},
-  {id:'card',      label:_ti('1f0cf.svg')+'계산식 카드'},
-  {id:'explosion', label:_ti('1f4a5.svg')+'특수 폭발'},
+  {id:'rocket',    icon:'1f680.svg', lk:'catRocket'},
+  {id:'missile',   icon:'1f4ab.svg', lk:'catMissile'},
+  {id:'laser',     icon:'26a1.svg',  lk:'catLaser'},
+  {id:'bg',        icon:'1f30c.svg', lk:'catBg'},
+  {id:'fever',     icon:'1f525.svg', lk:'catFever'},
+  {id:'card',      icon:'1f0cf.svg', lk:'catCard'},
+  {id:'explosion', icon:'1f4a5.svg', lk:'catExplosion'},
 ];
 
 function mkRocketSvg(id){
@@ -6250,100 +6267,100 @@ function mkRocketSvg(id){
 
 const SKINS = {
   rocket:[
-    {id:'default', name:'방위대 로켓', price:0,   emoji:'🚀'},
-    {id:'ufo',     name:'포획 UFO',    price:100,  emoji:'🛸'},
-    {id:'battleship', name:'우주전함',   price:300, emoji:'🛡️'},
-    {id:'dragon',     name:'수호 드래곤', price:600, emoji:'🐲'},
-    {id:'whale',      name:'우주 고래',  price:1000,emoji:'🐋'},
+    {id:'default', name:'방위대 로켓', nk:'skinRocketDefault', price:0,   emoji:'🚀'},
+    {id:'ufo',     name:'포획 UFO',    nk:'skinRocketUfo',    price:100,  emoji:'🛸'},
+    {id:'battleship', name:'우주전함',    nk:'skinRocketBattleship',   price:300, emoji:'🛡️'},
+    {id:'dragon',     name:'수호 드래곤', nk:'skinRocketDragon', price:600, emoji:'🐲'},
+    {id:'whale',      name:'우주 고래',   nk:'skinRocketWhale',  price:1000,emoji:'🐋'},
   ],
   missile:[
-    {id:'default', name:'화염탄',  price:0,   c1:'#ffff88',c2:'#ff8800',glow:'#f80'},
-    {id:'ice',     name:'냉동탄',  price:100,  c1:'#aaeeff',c2:'#0088ff',glow:'#08f'},
-    {id:'thunder', name:'번개탄',  price:300, c1:'#ffee44',c2:'#aa00ff',glow:'#a0f'},
-    {id:'toxic',   name:'독소탄',  price:600, c1:'#88ff44',c2:'#00bb44',glow:'#0b4'},
-    {id:'aurora',  name:'오로라탄',price:1000,c1:'#ffaaff',c2:'#4488ff',glow:'#88f'},
+    {id:'default', name:'화염탄',  nk:'skinMissileDefault',  price:0,   c1:'#ffff88',c2:'#ff8800',glow:'#f80'},
+    {id:'ice',     name:'냉동탄',  nk:'skinMissileIce',  price:100,  c1:'#aaeeff',c2:'#0088ff',glow:'#08f'},
+    {id:'thunder', name:'번개탄',  nk:'skinMissileThunder',  price:300, c1:'#ffee44',c2:'#aa00ff',glow:'#a0f'},
+    {id:'toxic',   name:'독소탄',  nk:'skinMissileToxic',  price:600, c1:'#88ff44',c2:'#00bb44',glow:'#0b4'},
+    {id:'aurora',  name:'오로라탄', nk:'skinMissileAurora',price:1000,c1:'#ffaaff',c2:'#4488ff',glow:'#88f'},
   ],
   laser:[
-    {id:'default', name:'화염',    price:0,   color:'#ff6600',glow:'rgba(255,80,0,.7)'},
-    {id:'cyan',    name:'사이안',  price:100,  color:'#00ffcc',glow:'rgba(0,255,200,.7)'},
-    {id:'plasma',  name:'플라즈마',price:300, color:'#ff00ff',glow:'rgba(255,0,255,.7)'},
-    {id:'emerald', name:'에메랄드',price:600, color:'#00ff88',glow:'rgba(0,255,100,.7)'},
-    {id:'galaxy',  name:'은하',    price:1000,color:'#ffffff',glow:'rgba(180,100,255,.8)'},
+    {id:'default', name:'화염',      nk:'skinLaserDefault', price:0,   color:'#ff6600',glow:'rgba(255,80,0,.7)'},
+    {id:'cyan',    name:'사이안',   nk:'skinLaserCyan',  price:100,  color:'#00ffcc',glow:'rgba(0,255,200,.7)'},
+    {id:'plasma',  name:'플라즈마',  nk:'skinLaserPlasma', price:300, color:'#ff00ff',glow:'rgba(255,0,255,.7)'},
+    {id:'emerald', name:'에메랄드',  nk:'skinLaserEmerald',price:600, color:'#00ff88',glow:'rgba(0,255,100,.7)'},
+    {id:'galaxy',  name:'은하',      nk:'skinLaserGalaxy', price:1000,color:'#ffffff',glow:'rgba(180,100,255,.8)'},
   ],
   bg:[
-    {id:'default',  name:'심우주',    price:0,
+    {id:'default',  name:'심우주',    nk:'skinBgDefault',    price:0,
      wrapGrad:'linear-gradient(180deg,#00000f 0%,#04001a 20%,#08002e 45%,#050028 70%,#020014 100%)',
      extraGrad:'none'},
-    {id:'mars',     name:'화성',      price:100,
+    {id:'mars',     name:'화성',      nk:'skinBgMars',      price:100,
      // 우측 상단에 화성 행성 구체 + 하단 희미한 먼지 대기
      wrapGrad:'linear-gradient(180deg,#060000 0%,#0a0100 35%,#080100 70%,#050000 100%)',
      extraGrad:'radial-gradient(circle at 87% 9%,rgba(230,110,40,.80) 0%,rgba(200,80,25,.60) 3.5%,rgba(165,55,15,.35) 6%,rgba(120,35,8,.14) 9%,rgba(70,15,2,.04) 12%,transparent 15%),radial-gradient(ellipse 80% 12% at 50% 100%,rgba(90,22,4,.10) 0%,transparent 100%)'},
-    {id:'nebula',   name:'성운',      price:300,
+    {id:'nebula',   name:'성운',      nk:'skinBgNebula',      price:300,
      wrapGrad:'linear-gradient(180deg,#07000e 0%,#110016 55%,#07000e 100%)',
      extraGrad:'radial-gradient(ellipse 70% 32% at 22% 12%,rgba(130,0,200,.18) 0%,transparent 58%),radial-gradient(ellipse 55% 26% at 76% 22%,rgba(200,30,100,.13) 0%,transparent 52%),radial-gradient(ellipse 42% 18% at 52% 6%,rgba(60,80,255,.10) 0%,transparent 48%),radial-gradient(ellipse 38% 14% at 86% 48%,rgba(255,80,150,.08) 0%,transparent 44%)'},
-    {id:'ice',      name:'얼음 행성', price:600,
+    {id:'ice',      name:'얼음 행성', nk:'skinBgIce', price:600,
      // 좌측 상단에 얼음 행성 — 밝기 낮춰서 눈에 덜 거슬리게
      wrapGrad:'linear-gradient(180deg,#000710 0%,#001325 55%,#000710 100%)',
      extraGrad:'radial-gradient(circle at -5% 12%,rgba(210,240,255,.55) 0%,rgba(160,215,255,.38) 4%,rgba(90,160,230,.20) 9%,rgba(30,80,180,.07) 15%,transparent 20%),radial-gradient(ellipse 45% 8% at 8% 16%,rgba(170,220,255,.08) 0%,transparent 60%)'},
-    {id:'blackhole',name:'블랙홀',    price:1000,
+    {id:'blackhole',name:'블랙홀',    nk:'skinBgBlackhole',    price:1000,
      // 블랙홀을 화면 상단 중앙으로 — 게임 플레이 영역 침범 최소화
      wrapGrad:'linear-gradient(180deg,#000000 0%,#020005 55%,#000000 100%)',
      extraGrad:'radial-gradient(circle at 50% 22%,rgba(0,0,0,.60) 0%,rgba(0,0,0,.40) 4%,transparent 8%),radial-gradient(ellipse 38% 8% at 50% 22%,rgba(255,140,0,.22) 0%,rgba(255,70,0,.12) 35%,transparent 55%),radial-gradient(ellipse 60% 14% at 50% 22%,rgba(180,80,0,.07) 0%,transparent 60%),radial-gradient(circle at 50% 22%,rgba(255,180,60,.05) 0%,transparent 40%)'},
   ],
   fever:[
-    {id:'default', name:'보라 폭풍', price:0,
+    {id:'default', name:'보라 폭풍', nk:'skinFeverDefault', price:0,
      wrap:'linear-gradient(180deg,#04001a 0%,#0a0030 55%,#04001a 100%)',
      over:'rgba(80,0,255,.28)', s1:'180,255,255', s2:'255,255,255'},
-    {id:'aurora',  name:'오로라',    price:100,
+    {id:'aurora',  name:'오로라',    nk:'skinFeverAurora', price:100,
      wrap:'linear-gradient(180deg,#001a0a 0%,#002d14 55%,#001a0a 100%)',
      over:'rgba(0,200,120,.28)', s1:'150,255,180', s2:'200,255,220'},
-    {id:'flame',   name:'화염',      price:300,
+    {id:'flame',   name:'화염',      nk:'skinFeverFlame', price:300,
      wrap:'linear-gradient(180deg,#1a0000 0%,#2d0500 55%,#1a0000 100%)',
      over:'rgba(255,60,0,.28)',  s1:'255,150,50',  s2:'255,200,100'},
-    {id:'gold',    name:'황금 폭풍', price:600,
+    {id:'gold',    name:'황금 폭풍', nk:'skinFeverGold', price:600,
      wrap:'linear-gradient(180deg,#1a1000 0%,#2d1800 55%,#1a1000 100%)',
      over:'rgba(255,180,0,.28)', s1:'255,220,0',   s2:'255,240,100'},
-    {id:'cyber',   name:'사이버',    price:1000,
+    {id:'cyber',   name:'사이버',    nk:'skinFeverCyber',    price:1000,
      wrap:'linear-gradient(180deg,#000a1a 0%,#001025 55%,#000a1a 100%)',
      over:'rgba(0,200,255,.28)', s1:'0,220,255',   s2:'100,240,255'},
   ],
   card:[
-    {id:'default', name:'우주군',    price:0,
+    {id:'default', name:'우주군',    nk:'skinCardDefault',    price:0,
      add:{bg:'rgba(4,6,52,.93)',   bd:'#3355ee',c:'#aabbff'},
      sub:{bg:'rgba(0,34,22,.93)',  bd:'#00bb77',c:'#88ffcc'},
      mul:{bg:'rgba(44,12,0,.93)', bd:'#ff7700',c:'#ffcc88'},
      div:{bg:'rgba(30,5,40,.93)', bd:'#cc44ff',c:'#ddaaff'}},
-    {id:'jungle',  name:'정글',      price:100,
+    {id:'jungle',  name:'정글',      nk:'skinCardJungle',      price:100,
      add:{bg:'rgba(8,18,4,.93)',  bd:'#4a8830',c:'#aabb88'},
      sub:{bg:'rgba(18,12,0,.93)',  bd:'#887730',c:'#ccbb88'},
      mul:{bg:'rgba(12,18,0,.93)', bd:'#66aa22',c:'#bbdd88'},
      div:{bg:'rgba(10,14,6,.93)', bd:'#558844',c:'#99bb77'}},
-    {id:'ocean',   name:'심해',      price:300,
+    {id:'ocean',   name:'심해',      nk:'skinCardOcean',      price:300,
      add:{bg:'rgba(0,8,28,.93)',   bd:'#1166cc',c:'#88bbff'},
      sub:{bg:'rgba(0,14,22,.93)',  bd:'#0088aa',c:'#88ddee'},
      mul:{bg:'rgba(4,0,28,.93)',   bd:'#5533bb',c:'#aabbff'},
      div:{bg:'rgba(0,12,20,.93)', bd:'#0099cc',c:'#88ccee'}},
-    {id:'magma',   name:'마그마',    price:600,
+    {id:'magma',   name:'마그마',    nk:'skinCardMagma',    price:600,
      add:{bg:'rgba(30,0,0,.93)',   bd:'#cc2200',c:'#ffaa88'},
      sub:{bg:'rgba(28,8,0,.93)',   bd:'#ee5500',c:'#ffcc88'},
      mul:{bg:'rgba(30,12,0,.93)', bd:'#ff8800',c:'#ffdd88'},
      div:{bg:'rgba(28,4,0,.93)',  bd:'#dd3300',c:'#ffbb88'}},
-    {id:'gold',    name:'황금 제국', price:1000,
+    {id:'gold',    name:'황금 제국', nk:'skinCardGold', price:1000,
      add:{bg:'rgba(20,15,0,.93)', bd:'#ddaa00',c:'#ffee88'},
      sub:{bg:'rgba(15,10,0,.93)', bd:'#cc9900',c:'#eecc77'},
      mul:{bg:'rgba(22,16,0,.93)', bd:'#ffcc00',c:'#fff088'},
      div:{bg:'rgba(18,12,0,.93)', bd:'#bb9900',c:'#eebb66'}},
   ],
   explosion:[
-    {id:'default', name:'화염',    price:0,
+    {id:'default', name:'화염',      nk:'skinExplosionDefault', price:0,
      i:'rgba(255,240,0,.99)',m:'rgba(255,80,0,.88)',o:'rgba(180,0,80,.55)'},
-    {id:'ice',     name:'냉기',    price:100,
+    {id:'ice',     name:'냉기',      nk:'skinExplosionIce',    price:100,
      i:'rgba(200,240,255,.99)',m:'rgba(0,150,255,.88)',o:'rgba(0,50,180,.55)'},
-    {id:'plasma',  name:'플라즈마',price:300,
+    {id:'plasma',  name:'플라즈마',  nk:'skinExplosionPlasma', price:300,
      i:'rgba(255,200,255,.99)',m:'rgba(200,0,255,.88)',o:'rgba(80,0,180,.55)'},
-    {id:'toxic',   name:'독기',    price:600,
+    {id:'toxic',   name:'독기',      nk:'skinExplosionToxic',    price:600,
      i:'rgba(200,255,150,.99)',m:'rgba(0,200,50,.88)',o:'rgba(0,100,40,.55)'},
-    {id:'galaxy',  name:'은하',    price:1000,
+    {id:'galaxy',  name:'은하',      nk:'skinExplosionGalaxy', price:1000,
      i:'rgba(255,255,255,.99)',m:'rgba(100,100,255,.88)',o:'rgba(200,0,200,.55)'},
   ],
 };
@@ -6446,7 +6463,7 @@ function hideShop(){ $('shop-popup-wrap').style.display='none'; }
 function renderShopTabs(){
   $('shop-cat-tabs').innerHTML = CAT_INFO.map(c=>`
     <div class="shop-cat-tab${c.id===_shopCat?' active':''}"
-      onclick="switchShopCat('${c.id}')">${c.label}</div>`).join('');
+      onclick="switchShopCat('${c.id}')">${_ti(c.icon)}${tr(c.lk)}</div>`).join('');
 }
 
 function switchShopCat(cat){
@@ -6465,14 +6482,14 @@ function renderShopBody(){
     const canAfford = (SKIN_SAVE.stars||0)>=s.price;
     const preview   = buildSkinPreview(_shopCat, s);
     let btnHtml;
-    if(isEquipped)     btnHtml=`<button class="skin-btn btn-equipped" disabled>장착 중</button>`;
-    else if(isOwned)   btnHtml=`<button class="skin-btn btn-equip" onclick="equipSkin('${_shopCat}','${s.id}')">장착</button>`;
+    if(isEquipped)     btnHtml=`<button class="skin-btn btn-equipped" disabled>${tr('equipped')}</button>`;
+    else if(isOwned)   btnHtml=`<button class="skin-btn btn-equip" onclick="equipSkin('${_shopCat}','${s.id}')">${tr('equip')}</button>`;
     else if(canAfford) btnHtml=`<button class="skin-btn btn-buy" onclick="buySkin('${_shopCat}','${s.id}',${s.price})">⭐ ${s.price}</button>`;
     else               btnHtml=`<button class="skin-btn btn-locked" disabled>⭐ ${s.price}</button>`;
     return `<div class="skin-card${isEquipped?' equipped':''}">
       <div class="skin-preview">${preview}</div>
       <div class="skin-info">
-        <div class="skin-name">${s.name}</div>
+        <div class="skin-name">${s.nk?tr(s.nk):s.name}</div>
         <div class="skin-status">${isEquipped?'✓ 장착 중':isOwned?'보유':'미보유'}</div>
       </div>
       ${btnHtml}
@@ -6760,19 +6777,19 @@ const ALIEN_PROBLEMS = [
 
 // ── 특수 능력 13종 (합계 200) ──
 const ABILITY_TYPES = [
-  {id:'start_hp',    label:'게임 시작 HP',      unit:'+1',      count:10, value:1},
-  {id:'fever_dur',   label:'피버 지속시간',      unit:'+0.1초',  count:30, value:0.1},
-  {id:'combo_time',  label:'콤보 연결 시간',     unit:'+0.1초',  count:30, value:0.1},
-  {id:'cover_dur',   label:'동료 로켓 지속',     unit:'+1초',    count:20, value:1},
-  {id:'cover_cool',  label:'동료 로켓 쿨타임',   unit:'-0.05초', count:10, value:0.05},
-  {id:'nuke_range',  label:'핵폭탄 범위',        unit:'+1%',     count:20, value:1},
-  {id:'score_mult',  label:'점수 배율',          unit:'+0.5%',   count:20, value:0.5},
-  {id:'fever_ext',   label:'피버 연장 최솟값',   unit:'+10ms',   count:20, value:10},
-  {id:'boss_fever',  label:'보스 격파 피버',     unit:'+1카운트',count:10, value:1},
-  {id:'ufo_speed',   label:'UFO 이동속도',       unit:'-2% (느리게)',count:10, value:2},
-  {id:'fever_ufo',   label:'피버 발동 UFO',      unit:'-1마리',  count:3,  value:1},
-  {id:'cover_frz',   label:'동결 지속시간',      unit:'+0.2초',  count:10, value:0.2},
-  {id:'fall_speed',  label:'낙하 속도',          unit:'-0.5%',   count:7,  value:0.5},
+  {id:'start_hp',    label:'게임 시작 HP', lk:'abilityStartHp',      unit:'+1',      count:10, value:1},
+  {id:'fever_dur',   label:'피버 지속시간', lk:'abilityFeverDur',      unit:'+0.1초',  count:30, value:0.1},
+  {id:'combo_time',  label:'콤보 연결 시간', lk:'abilityComboTime',     unit:'+0.1초',  count:30, value:0.1},
+  {id:'cover_dur',   label:'동료 로켓 지속', lk:'abilityCoverDur',     unit:'+1초',    count:20, value:1},
+  {id:'cover_cool',  label:'동료 로켓 쿨타임', lk:'abilityCoverCool',   unit:'-0.05초', count:10, value:0.05},
+  {id:'nuke_range',  label:'핵폭탄 범위', lk:'abilityNukeRange',        unit:'+1%',     count:20, value:1},
+  {id:'score_mult',  label:'점수 배율', lk:'abilityScoreMult',          unit:'+0.5%',   count:20, value:0.5},
+  {id:'fever_ext',   label:'피버 연장 최솟값', lk:'abilityFeverExt',   unit:'+10ms',   count:20, value:10},
+  {id:'boss_fever',  label:'보스 격파 피버', lk:'abilityBossFever',     unit:'+1카운트',count:10, value:1},
+  {id:'ufo_speed',   label:'UFO 이동속도', lk:'abilityUfoSpeed',       unit:'-2% (느리게)',count:10, value:2},
+  {id:'fever_ufo',   label:'피버 발동 UFO', lk:'abilityFeverUfo',      unit:'-1마리',  count:3,  value:1},
+  {id:'cover_frz',   label:'동결 지속시간', lk:'abilityCoverFrz',      unit:'+0.2초',  count:10, value:0.2},
+  {id:'fall_speed',  label:'낙하 속도', lk:'abilityFallSpeed',          unit:'-0.5%',   count:7,  value:0.5},
 ];
 
 // ── 능력 배분 (셔플된 200 인덱스 고정 시드) ──
@@ -7247,17 +7264,17 @@ function gRecordBossKill()  {
 
 // ── 훈장 정의 ──────────────────
 const TIER_COLORS = ['#c07530','#9db8cc','#e8c020','#e040fb'];
-const TIER_NAMES  = ['신병','병사','장교','사령관'];
+const TIER_NAMES  = ()=>[tr('rankPrivate'),tr('rankSoldier'),tr('rankOfficer'),tr('rankCommander')];
 
 const MEDAL_DEFS = [
   // 수학 능력
-  { id:'add',   section:'math',   emoji:'➕', name:'덧셈 훈장',
+  { id:'add',   section:'math',   emoji:'➕', name:'덧셈 훈장', nk:'medalAdd',
     tiers:[{v:100},{v:500},{v:2000},{v:5000}], getValue:()=>GSTATS.addCount },
-  { id:'sub',   section:'math',   emoji:'➖', name:'뺄셈 훈장',
+  { id:'sub',   section:'math',   emoji:'➖', name:'뺄셈 훈장', nk:'medalSub',
     tiers:[{v:100},{v:500},{v:2000},{v:5000}], getValue:()=>GSTATS.subCount },
-  { id:'mul',   section:'math',   emoji:'✖️', name:'곱셈 훈장',
+  { id:'mul',   section:'math',   emoji:'✖️', name:'곱셈 훈장', nk:'medalMul',
     tiers:[{v:100},{v:500},{v:2000},{v:5000}], getValue:()=>GSTATS.mulCount },
-  { id:'div',   section:'math',   emoji:'➗', name:'나눗셈 훈장',
+  { id:'div',   section:'math',   emoji:'➗', name:'나눗셈 훈장', nk:'medalDiv',
     tiers:[{v:50},{v:200},{v:800},{v:2000}], getValue:()=>GSTATS.divCount },
   { id:'acc',   section:'math',   emoji:'🎯', name:'정확도 훈장',
     tiers:[{v:70},{v:80},{v:90},{v:95}],
@@ -7291,74 +7308,74 @@ const MEDAL_DEFS = [
       );
     }},
   // 전투 기록
-  { id:'combo',    section:'battle', emoji:'🔥', name:'콤보 훈장',
+  { id:'combo',    section:'battle', emoji:'🔥', name:'콤보 훈장', nk:'medalCombo',
     tiers:[{v:15},{v:30},{v:50},{v:100}], getValue:()=>GSTATS.maxCombo },
-  { id:'fever',    section:'battle', emoji:'💫', name:'피버 훈장',
+  { id:'fever',    section:'battle', emoji:'💫', name:'피버 훈장', nk:'medalFever',
     tiers:[{v:5},{v:20},{v:50},{v:150}], getValue:()=>GSTATS.feverCount },
-  { id:'boss',     section:'battle', emoji:'💀', name:'보스 훈장',
+  { id:'boss',     section:'battle', emoji:'💀', name:'보스 훈장', nk:'medalBoss',
     tiers:[{v:1},{v:5},{v:15},{v:30}],  getValue:()=>GSTATS.bossKills },
-  { id:'allclear', section:'battle', emoji:'✨', name:'올클리어 훈장',
+  { id:'allclear', section:'battle', emoji:'✨', name:'올클리어 훈장', nk:'medalAllclear',
     tiers:[{v:5},{v:20},{v:50},{v:150}],getValue:()=>GSTATS.allClearCount },
-  { id:'level',    section:'battle', emoji:'🛡️', name:'생존 훈장',
-    hint:'최고 도달 레벨',
+  { id:'level',    section:'battle', emoji:'🛡️', name:'생존 훈장', nk:'medalLevel',
+    hint:'최고 도달 레벨', hk:'hintLevel',
     tiers:[{v:5},{v:10},{v:15},{v:20}], getValue:()=>GSTATS.maxLevel+1 },
-  { id:'score',    section:'battle', emoji:'👑', name:'점수 훈장',
+  { id:'score',    section:'battle', emoji:'👑', name:'점수 훈장', nk:'medalScore',
     tiers:[{v:50000},{v:150000},{v:300000},{v:500000}], getValue:()=>GSTATS.maxScore },
   // 전술 기록 훈장
-  { id:'oneshot',    section:'tactic', emoji:'💥', name:'한방 다중격추',
-    hint:'답 1회 제출로 동시에 격추한 최대 마리',
+  { id:'oneshot',    section:'tactic', emoji:'💥', name:'한방 다중격추', nk:'medalOneshot',
+    hint:'답 1회 제출로 동시에 격추한 최대 마리', hk:'hintOneshot',
     tiers:[{v:2},{v:3},{v:5},{v:7}], getValue:()=>GSTATS.maxOneShot },
-  { id:'crossshot',  section:'tactic', emoji:'➕', name:'크로스빔 신궁',
-    hint:'크로스빔 1회로 격추한 최대 마리',
+  { id:'crossshot',  section:'tactic', emoji:'➕', name:'크로스빔 신궁', nk:'medalCrossshot',
+    hint:'크로스빔 1회로 격추한 최대 마리', hk:'hintCrossshot',
     tiers:[{v:3},{v:5},{v:8},{v:12}], getValue:()=>GSTATS.maxCrossShot },
-  { id:'bubbleshot', section:'tactic', emoji:'💥', name:'버블봄 폭격수',
-    hint:'버블봄 1회로 격추한 최대 마리',
+  { id:'bubbleshot', section:'tactic', emoji:'💥', name:'버블봄 폭격수', nk:'medalBubbleshot',
+    hint:'버블봄 1회로 격추한 최대 마리', hk:'hintBubbleshot',
     tiers:[{v:3},{v:5},{v:8},{v:12}], getValue:()=>GSTATS.maxBubbleShot },
-  { id:'nukeshot',   section:'tactic', emoji:'☢️', name:'핵폭탄 섬멸자',
-    hint:'핵폭탄 1회로 격추한 최대 마리',
+  { id:'nukeshot',   section:'tactic', emoji:'☢️', name:'핵폭탄 섬멸자', nk:'medalNukeshot',
+    hint:'핵폭탄 1회로 격추한 최대 마리', hk:'hintNukeshot',
     tiers:[{v:3},{v:6},{v:10},{v:15}], getValue:()=>GSTATS.maxNukeShot },
-  { id:'xshot',      section:'tactic', emoji:'✖️', name:'X크래시 달인',
-    hint:'X크래시 1회로 격추한 최대 마리',
+  { id:'xshot',      section:'tactic', emoji:'✖️', name:'X크래시 달인', nk:'medalXshot',
+    hint:'X크래시 1회로 격추한 최대 마리', hk:'hintXshot',
     tiers:[{v:3},{v:5},{v:8},{v:12}], getValue:()=>GSTATS.maxXShot },
-  { id:'bosstime',   section:'tactic', emoji:'⏱️', name:'보스 처치 속도',
-    hint:'보스를 가장 빠르게 처치한 기록 (낮을수록 좋음)',
+  { id:'bosstime',   section:'tactic', emoji:'⏱️', name:'보스 처치 속도', nk:'medalBosstime',
+    hint:'보스를 가장 빠르게 처치한 기록 (낮을수록 좋음)', hk:'hintBosstime',
     lowerIsBetter: true,
     tiers:[{v:60000},{v:45000},{v:30000},{v:20000}],
     getValue:()=>GSTATS.minBossKillTime },
-  { id:'freezekill', section:'tactic', emoji:'🧊', name:'정지 저격수',
-    hint:'정지 1회 동안 격추한 최대 마리',
+  { id:'freezekill', section:'tactic', emoji:'🧊', name:'정지 저격수', nk:'medalFreezekill',
+    hint:'정지 1회 동안 격추한 최대 마리', hk:'hintFreezekill',
     tiers:[{v:3},{v:6},{v:10},{v:15}], getValue:()=>GSTATS.maxFreezeKill },
-  { id:'feverkill',  section:'tactic', emoji:'🌡️', name:'피버 학살자',
-    hint:'피버 1회 동안 격추한 최대 마리',
+  { id:'feverkill',  section:'tactic', emoji:'🌡️', name:'피버 학살자', nk:'medalFeverkill',
+    hint:'피버 1회 동안 격추한 최대 마리', hk:'hintFeverkill',
     tiers:[{v:5},{v:15},{v:25},{v:40}], getValue:()=>GSTATS.maxFeverKill },
   // 도전 훈장
-  { id:'nohit',    section:'tactic', emoji:'🛡️', name:'무피해 수호자',
-    hint:'HP 손실 없이 버틴 최고 레벨',
+  { id:'nohit',    section:'tactic', emoji:'🛡️', name:'무피해 수호자', nk:'medalNohit',
+    hint:'HP 손실 없이 버틴 최고 레벨', hk:'hintNohit',
     tiers:[{v:3},{v:7},{v:12},{v:20}], getValue:()=>GSTATS.maxNoHitLevel||0 },
-  { id:'companions',section:'tactic',emoji:'👾', name:'동료 수집가',
-    hint:'동료로 확정한 외계인 수',
+  { id:'companions',section:'tactic',emoji:'👾', name:'동료 수집가', nk:'medalCompanions',
+    hint:'동료로 확정한 외계인 수', hk:'hintCompanions',
     tiers:[{v:5},{v:20},{v:50},{v:100}],
     getValue:()=>(typeof ALIEN_SAVE!=='undefined'?ALIEN_SAVE.confirmed.length:0) },
-  { id:'skins',    section:'tactic', emoji:'🌟', name:'패션 리더',
-    hint:'구매한 스킨 수 (기본 제외)',
+  { id:'skins',    section:'tactic', emoji:'🌟', name:'패션 리더', nk:'medalSkins',
+    hint:'구매한 스킨 수 (기본 제외)', hk:'hintSkins',
     tiers:[{v:1},{v:5},{v:10},{v:20}],
     getValue:()=>{
       if(typeof SKIN_SAVE==='undefined') return 0;
       return Object.values(SKIN_SAVE.owned||{}).flat().filter(id=>id!=='default').length;
     }},
   // 특별 훈장 (단일 등급, 플래티넘)
-  { id:'streak7',      section:'special', emoji:'📅', name:'7일 전사',
-    req:'7일 연속 접속', getValue:()=>GSTATS.loginStreak>=7?1:0 },
-  { id:'streak30',     section:'special', emoji:'🏆', name:'한달 전설',
-    req:'30일 연속 접속', getValue:()=>GSTATS.loginStreak>=30?1:0 },
-  { id:'feverall',     section:'special', emoji:'🌈', name:'무아지경',
-    req:'피버 중 올클리어', getValue:()=>GSTATS.feverAllClear>0?1:0 },
-  { id:'nodmg',        section:'special', emoji:'⚔️', name:'무적 사냥꾼',
-    req:'보스전 중 HP 손실 없이 격파', getValue:()=>GSTATS.bossNoDamage>0?1:0 },
-  { id:'combo100',     section:'special', emoji:'💯', name:'백연속',
-    req:'콤보 100 달성', getValue:()=>GSTATS.maxCombo>=100?1:0 },
-  { id:'feverstorm',   section:'special', emoji:'🎆', name:'불꽃 폭풍',
-    req:'한 게임 피버 5회 이상', getValue:()=>GSTATS.maxFeverInGame>=5?1:0 },
+  { id:'streak7',      section:'special', emoji:'📅', name:'7일 전사', nk:'medalStreak7',
+    req:'7일 연속 접속', rk:'reqStreak7', getValue:()=>GSTATS.loginStreak>=7?1:0 },
+  { id:'streak30',     section:'special', emoji:'🏆', name:'한달 전설', nk:'medalStreak30',
+    req:'30일 연속 접속', rk:'reqStreak30', getValue:()=>GSTATS.loginStreak>=30?1:0 },
+  { id:'feverall',     section:'special', emoji:'🌈', name:'무아지경', nk:'medalFeverall',
+    req:'피버 중 올클리어', rk:'reqFeverall', getValue:()=>GSTATS.feverAllClear>0?1:0 },
+  { id:'nodmg',        section:'special', emoji:'⚔️', name:'무적 사냥꾼', nk:'medalNodmg',
+    req:'보스전 중 HP 손실 없이 격파', rk:'reqNodmg', getValue:()=>GSTATS.bossNoDamage>0?1:0 },
+  { id:'combo100',     section:'special', emoji:'💯', name:'백연속', nk:'medalCombo100',
+    req:'콤보 100 달성', rk:'reqCombo100', getValue:()=>GSTATS.maxCombo>=100?1:0 },
+  { id:'feverstorm',   section:'special', emoji:'🎆', name:'불꽃 폭풍', nk:'medalFeverstorm',
+    req:'한 게임 피버 5회 이상', rk:'reqFeverstorm', getValue:()=>GSTATS.maxFeverInGame>=5?1:0 },
 ];
 
 function getMedalState(m) {
@@ -7393,26 +7410,26 @@ function getMedalState(m) {
 // ── 훈장 보드 렌더링 ──────────
 function renderMedalBoard() {
   const sections = [
-    {key:'math',   label:'📐 수학 능력 훈장'},
-    {key:'battle', label:'⚔️ 전투 기록 훈장'},
-    {key:'tactic', label:'🎯 전술 기록 훈장'},
-    {key:'special',label:'💎 특별 훈장'},
+    {key:'math',   lk:'medalSecMath'},
+    {key:'battle', lk:'medalSecBattle'},
+    {key:'tactic', lk:'medalSecTactic'},
+    {key:'special',lk:'medalSecSpecial'},
   ];
   let html='';
   sections.forEach(sec=>{
-    html+=`<div class="medal-section-label">${sec.label}</div><div class="medal-grid">`;
+    html+=`<div class="medal-section-label">${tr(sec.lk)}</div><div class="medal-grid">`;
     MEDAL_DEFS.filter(m=>m.section===sec.key).forEach(m=>{
       const st=getMedalState(m);
       const locked=st.tier===0;
       const tClass=locked?'locked':`t${st.tier}`;
-      const tierLbl=locked?'미획득':
-        ['구리','은','금','플래티넘'][st.tier-1]||'플래티넘';
+      const tierLbl=locked?tr('tierLocked'):
+        [tr('tierBronze'),tr('tierSilver'),tr('tierGold'),tr('tierPlatinum')][st.tier-1]||tr('tierPlatinum');
       const progBar = !locked && st.tier<st.maxTier
         ? `<div class="medal-prog-wrap"><div class="medal-prog-bar" style="width:${st.pct}%"></div></div>`
-        : st.tier===st.maxTier?`<div class="medal-complete-badge">★ 완성</div>`:'';
+        : st.tier===st.maxTier?`<div class="medal-complete-badge">${tr('tierComplete')}</div>`:'`;
       html+=`<div class="medal-card ${tClass}" onclick="showMedalDetail('${m.id}')">
         <div class="medal-icon">${locked?'<span style="font-size:20px;font-weight:900;color:#555;font-family:Arial,sans-serif;">?</span>':`<img src="medals/${m.id}.png" style="width:45px;height:45px;object-fit:contain;">`}</div>
-        <div class="medal-name">${m.name}</div>
+        <div class="medal-name">${m.nk?tr(m.nk):m.name}</div>
         <div class="medal-tier-label">${tierLbl}</div>
         ${progBar}
       </div>`;
@@ -7427,33 +7444,33 @@ function showMedalDetail(id) {
   const st = getMedalState(m);
   const locked = st.tier === 0;
   const tierColorArr = ['#c07530','#9db8cc','#e8c020','#e040fb'];
-  const tierNameArr  = ['구리','은','금','플래티넘'];
+  const tierNameArr  = [tr('tierBronze'),tr('tierSilver'),tr('tierGold'),tr('tierPlatinum')];
   const color = locked ? '#444' : tierColorArr[st.tier-1];
-  const tierLbl = locked ? '미획득' :
-    tierNameArr[st.tier-1] || '플래티넘';
+  const tierLbl = locked ? tr('tierLocked') :
+    tierNameArr[st.tier-1] || tr('tierPlatinum');
 
   let progHtml = '', nextHtml = '';
   if(!locked && m.section!=='special' && st.tier < st.maxTier) {
     progHtml = `<div class="mpop-prog-wrap"><div class="mpop-prog-bar" style="width:${st.pct}%;background:${color}"></div></div>`;
-    nextHtml = `<div class="mpop-next">다음 등급(${TIER_NAMES[st.tier]})까지 ${(m.tiers[st.tier].v - st.val).toLocaleString()} 남음</div>`;
+    nextHtml = `<div class="mpop-next">${trf('tierNextFmt',{tier:TIER_NAMES()[st.tier]||'',n:(m.tiers[st.tier].v - st.val).toLocaleString()})}</div>`;
   } else if(st.tier === st.maxTier) {
-    nextHtml = `<div class="mpop-next" style="color:#44ffaa">🎉 최고 등급 달성!</div>`;
+    nextHtml = `<div class="mpop-next" style="color:#44ffaa">🎉 ${tr('tierMaxAchieved')}</div>`;
   }
 
-  const reqTxt = m.req||m.hint||'';
+  const reqTxt = (m.rk?tr(m.rk):m.req)||(m.hk?tr(m.hk):m.hint)||'';
   $('medal-popup').innerHTML = `
     <div class="mpop-icon" style="background:rgba(0,0,0,.4);border:2px solid ${color};box-shadow:0 0 14px ${color}44">
       ${locked?'<span style="font-size:20px;font-weight:900;color:#555;font-family:Arial,sans-serif;">?</span>':`<img src="medals/${m.id}.png" style="width:66px;height:66px;object-fit:contain;">`}
     </div>
-    <div class="mpop-name">${m.name}</div>
+    <div class="mpop-name">${m.nk?tr(m.nk):m.name}</div>
     <div class="mpop-tier" style="color:${color}">${tierLbl}</div>
     ${reqTxt?`<div class="mpop-desc">${reqTxt}</div>`:''}
     ${!locked&&m.section!=='special'?`<div class="mpop-desc">${m.lowerIsBetter?'최고 기록':'누적'}: <b style="color:#fff">${m.lowerIsBetter?(st.val/1000).toFixed(1)+'초':st.val.toLocaleString()}</b></div>`:''}
     ${progHtml}${nextHtml}
     ${st.tier < st.maxTier
-      ? `<div style="font-size:11px;color:#aab;margin-top:2px;">다음 등급 달성 시 <span style="color:#ffd700;font-weight:800;">⭐ ${MEDAL_TIER_STARS[st.tier+1]||100}별</span> 획득</div>`
-      : `<div style="font-size:11px;color:#44ffaa;margin-top:2px;">✓ 모든 별 보상 획득 완료!</div>`}
-    <button class="mpop-close" onclick="closeMedalPopup()">닫기</button>`;
+      ? `<div style="font-size:11px;color:#aab;margin-top:2px;">${trf('tierStarRewardFmt',{n:MEDAL_TIER_STARS[st.tier+1]||100})}</div>`
+      : `<div style="font-size:11px;color:#44ffaa;margin-top:2px;">${tr('tierAllStars')}</div>`}
+    <button class="mpop-close" onclick="closeMedalPopup()" data-i18n="closeBtnTxt">닫기</button>`; 
   $('medal-popup-wrap').style.display = 'flex';
   sfxPopupOpen();
 }
@@ -7503,8 +7520,8 @@ function renderReport(period) {
   let chartHtml='';
   if(period==='weekly'){
     const maxProbs=Math.max(1,...days.map(d=>d.add+d.sub+d.mul));
-    const dayLabels=['일','월','화','수','목','금','토'];
-    chartHtml=`<div class="chart-wrap"><div class="chart-label">일별 풀이 문제 수</div>
+    const dayLabels=tr('weekdays').split(',');
+    chartHtml=`<div class="chart-wrap"><div class="chart-label">${tr('reportDailyProblems')}</div>
     <div class="chart-bars">`;
     days.forEach(d=>{
       const total=d.add+d.sub+d.mul;
@@ -7519,22 +7536,22 @@ function renderReport(period) {
   }
 
   // 연산별 분포
-  const opHtml=`<div class="chart-label" style="margin-top:8px">연산별 풀이</div>
+  const opHtml=`<div class="chart-label" style="margin-top:8px">${tr('reportOpBreakdown')}</div>
   <div class="op-breakdown">
-    <div class="op-chip"><div class="op-chip-val" style="color:#6699ff">${totAdd}</div><div class="op-chip-lbl">➕ 덧셈</div></div>
-    <div class="op-chip"><div class="op-chip-val" style="color:#ff9944">${totSub}</div><div class="op-chip-lbl">➖ 뺄셈</div></div>
-    <div class="op-chip"><div class="op-chip-val" style="color:#44ee88">${totMul}</div><div class="op-chip-lbl">✖️ 곱셈</div></div>
-    <div class="op-chip"><div class="op-chip-val" style="color:#ff66cc">${totDiv}</div><div class="op-chip-lbl">➗ 나눗셈</div></div>
+    <div class="op-chip"><div class="op-chip-val" style="color:#6699ff">${totAdd}</div><div class="op-chip-lbl">${tr('rptAddLbl')}</div></div>
+    <div class="op-chip"><div class="op-chip-val" style="color:#ff9944">${totSub}</div><div class="op-chip-lbl">${tr('rptSubLbl')}</div></div>
+    <div class="op-chip"><div class="op-chip-val" style="color:#44ee88">${totMul}</div><div class="op-chip-lbl">${tr('rptMulLbl')}</div></div>
+    <div class="op-chip"><div class="op-chip-val" style="color:#ff66cc">${totDiv}</div><div class="op-chip-lbl">${tr('rptDivLbl')}</div></div>
   </div>`;
 
   const assessment=generateAssessment({period,days,totRight,totWrong,acc,daysPlayed,totAdd,totSub,totMul,totDiv});
 
   $('report-body').innerHTML=`
     <div class="report-stat-row">
-      <div class="report-stat-box"><div class="report-stat-val">${totRight}</div><div class="report-stat-lbl">총 정답</div></div>
-      <div class="report-stat-box"><div class="report-stat-val">${acc}%</div><div class="report-stat-lbl">정답률</div></div>
+      <div class="report-stat-box"><div class="report-stat-val">${totRight}</div><div class="report-stat-lbl">${tr('totalCorrect')}</div></div>
+      <div class="report-stat-box"><div class="report-stat-val">${acc}%</div><div class="report-stat-lbl">${tr('accuracy')}</div></div>
       <div class="report-stat-box"><div class="report-stat-val">${period==='weekly'?daysPlayed+'일':days[0].fever||0+'회'}</div>
-        <div class="report-stat-lbl">${period==='weekly'?'출석일':'피버'}</div></div>
+        <div class="report-stat-lbl">${period==='weekly'?tr('daysPlayedLbl'):tr('feverLabel')}</div></div>
     </div>
     ${chartHtml}${opHtml}
     <div class="assessment-box">${assessment}</div>`;
@@ -7542,36 +7559,30 @@ function renderReport(period) {
 
 function generateAssessment({period,days,totRight,totWrong,acc,daysPlayed,totAdd,totSub,totMul,totDiv=0}) {
   if(totRight===0){
-    return period==='daily'
-      ? '오늘은 아직 플레이하지 않았어요. 지금 시작해볼까요? 🚀'
-      : '이번 주는 플레이 기록이 없어요. 내일부터 조금씩 시작해봐요! 😊';
+    return period==='daily' ? tr('assessNoPlayDaily') : tr('assessNoPlayWeekly');
   }
   const parts=[];
-  // 출석 평가
   if(period==='weekly'){
-    if(daysPlayed>=6) parts.push(`이번 주 <b>${daysPlayed}일</b>이나 빠짐없이 열심히 했어요! 정말 대단한 꾸준함이에요. 🌟`);
-    else if(daysPlayed>=4) parts.push(`이번 주 <b>${daysPlayed}일</b> 접속했어요. 꾸준히 하고 있네요! 💪`);
-    else if(daysPlayed>=2) parts.push(`이번 주 <b>${daysPlayed}일</b> 플레이했어요. 조금 더 자주 하면 더 빨리 늘 거예요.`);
-    else parts.push(`이번 주는 많이 바빴나봐요. 하루에 5분이라도 꾸준히 해보면 어떨까요?`);
+    if(daysPlayed>=6) parts.push(trf('assessDays6',{n:daysPlayed}));
+    else if(daysPlayed>=4) parts.push(trf('assessDays4',{n:daysPlayed}));
+    else if(daysPlayed>=2) parts.push(trf('assessDays2',{n:daysPlayed}));
+    else parts.push(tr('assessDays1'));
   }
-  // 문제 수 평가
   const daily=period==='weekly'?Math.round(totRight/(daysPlayed||1)):totRight;
-  if(daily>=50) parts.push(`하루 평균 <b>${daily}문제</b>를 풀었어요. 정말 열심히 하고 있어요!`);
-  else if(daily>=20) parts.push(`하루 <b>${daily}문제</b> 정도 풀었어요.`);
-  else parts.push(`문제를 조금 더 많이 풀어보면 실력이 더 빨리 늘어요.`);
-  // 정확도 평가
-  if(totRight+totWrong<10) {}
-  else if(acc>=95) parts.push(`정답률 <b>${acc}%</b>로 아주 정확해요! 🎯`);
-  else if(acc>=85) parts.push(`정답률 <b>${acc}%</b>로 꽤 정확한 편이에요.`);
-  else if(acc>=70) parts.push(`정답률이 <b>${acc}%</b>예요. 서두르지 말고 잘 생각하고 답해봐요.`);
-  else parts.push(`정답률 <b>${acc}%</b>로 아직 실수가 좀 있어요. 천천히 정확하게 하는 연습이 필요해요.`);
-  // 연산 약점 — 나눗셈은 게임에서 드물게 나오므로 제외
-  const ops=[['덧셈',totAdd],['뺄셈',totSub],['곱셈',totMul]].filter(o=>o[1]>0);
-  if(ops.length>1){
+  if(daily>=50) parts.push(trf('assessProb50',{n:daily}));
+  else if(daily>=20) parts.push(trf('assessProb20',{n:daily}));
+  else parts.push(tr('assessProbFew'));
+  if(totRight+totWrong>=10){
+    if(acc>=95) parts.push(trf('assessAcc95',{n:acc}));
+    else if(acc>=85) parts.push(trf('assessAcc85',{n:acc}));
+    else if(acc>=70) parts.push(trf('assessAcc70',{n:acc}));
+    else parts.push(trf('assessAccLow',{n:acc}));
+  }
+  const opMap=[[tr('opAdd'),totAdd],[tr('opSub'),totSub],[tr('opMul'),totMul]].filter(o=>o[1]>0);
+  if(opMap.length>1){
     const total3=totAdd+totSub+totMul;
-    const weak=ops.reduce((a,b)=>a[1]<b[1]?a:b);
-    if(weak[1]/total3<0.15)
-      parts.push(`<b>${weak[0]}</b> 문제를 상대적으로 적게 풀었어요. 더 연습해봐요.`);
+    const weak=opMap.reduce((a,b)=>a[1]<b[1]?a:b);
+    if(weak[1]/total3<0.15) parts.push(trf('assessWeakOp',{op:weak[0]}));
   }
   return parts.join(' ');
 }
@@ -7779,7 +7790,7 @@ function renderAlienTab(tab) {
   const scroll = $('alien-scroll');
   if (tab === 'pending') {
     if (!ALIEN_SAVE.newAcquired.length && !ALIEN_SAVE.acquired.length) {
-      scroll.innerHTML = '<div style="color:#556;text-align:center;padding:30px 20px;font-size:13px;">아직 만난 외계인이 없어요.<br>보스를 격파하면 외계인이 찾아와요! 👾</div>';
+      scroll.innerHTML = `<div style="color:#556;text-align:center;padding:30px 20px;font-size:13px;">${tr('alienNone')}</div>`;
       return;
     }
     // 동료 고민 = acquired에 있지만 confirmed에는 없는 것
@@ -7787,8 +7798,8 @@ function renderAlienTab(tab) {
     if (!pending.length) {
       const remaining = 200 - ALIEN_SAVE.acquired.length;
       const msg = remaining === 0
-        ? '🎉 200명의 외계인을 모두 만났어요!<br>동료 고민 목록이 비어있다면 모두 확정한 거예요!'
-        : `현재 고민 중인 외계인이 없어요.<br><br>아직 만나지 못한 외계인이 <b style="color:#fff">${remaining}명</b> 더 있어요.<br>보스를 격파하면 새로운 외계인이 찾아와요! 👾`;
+        ? tr('alienAll200')
+        : trf('alienNoPendingFmt',{n:remaining});
       scroll.innerHTML = `<div style="color:#778;text-align:center;padding:30px 16px;font-size:13px;line-height:1.8;">${msg}</div>`;
       return;
     }
@@ -7817,16 +7828,16 @@ function renderAlienTab(tab) {
       if(!n) return '';
       const total = (n * ab.value);
       const totalStr = Number.isInteger(total) ? total : total.toFixed(1);
-      return `<div class="ability-row"><b>${ab.label}</b><br>${ab.unit.replace(/[+-]/,'').replace(/[\d.]+/,totalStr)}${ab.unit.startsWith('+')?' 추가':' 감소'}</div>`;
+      return `<div class="ability-row"><b>${ab.lk?tr(ab.lk):ab.label}</b><br>${ab.unit.replace(/[+-]/,'').replace(/[\d.]+/,totalStr)}${ab.unit.startsWith('+')?(' '+tr('abilityAdded')):(' '+tr('abilityReduced'))}</div>`;
     }).join('');
 
     const sortBtns = ['acquired','number','grade','ability'].map((s,i)=>{
-      const labels=['확정순','번호순','등급순','능력순'];
+      const labels=[tr('sortAcquired'),tr('sortNumber'),tr('sortGrade'),tr('sortAbility')];
       const isActive = _confirmedSort === s;
       const arrow = isActive ? (_confirmedSortDir === 'asc' ? ' ↑' : ' ↓') : '';
       return `<button class="sort-btn${isActive?' active':''}" onclick="setConfirmedSort('${s}')">${labels[i]}${arrow}</button>`;
     }).join('');
-    let html = `<div class="confirmed-count">${confirmed.length} / ${total}명</div>`;
+    let html = `<div class="confirmed-count">${trf('confirmedCountFmt',{n:confirmed.length,total})}</div>`;
     html += `<div class="confirmed-sort-row">${sortBtns}</div>`;
     html += '<div class="confirmed-layout"><div class="alien-grid-2">';
     const confirmedSet = new Set(confirmed);
@@ -8276,16 +8287,16 @@ function openAlienPending(idx) {
     <div class="popup-greeting">${d.greeting}</div>
     <div class="popup-problem">📐 ${d.problem.q}</div>
     <div style="font-size:11px;color:#aab;text-align:center;">
-      동료로 확정하면 <span style="color:#ffd700;font-weight:800;">⭐ ${d.gradeStars}별</span>을 받아요!
+      ${trf('alienConfirmReward',{n:d.gradeStars})}
     </div>
     <div class="popup-hint-box" id="alien-hint-box"></div>
     <div class="popup-answer-row">
-      <input id="alien-ans-input" type="number" placeholder="숫자 입력" />
-      <button class="popup-submit-btn" onclick="submitAlienAnswer(${idx},${d.problem.a})">제출</button>
+      <input id="alien-ans-input" type="number" />
+      <button class="popup-submit-btn" onclick="submitAlienAnswer(${idx},${d.problem.a})">${tr('alienSubmitBtn')}</button>
     </div>
     <div style="display:flex;gap:10px;justify-content:center;">
-      <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">💡 힌트</button>
-      <button class="popup-close-btn" onclick="closeAlienPopup()">닫기</button>
+      <button class="popup-hint-btn" id="alien-hint-btn" onclick="requestAlienHint(${idx})">${tr('alienHintBtn')}</button>
+      <button class="popup-close-btn" onclick="closeAlienPopup()">${tr('closeBtnTxt')}</button>
     </div>`;
   $('alien-popup-wrap').style.display = 'flex';
   document.querySelectorAll('.alien-get-pop').forEach(e=>e.remove());
@@ -8306,8 +8317,8 @@ function submitAlienAnswer(idx, correct) {
       <div style="border-radius:50%;padding:3px;background:${d.gradeColor};display:inline-block;box-shadow:0 0 14px ${d.gradeColor}99;"><div class="popup-face-big" style="background:${d.bg};border:none;">${d.headHtml}</div></div>
       <div class="popup-alien-name">${d.name}</div>
       <div class="popup-greeting" style="color:#ff8888;">${d.wrongMsg}</div>
-      <button class="popup-submit-btn" onclick="openAlienPending(${idx})" style="margin-top:8px;">다시 도전</button>
-      <button class="popup-close-btn" onclick="closeAlienPopup()">닫기</button>`;
+      <button class="popup-submit-btn" onclick="openAlienPending(${idx})" style="margin-top:8px;">${tr('alienRetry')}</button>
+      <button class="popup-close-btn" onclick="closeAlienPopup()">${tr('closeBtnTxt')}</button>`;
   } else {
     // 정답 → 확정
     if (!ALIEN_SAVE.confirmed.includes(idx)) {
@@ -8331,16 +8342,16 @@ function openAlienProfile(idx, isNew=false, correctMsg='') {
   const story = generateAlienStory(d);
   $('alien-popup').innerHTML = `
     <div style="border-radius:50%;padding:3px;background:${d.gradeColor};display:inline-block;box-shadow:0 0 14px ${d.gradeColor}99;"><div class="popup-face-big" style="background:${d.bg};border:none;">${d.headHtml}</div></div>
-    <div class="popup-alien-name">${d.name}${isNew?' <span style="font-size:13px;color:#ffdd88">동료가 됐다!</span>':''}</div>
+    <div class="popup-alien-name">${d.name}${isNew?` <span style="font-size:13px;color:#ffdd88">${tr('alienNewMember')}</span>`:''}</div>
     ${correctMsg?`<div class="popup-greeting" style="color:#88ffaa;">${correctMsg}</div>`:''}
-    <div class="profile-section"><b>성격:</b> ${d.perso}</div>
+    <div class="profile-section"><b>${tr('alienPersonality')}</b> ${d.perso}</div>
     <div class="profile-section" style="line-height:1.7">${story}</div>
     <div class="profile-section">
       <span class="grade-badge grade-${d.grade}" style="position:static;display:inline-block;font-size:11px;">${d.grade}</span>
-      <span style="font-size:11px;color:#aab;margin-left:6px;">동료 확정 보상 ⭐ ${d.gradeStars}개</span>
+      <span style="font-size:11px;color:#aab;margin-left:6px;">${trf('alienConfirmRewardLbl',{n:d.gradeStars})}</span>
     </div>
-    <div class="profile-section"><b>특수 능력:</b><br><span class="profile-ability-chip">${d.abilityLabel} ${d.abilityUnit}</span></div>
-    <button class="popup-close-btn" onclick="closeAlienPopup()" style="margin-top:4px;">닫기</button>`;
+    <div class="profile-section"><b>${tr('alienAbility')}</b><br><span class="profile-ability-chip">${d.abilityLabel} ${d.abilityUnit}</span></div>
+    <button class="popup-close-btn" onclick="closeAlienPopup()" style="margin-top:4px;">${tr('closeBtnTxt')}</button>`;
   $('alien-popup-wrap').style.display = 'flex';
   document.querySelectorAll('.alien-get-pop').forEach(e=>e.remove());
   applyTwemoji($('alien-popup'));
@@ -8369,7 +8380,7 @@ function acquireAlien() {
   const p = document.createElement('div');
   p.className = 'alien-get-pop';
   p.innerHTML = `
-    <div class="agp-title">새로운 외계인이 만나고 싶어합니다</div>
+    <div class="agp-title">${tr('alienGetBanner')}</div>
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;">
       <div style="width:44px;height:44px;border-radius:50%;background:${d.bg};
         display:flex;align-items:center;justify-content:center;font-size:24px;
