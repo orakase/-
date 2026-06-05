@@ -2099,6 +2099,215 @@ es:{feverStartDesc:'Invencible · Explosión AoE · ¡Velocidad 2x!',abilitySide
 };
 Object.keys(LANG_DATA_EXT3).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT3[lang]);});
 ['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT3.en,LANG_DATA[lang]);});
+const LANG_DATA_EXT4 = {
+ko:{
+  agPerso:['용감하고 직선적인','수줍고 다정한','호기심 넘치는','냉정하고 논리적인','유쾌하고 엉뚱한','신비롭고 말이 없는','고집 세고 근성 있는','따뜻하고 친절한','진지하고 성실한','자유롭고 낙관적인'],
+  agReasons:['평화를 지키기 위해','가족을 잃은 복수를 위해','과학적 호기심 때문에','우주의 균형을 맞추러','그냥 심심해서'],
+  agFamilies:['혼자였던','대가족 속에서 자란','고아였던','왕족 출신인','평범한 농부 집안의'],
+  agHobbies:['우주 암석 수집','블랙홀 서핑','성간 요리','별자리 그림 그리기','중력파 음악 감상'],
+  agInterests:['다크 매터 연구','시간 여행 계획','지구의 수학','차원 접기','초공간 달리기'],
+  agLikes:['고요한 우주','강한 중력','파란 별','이중 태양 일출','소행성대 산책'],
+  agDislikes:['블랙홀 냄새','중력 역전','우주 쓰레기','태양풍','퇴화하는 별'],
+  agGreetings:(i)=>AG.greetings[i],
+  agWrongs:(i)=>AG.wrongs[i],
+  agCorrects:(i)=>AG.corrects[i],
+  hintMixedMulAdd:'곱셈을 먼저 해야 해!\n{x}×{y}를 먼저 계산한 다음,\n그 결과에 {z}을(를) 더하면 끝~',
+  hintMixedMulSub:'곱셈을 먼저 해야 해!\n{x}×{y}를 먼저 계산한 다음,\n그 결과에서 {z}을(를) 빼면 끝~',
+  hintAdd4:'네 수를 차례로 더해봐!\n{w}+{x}={wx}\n{wx}+{y}={wxy}\n그 다음 {wxy}+{z}=?~',
+  hintAdd3:'세 수를 한 번에 더하기 어렵지?\n앞에 두 수 {x}+{y}를 먼저 계산해봐!\n그 다음 결과에 {z}를 더하면 끝이야~',
+  hintSub3:'빼기를 앞에서부터 차례로 해봐!\n{x}에서 {y}를 빼고,\n그 결과에서 {z}를 또 빼면 돼~',
+  hintMulSplit:'큰 곱셈은 쪼개서 생각해봐!\n{b}×{s} = {b}×{t10} + {b}×{t1}\n이렇게 두 덩어리로 나눠서 각각 계산하면 훨씬 쉬워~',
+  hintMulCount:'{b}를 {s}번 더하면 어떻게 될까?\n천천히 {b}씩 세어봐!',
+  hintDiv:'{y}씩 몇 번 더해야 {x}가 될까?\n{y}, {y2}, {y3}... 이렇게 세어봐!\n{y}의 몇 배가 {x}인지 찾으면 돼~',
+  hintBracket:'괄호가 있으면 무조건 괄호 안부터!\n수학에서 괄호는 "나 먼저 계산해!" 라는 신호야~',
+  hintOrderOps:'수학에는 계산 순서가 있어!\n×÷는 먼저, +-는 나중에 계산하는 게 규칙이야~',
+},
+en:{
+  agPerso:['brave and straightforward','shy and gentle','curious and energetic','cool and logical','cheerful and quirky','mysterious and quiet','stubborn but determined','warm and kind','serious and sincere','free-spirited and optimistic'],
+  agReasons:['to protect the peace','to avenge a lost family','out of scientific curiosity','to restore cosmic balance','honestly just boredom'],
+  agFamilies:['an only child','raised in a large family','an orphan','from royalty','from a humble farming family'],
+  agHobbies:['space rock collecting','black hole surfing','intergalactic cooking','constellation drawing','gravitational wave music'],
+  agInterests:['dark matter research','time travel planning','Earth mathematics','dimensional folding','hyperspatial running'],
+  agLikes:['the quiet of space','strong gravity','blue stars','double-sun sunrises','strolling through asteroid belts'],
+  agDislikes:['the smell of black holes','gravity inversion','space junk','solar winds','dying stars'],
+  agGreetings:(i)=>['Hey! This problem is driving me crazy. Can you solve it?','Um... excuse me... this problem is really hard... could you help?','Oh! Just in time! I couldn\'t sleep because of this problem!','Hmm. If you can solve this, I\'ll acknowledge you as an ally.','Ha! Even I ran into something tricky! Give this a shot!','...This problem... I\'ve been thinking for a long time... I don\'t know...','No giving up! But this problem... I need help.','I wish I had a friend to think through this problem with me.','If you solve this, I will fight alongside you to protect Earth.','Yay, a new friend! Want to think about this problem together?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['That\'s not it! Think again!','Oh... that\'s wrong... it\'s okay, try again.','Hmm, I don\'t think that\'s right? One more time!','Incorrect. I recommend reconsidering.','Buzz! Wrong! Try again~','...No... come back...','No giving up, but that\'s wrong. Again!','Oh no... so close. Next time for sure!','That\'s not quite right. Please try again.','Oops, wrong! Get it next time!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Correct! Let\'s fight together!','That\'s right! Thank you... I\'ll be your ally!','Correct! Solving that problem... are you a genius?!','Precise. I acknowledge you as an ally.','Wow, you got it! I knew I had a good eye~','...You\'re right... I\'m moved...','You did it! With that determination, we can work together!','As expected! Let\'s go on adventures together!','Excellent. We will carry out the mission together.','You got it! So exciting! Let\'s play together!'][i]??AG.corrects[i%AG.corrects.length],
+  hintMixedMulAdd:'Multiplication first!\nCalculate {x}×{y} first,\nthen add {z} to the result~',
+  hintMixedMulSub:'Multiplication first!\nCalculate {x}×{y} first,\nthen subtract {z} from the result~',
+  hintAdd4:'Add the four numbers in order!\n{w}+{x}={wx}\n{wx}+{y}={wxy}\nThen {wxy}+{z}=?~',
+  hintAdd3:'Hard to add three numbers at once?\nFirst calculate the front two: {x}+{y}!\nThen add {z} to the result~',
+  hintSub3:'Subtract from left to right!\nSubtract {y} from {x},\nthen subtract {z} from that result~',
+  hintMulSplit:'Break big multiplication into parts!\n{b}×{s} = {b}×{t10} + {b}×{t1}\nCalculate each part separately~',
+  hintMulCount:'What if you add {b} exactly {s} times?\nCount by {b}s slowly!',
+  hintDiv:'How many times do you add {y} to get {x}?\nCount: {y}, {y2}, {y3}...\nFind how many times {y} fits into {x}~',
+  hintBracket:'Always solve inside brackets first!\nIn math, brackets mean "calculate me first!"~',
+  hintOrderOps:'Math has an order of operations!\n×÷ come before +-, that\'s the rule~',
+},
+ja:{
+  agPerso:['勇敢で率直な','恥ずかしがり屋で優しい','好奇心旺盛な','冷静で論理的な','陽気で風変わりな','神秘的で口数が少ない','頑固だが根性のある','温かく親切な','真剣で誠実な','自由で楽観的な'],
+  agReasons:['平和を守るために','家族を失った復讐のために','科学的な好奇心から','宇宙のバランスを取り戻すために','単純に暇だったから'],
+  agFamilies:['一人っ子だった','大家族の中で育った','孤児だった','王族出身の','平凡な農家の'],
+  agHobbies:['宇宙岩石収集','ブラックホールサーフィン','星間料理','星座のデッサン','重力波音楽鑑賞'],
+  agInterests:['ダークマター研究','タイムトラベルの計画','地球の数学','次元折り畳み','超空間ランニング'],
+  agLikes:['宇宙の静寂','強い重力','青い星','二重太陽の夕日','小惑星帯の散歩'],
+  agDislikes:['ブラックホールの匂い','重力逆転','宇宙ゴミ','太陽風','消えゆく星'],
+  agGreetings:(i)=>['おい！この問題で頭を抱えてる。解いてくれる？','あの…この問題が難しくて…手伝ってもらえますか？','おお！ちょうどよかった！この問題が気になって眠れなかった！','ふむ。この問題が解けるなら仲間として認めよう。','ははは！私も苦手な問題があった！やってみて！','…この問題…長く考えたけど…わからない…','諦めない！でもこの問題だけは…助けが必要。','この問題を一緒に考えてくれる友達がいたらいいな。','この問題を解いたら、一緒に地球を守ります。','やった～新しい友達！この問題、一緒に考えてみよう？'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['違う！もう一度考えて！','あ…違いました…大丈夫、また来てね。','あれ？違うと思う？もう一度！','不正解。再考を勧める。','ブー！外れ～また挑戦して！','…違う…また来てくれて…','諦めない精神は認めるが外れだ。もう一度！','あら…惜しい。次は必ず！','正確ではないです。もう一度試してください。','あれ、外れ！次は当てよう！'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['正解！一緒に戦おう！','合ってます！ありがとう…仲間になります！','正解！こんな問題を解くなんて、天才？！','正確だ。仲間として認める。','わあ！当てた！やっぱり私は見る目があるね～','…正解…感動した…','やった！この根性があれば一緒にやれる！','さすが！一緒に冒険しましょう！','素晴らしい。一緒に任務を遂行します。','当たった！嬉しい！一緒に遊ぼう！'][i]??AG.corrects[i%AG.corrects.length],
+  hintMixedMulAdd:'まず掛け算！\n{x}×{y}を先に計算してから,\nその結果に{z}を足して完成~',
+  hintMixedMulSub:'まず掛け算！\n{x}×{y}を先に計算してから,\nその結果から{z}を引いて完成~',
+  hintAdd4:'4つの数を順番に足して！\n{w}+{x}={wx}\n{wx}+{y}={wxy}\n次は{wxy}+{z}=?~',
+  hintAdd3:'3つの数を一気に足すのは難しい？\nまず前の2つ {x}+{y} を計算して！\n次にその結果に{z}を足せば完成~',
+  hintSub3:'左から順番に引いていこう！\n{x}から{y}を引いて,\nその結果からさらに{z}を引けばOK~',
+  hintMulSplit:'大きな掛け算は分けて考えよう！\n{b}×{s} = {b}×{t10} + {b}×{t1}\nこうやって2つに分けて計算すると楽~',
+  hintMulCount:'{b}を{s}回足したらどうなる？\nゆっくり{b}ずつ数えて！',
+  hintDiv:'{y}を何回足したら{x}になる？\n{y}, {y2}, {y3}...と数えて！\n{y}の何倍が{x}か見つけて~',
+  hintBracket:'かっこがあれば必ずかっこの中から！\n数学でかっこは「私を先に計算して！」のサインだよ~',
+  hintOrderOps:'数学には計算の順序があるよ！\n×÷が先、+-は後というルールだよ~',
+},
+'zh-TW':{
+  agPerso:['勇敢而直接','害羞而溫柔','充滿好奇心','冷靜有邏輯','開朗而古怪','神秘而沉默','固執但有毅力','溫暖而親切','認真而誠實','自由而樂觀'],
+  agReasons:['為了維護和平','為了替失去的家人報仇','出於科學好奇心','為了恢復宇宙平衡','只是無聊'],
+  agFamilies:['獨生子女','在大家庭中長大','孤兒','出身貴族','普通農家子弟'],
+  agHobbies:['收集太空岩石','衝浪黑洞','星際料理','繪製星座','聆聽重力波音樂'],
+  agInterests:['暗物質研究','時間旅行計劃','地球數學','維度折疊','超空間跑步'],
+  agLikes:['宇宙的寧靜','強大的重力','藍色的星星','雙太陽日出','在小行星帶散步'],
+  agDislikes:['黑洞的氣味','重力逆轉','太空垃圾','太陽風','消逝的星星'],
+  agGreetings:(i)=>['喂！這道題讓我頭疼，你能解嗎？','那個…這道題很難…能幫我嗎？','哦！來得正好！這道題讓我睡不著！','嗯。如果你能解這道題，我就承認你是夥伴。','哈哈哈！連我都遇到難題了！試試看！','…這道題…想了很久…不會…','不放棄！但這道題…需要幫助。','要是有朋友一起想這道題就好了。','解了這題，我就和你一起守護地球。','耶～新朋友！要一起想這道題嗎？'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['不對！再想想！','啊…錯了…沒關係，下次再來。','嗯？好像不對？再試一次！','不正確。建議重新思考。','答錯了！再挑戰~','…不對…再來…','不放棄，但這個錯了。再來！','哎呀…可惜。下次一定！','不夠準確，請再試試。','啊，錯了！下次要答對！'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['正確！我們一起戰鬥吧！','對了！謝謝你…我願意成為你的夥伴！','答對了！解出這題…你是天才？！','精確。承認你為夥伴。','哇！答對了！果然我有眼光~','…對了…好感動…','做到了！有這份意志，我們可以一起！','果然！我們一起冒險吧！','出色。我們將一起執行任務。','答對了！好開心！我們一起玩吧！'][i]??AG.corrects[i%AG.corrects.length],
+  hintMixedMulAdd:'先算乘法！\n先計算{x}×{y}，\n再加上{z}就完成了~',
+  hintMixedMulSub:'先算乘法！\n先計算{x}×{y}，\n再減去{z}就完成了~',
+  hintAdd4:'依序把四個數加起來！\n{w}+{x}={wx}\n{wx}+{y}={wxy}\n再來{wxy}+{z}=?~',
+  hintAdd3:'一次加三個數很難吧？\n先算前兩個數{x}+{y}！\n然後再加{z}就完成了~',
+  hintSub3:'從左到右依序減！\n從{x}減去{y}，\n再從結果減去{z}~',
+  hintMulSplit:'大乘法拆開想！\n{b}×{s} = {b}×{t10} + {b}×{t1}\n分兩部分各自計算更容易~',
+  hintMulCount:'{b}加{s}次會是多少？\n慢慢數，每次加{b}！',
+  hintDiv:'要加幾次{y}才能得到{x}？\n數：{y}, {y2}, {y3}...\n找出{y}的幾倍等於{x}~',
+  hintBracket:'有括號就先算括號裡面！\n數學中括號是「先算我！」的信號~',
+  hintOrderOps:'數學有計算順序！\n×÷先算，+-後算，這是規則~',
+},
+'zh-CN':{
+  agPerso:['勇敢而直接','害羞而温柔','充满好奇心','冷静有逻辑','开朗而古怪','神秘而沉默','固执但有毅力','温暖而亲切','认真而诚实','自由而乐观'],
+  agReasons:['为了维护和平','为了替失去的家人报仇','出于科学好奇心','为了恢复宇宙平衡','只是无聊'],
+  agFamilies:['独生子女','在大家庭中长大','孤儿','出身贵族','普通农家子弟'],
+  agHobbies:['收集太空岩石','冲浪黑洞','星际料理','绘制星座','聆听引力波音乐'],
+  agInterests:['暗物质研究','时间旅行计划','地球数学','维度折叠','超空间跑步'],
+  agLikes:['宇宙的宁静','强大的引力','蓝色的星星','双太阳日出','在小行星带散步'],
+  agDislikes:['黑洞的气味','重力逆转','太空垃圾','太阳风','消逝的星星'],
+  agGreetings:(i)=>['喂！这道题让我头疼，你能解吗？','那个…这道题很难…能帮我吗？','哦！来得正好！这道题让我睡不着！','嗯。如果你能解这道题，我就承认你是伙伴。','哈哈哈！连我都遇到难题了！试试看！','…这道题…想了很久…不会…','不放弃！但这道题…需要帮助。','要是有朋友一起想这道题就好了。','解了这题，我就和你一起守护地球。','耶～新朋友！要一起想这道题吗？'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['不对！再想想！','啊…错了…没关系，下次再来。','嗯？好像不对？再试一次！','不正确。建议重新思考。','答错了！再挑战~','…不对…再来…','不放弃，但这个错了。再来！','哎呀…可惜。下次一定！','不够准确，请再试试。','啊，错了！下次要答对！'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['正确！我们一起战斗吧！','对了！谢谢你…我愿意成为你的伙伴！','答对了！解出这题…你是天才？！','精确。承认你为伙伴。','哇！答对了！果然我有眼光~','…对了…好感动…','做到了！有这份意志，我们可以一起！','果然！我们一起冒险吧！','出色。我们将一起执行任务。','答对了！好开心！我们一起玩吧！'][i]??AG.corrects[i%AG.corrects.length],
+  hintMixedMulAdd:'先算乘法！\n先计算{x}×{y}，\n再加上{z}就完成了~',
+  hintMixedMulSub:'先算乘法！\n先计算{x}×{y}，\n再减去{z}就完成了~',
+  hintAdd4:'依序把四个数加起来！\n{w}+{x}={wx}\n{wx}+{y}={wxy}\n再来{wxy}+{z}=?~',
+  hintAdd3:'一次加三个数很难吧？\n先算前两个数{x}+{y}！\n然后再加{z}就完成了~',
+  hintSub3:'从左到右依序减！\n从{x}减去{y}，\n再从结果减去{z}~',
+  hintMulSplit:'大乘法拆开想！\n{b}×{s} = {b}×{t10} + {b}×{t1}\n分两部分各自计算更容易~',
+  hintMulCount:'{b}加{s}次会是多少？\n慢慢数，每次加{b}！',
+  hintDiv:'要加几次{y}才能得到{x}？\n数：{y}, {y2}, {y3}...\n找出{y}的几倍等于{x}~',
+  hintBracket:'有括号就先算括号里面！\n数学中括号是「先算我！」的信号~',
+  hintOrderOps:'数学有计算顺序！\n×÷先算，+-后算，这是规则~',
+},
+es:{
+  agPerso:['valiente y directo/a','tímido/a y amable','curioso/a y enérgico/a','frío/a y lógico/a','alegre y excéntrico/a','misterioso/a y callado/a','terco/a pero determinado/a','cálido/a y amable','serio/a y sincero/a','libre y optimista'],
+  agReasons:['para proteger la paz','para vengar a su familia perdida','por curiosidad científica','para restaurar el equilibrio cósmico','básicamente por aburrimiento'],
+  agFamilies:['hijo/a único/a','criado/a en una familia numerosa','huérfano/a','de la realeza','de una humilde familia campesina'],
+  agHobbies:['coleccionar rocas espaciales','surf en agujeros negros','cocina interestelar','dibujar constelaciones','escuchar música de ondas gravitacionales'],
+  agInterests:['investigación de materia oscura','planificación de viajes en el tiempo','las matemáticas de la Tierra','plegado dimensional','carreras hiperespaciales'],
+  agLikes:['la quietud del espacio','la gravedad fuerte','las estrellas azules','el amanecer con dos soles','pasear por el cinturón de asteroides'],
+  agDislikes:['el olor de los agujeros negros','la inversión gravitacional','la basura espacial','el viento solar','las estrellas que se apagan'],
+  agGreetings:(i)=>['¡Oye! Este problema me tiene loco/a. ¿Puedes resolverlo?','Eh... disculpa... este problema es difícil... ¿podrías ayudarme?','¡Oh! ¡Llegaste justo a tiempo! ¡No podía dormir por este problema!','Hmm. Si puedes resolver esto, te reconoceré como aliado.','¡Jaja! ¡Hasta yo encontré algo difícil! ¡Inténtalo!','...Este problema... llevo mucho pensando... no sé...','¡Sin rendirse! Pero este problema... necesito ayuda.','Me gustaría tener un amigo con quien pensar este problema.','Si resuelves esto, lucharé contigo para proteger la Tierra.','¡Yay, nuevo amigo! ¿Quieres pensar en este problema juntos?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['¡No es eso! ¡Piensa de nuevo!','Oh... estás equivocado/a... está bien, intenta de nuevo.','¿Hmm, creo que no? ¡Una vez más!','Incorrecto. Te recomiendo reconsiderar.','¡Buzz! ¡Fallaste! ¡Inténtalo de nuevo~!','...No... vuelve...','Sin rendirse, pero eso está mal. ¡Otra vez!','Ay... qué lástima. ¡La próxima vez seguro!','No es del todo correcto. Intenta de nuevo.','¡Oops, fallaste! ¡A por el siguiente!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['¡Correcto! ¡Luchemos juntos!','¡Exacto! Gracias... ¡seré tu aliado/a!','¡Correcto! Resolver ese problema... ¿eres un genio?!','Preciso. Te reconozco como aliado.','¡Wow, lo lograste! ¡Sabía que tenía buen ojo~!','...Tienes razón... estoy emocionado/a...','¡Lo hiciste! ¡Con esa determinación podemos trabajar juntos!','¡Como esperaba! ¡Vamos a aventurarnos juntos!','Excelente. Llevaremos a cabo la misión juntos.','¡Lo lograste! ¡Qué emoción! ¡Juguemos juntos!'][i]??AG.corrects[i%AG.corrects.length],
+  hintMixedMulAdd:'¡Primero la multiplicación!\nCalcula {x}×{y} primero,\nluego suma {z} al resultado~',
+  hintMixedMulSub:'¡Primero la multiplicación!\nCalcula {x}×{y} primero,\nluego resta {z} del resultado~',
+  hintAdd4:'¡Suma los cuatro números en orden!\n{w}+{x}={wx}\n{wx}+{y}={wxy}\nLuego {wxy}+{z}=?~',
+  hintAdd3:'¿Es difícil sumar tres números a la vez?\n¡Primero calcula los dos primeros: {x}+{y}!\nLuego suma {z} al resultado~',
+  hintSub3:'¡Resta de izquierda a derecha!\nResta {y} de {x},\nluego resta {z} del resultado~',
+  hintMulSplit:'¡Divide la multiplicación grande!\n{b}×{s} = {b}×{t10} + {b}×{t1}\n¡Calcula cada parte por separado~!',
+  hintMulCount:'¿Qué pasa si sumas {b} exactamente {s} veces?\n¡Cuenta de {b} en {b} lentamente!',
+  hintDiv:'¿Cuántas veces debes sumar {y} para llegar a {x}?\nCuenta: {y}, {y2}, {y3}...\n¡Encuentra cuántas veces cabe {y} en {x}~!',
+  hintBracket:'¡Siempre resuelve dentro de los paréntesis primero!\nEn matemáticas, los paréntesis dicen "¡calcúlame primero!"~',
+  hintOrderOps:'¡Las matemáticas tienen un orden de operaciones!\n×÷ antes que +-, esa es la regla~',
+},
+};
+
+pt:{
+  agPerso:['corajoso/a e direto/a','tímido/a e gentil','curioso/a e enérgico/a','frio/a e lógico/a','alegre e excêntrico/a','misterioso/a e quieto/a','teimoso/a mas determinado/a','caloroso/a e gentil','sério/a e sincero/a','livre e otimista'],
+  agReasons:['para proteger a paz','para vingar a família perdida','por curiosidade científica','para restaurar o equilíbrio cósmico','basicamente por tédio'],
+  agFamilies:['filho/a único/a','criado/a em família numerosa','órfão/ã','da realeza','de humilde família de agricultores'],
+  agHobbies:['coletar rochas espaciais','surfar em buracos negros','culinária intergaláctica','desenhar constelações','ouvir música de ondas gravitacionais'],
+  agInterests:['pesquisa de matéria escura','planejamento de viagem no tempo','a matemática da Terra','dobramento dimensional','corridas hiperespaciais'],
+  agLikes:['o silêncio do espaço','gravidade forte','estrelas azuis','amanheceres com dois sóis','passear pelo cinturão de asteroides'],
+  agDislikes:['o cheiro de buracos negros','inversão gravitacional','lixo espacial','ventos solares','estrelas morrendo'],
+  agGreetings:(i)=>['Ei! Este problema está me deixando louco/a. Consegue resolver?','Hm... com licença... esse problema é muito difícil... poderia ajudar?','Oh! Na hora certa! Não conseguia dormir por causa desse problema!','Hmm. Se conseguir resolver isso, te reconhecerei como aliado.','Ha! Até eu encontrei algo complicado! Tente aí!','...Esse problema... já pensei muito tempo... não sei...','Sem desistir! Mas esse problema... preciso de ajuda.','Queria ter um amigo para pensar nesse problema comigo.','Se resolver isso, lutarei contigo para proteger a Terra.','Oba, novo amigo! Quer pensar nesse problema juntos?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['Não é isso! Pense de novo!','Oh... errado... tudo bem, tente de novo.','Hmm, acho que não está certo? Mais uma vez!','Incorreto. Recomendo reconsiderar.','Buzz! Errado! Tente novamente~','...Não... volte...','Sem desistir, mas está errado. De novo!','Ah não... tão perto. Da próxima vez com certeza!','Não está bem certo. Tente de novo.','Ops, errado! Acerte na próxima!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Correto! Vamos lutar juntos!','Certo! Obrigado/a... serei seu aliado/a!','Correto! Resolver esse problema... você é um gênio?!','Preciso. Te reconheço como aliado.','Uau, acertou! Sabia que tinha bom olho~','...Está certo... estou emocionado/a...','Conseguiu! Com essa determinação podemos trabalhar juntos!','Como esperado! Vamos nos aventurar juntos!','Excelente. Realizaremos a missão juntos.','Acertou! Que animação! Vamos brincar juntos!'][i]??AG.corrects[i%AG.corrects.length],
+},
+fr:{
+  agPerso:['courageux/se et direct(e)','timide et doux/ce','curieux/se et énergique','calme et logique','joyeux/se et excentrique','mystérieux/se et silencieux/se','têtu(e) mais déterminé(e)','chaleureux/se et gentil(le)','sérieux/se et sincère','libre et optimiste'],
+  agReasons:['pour protéger la paix','pour venger sa famille perdue','par curiosité scientifique','pour restaurer l\'équilibre cosmique','par simple ennui'],
+  agFamilies:['enfant unique','élevé(e) dans une grande famille','orphelin(e)','de la royauté','d\'une humble famille de fermiers'],
+  agHobbies:['collectionner des roches spatiales','surfer sur des trous noirs','cuisine intergalactique','dessiner des constellations','écouter de la musique d\'ondes gravitationnelles'],
+  agInterests:['recherche sur la matière noire','planification de voyages dans le temps','les mathématiques de la Terre','pliage dimensionnel','courses hyperspatiales'],
+  agLikes:['le calme de l\'espace','la forte gravité','les étoiles bleues','les levers de soleil doubles','se promener dans la ceinture d\'astéroïdes'],
+  agDislikes:['l\'odeur des trous noirs','l\'inversion gravitationnelle','les déchets spatiaux','les vents solaires','les étoiles mourantes'],
+  agGreetings:(i)=>['Hé ! Ce problème me rend fou/folle. Tu peux le résoudre ?','Euh... excuse-moi... ce problème est vraiment difficile... tu pourrais aider ?','Oh ! Juste à temps ! Je ne pouvais pas dormir à cause de ce problème !','Hmm. Si tu résous ça, je te reconnaîtrai comme allié.','Ha ! Même moi j\'ai trouvé quelque chose de difficile ! Essaie !','...Ce problème... j\'y pense depuis longtemps... je ne sais pas...','Pas question d\'abandonner ! Mais ce problème... j\'ai besoin d\'aide.','J\'aimerais avoir un ami avec qui réfléchir à ce problème.','Si tu résous ça, je me battrai avec toi pour protéger la Terre.','Youpi, un nouvel ami ! Tu veux réfléchir à ce problème ensemble ?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['Ce n\'est pas ça ! Réfléchis encore !','Oh... c\'est faux... c\'est bon, réessaie.','Hmm, je crois que ce n\'est pas juste ? Encore une fois !','Incorrect. Je recommande de reconsidérer.','Buzz ! Faux ! Réessaie~','...Non... reviens...','Pas d\'abandon, mais c\'est faux. Encore !','Oh non... si proche. La prochaine fois sûrement !','Ce n\'est pas tout à fait juste. Réessaie.','Oups, faux ! La prochaine fois !'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Correct ! Battons-nous ensemble !','C\'est juste ! Merci... je serai ton allié(e) !','Correct ! Résoudre ce problème... tu es un génie ?!','Précis. Je te reconnais comme allié.','Wow, tu as réussi ! Je savais que j\'avais du flair~','...Tu as raison... je suis touché(e)...','Tu l\'as fait ! Avec cette détermination, on peut travailler ensemble !','Comme prévu ! Partons à l\'aventure ensemble !','Excellent. Nous accomplirons la mission ensemble.','Tu l\'as eu ! Quelle émotion ! Jouons ensemble !'][i]??AG.corrects[i%AG.corrects.length],
+},
+de:{
+  agPerso:['mutig und direkt','schüchtern und sanft','neugierig und energiegeladen','kühl und logisch','fröhlich und exzentrisch','geheimnisvoll und still','stur, aber entschlossen','warm und freundlich','ernst und aufrichtig','frei und optimistisch'],
+  agReasons:['um den Frieden zu schützen','um die verlorene Familie zu rächen','aus wissenschaftlicher Neugier','um das kosmische Gleichgewicht wiederherzustellen','einfach aus Langeweile'],
+  agFamilies:['ein Einzelkind','in einer großen Familie aufgewachsen','ein Waisenkind','aus dem Adel','aus einer einfachen Bauernfamilie'],
+  agHobbies:['Weltraumgesteine sammeln','Schwarze-Loch-Surfen','intergalaktisches Kochen','Sternbilder zeichnen','Gravitationswellenmusik hören'],
+  agInterests:['Dunkle-Materie-Forschung','Zeitreiseplanung','die Mathematik der Erde','dimensionales Falten','Hyperraum-Rennen'],
+  agLikes:['die Stille des Weltraums','starke Schwerkraft','blaue Sterne','Doppelsonnen-Sonnenaufgänge','durch den Asteroidengürtel spazieren'],
+  agDislikes:['der Geruch von Schwarzen Löchern','Schwerkraftumkehr','Weltraumschrott','Sonnenwinde','sterbende Sterne'],
+  agGreetings:(i)=>['Hey! Dieses Problem macht mich wahnsinnig. Kannst du es lösen?','Äh... Entschuldigung... dieses Problem ist wirklich schwer... könntest du helfen?','Oh! Genau zur rechten Zeit! Ich konnte wegen diesem Problem nicht schlafen!','Hmm. Wenn du das lösen kannst, erkenne ich dich als Verbündeten an.','Ha! Sogar ich bin auf etwas Kniffliges gestoßen! Versuch es!','...Dieses Problem... ich denke schon lange... ich weiß nicht...','Nicht aufgeben! Aber dieses Problem... ich brauche Hilfe.','Ich wünschte, ich hätte einen Freund, mit dem ich über dieses Problem nachdenken könnte.','Wenn du das löst, werde ich mit dir kämpfen, um die Erde zu schützen.','Yay, ein neuer Freund! Möchtest du über dieses Problem gemeinsam nachdenken?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['Das ist nicht richtig! Denk nochmal nach!','Oh... das ist falsch... okay, versuch es nochmal.','Hmm, ich glaube nicht, dass das stimmt? Nochmal!','Falsch. Ich empfehle, nochmal nachzudenken.','Buzz! Falsch! Versuch es nochmal~','...Nein... komm zurück...','Nicht aufgeben, aber das ist falsch. Nochmal!','Oh nein... so nah. Nächstes Mal bestimmt!','Das ist nicht ganz richtig. Versuch es nochmal.','Ups, falsch! Beim nächsten Mal!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Richtig! Kämpfen wir gemeinsam!','Stimmt! Danke... ich werde dein Verbündeter sein!','Richtig! Dieses Problem lösen... bist du ein Genie?!','Präzise. Ich erkenne dich als Verbündeten an.','Wow, du hast es geschafft! Ich wusste, dass ich ein gutes Auge habe~','...Du hast recht... ich bin gerührt...','Du hast es getan! Mit dieser Entschlossenheit können wir zusammenarbeiten!','Wie erwartet! Lass uns gemeinsam auf Abenteuer gehen!','Ausgezeichnet. Wir werden die Mission gemeinsam durchführen.','Du hast es! Wie aufregend! Lass uns zusammen spielen!'][i]??AG.corrects[i%AG.corrects.length],
+},
+id:{
+  agPerso:['berani dan langsung','pemalu dan lembut','penasaran dan energik','dingin dan logis','ceria dan eksentrik','misterius dan pendiam','keras kepala tapi tekad kuat','hangat dan baik hati','serius dan tulus','bebas dan optimis'],
+  agReasons:['untuk menjaga perdamaian','untuk membalas dendam keluarga yang hilang','karena rasa ingin tahu ilmiah','untuk memulihkan keseimbangan kosmik','sekadar karena bosan'],
+  agFamilies:['anak tunggal','dibesarkan dalam keluarga besar','yatim piatu','dari keluarga bangsawan','dari keluarga petani sederhana'],
+  agHobbies:['mengumpulkan batu luar angkasa','berselancar di lubang hitam','memasak antargalaksi','menggambar rasi bintang','mendengarkan musik gelombang gravitasi'],
+  agInterests:['penelitian materi gelap','perencanaan perjalanan waktu','matematika Bumi','pelipatan dimensi','lari hiperspasial'],
+  agLikes:['ketenangan luar angkasa','gravitasi kuat','bintang biru','matahari terbit kembar','berjalan di sabuk asteroid'],
+  agDislikes:['bau lubang hitam','inversi gravitasi','sampah luar angkasa','angin matahari','bintang yang sekarat'],
+  agGreetings:(i)=>['Hei! Soal ini bikin aku pusing. Bisa selesaikan?','Eh... maaf... soal ini susah banget... bisa bantu?','Oh! Pas banget! Aku nggak bisa tidur gara-gara soal ini!','Hmm. Kalau kamu bisa selesaikan ini, aku akui kamu sebagai sekutu.','Ha! Bahkan aku ketemu yang susah! Coba dong!','...Soal ini... udah lama aku pikir... nggak tahu...','Nggak menyerah! Tapi soal ini... aku butuh bantuan.','Pengen punya teman yang bisa dipikirin soal ini bareng.','Kalau kamu selesaikan ini, aku akan berjuang bersamamu melindungi Bumi.','Yes, teman baru! Mau pikirin soal ini bareng?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['Bukan itu! Pikir lagi!','Oh... salah... nggak apa-apa, coba lagi.','Hmm, kayaknya nggak bener? Sekali lagi!','Salah. Aku sarankan pertimbangkan lagi.','Buzz! Salah! Coba lagi~','...Bukan... kembalilah...','Nggak menyerah, tapi itu salah. Lagi!','Aduh... hampir. Lain kali pasti bisa!','Kurang tepat. Coba lagi.','Ups, salah! Lain kali ya!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Benar! Ayo berjuang bersama!','Tepat! Terima kasih... aku akan jadi sekutumu!','Benar! Bisa selesaikan soal ini... kamu jenius?!','Tepat. Aku akui kamu sebagai sekutu.','Wah, berhasil! Aku tahu aku punya mata yang baik~','...Kamu benar... aku terharu...','Berhasil! Dengan tekad itu kita bisa bekerja sama!','Sesuai dugaan! Ayo berpetualang bersama!','Luar biasa. Kita akan menjalankan misi bersama.','Kamu berhasil! Seru banget! Ayo main bersama!'][i]??AG.corrects[i%AG.corrects.length],
+},
+th:{
+  agPerso:['กล้าและตรงไปตรงมา','ขี้อายและใจดี','อยากรู้อยากเห็นและกระตือรือร้น','เย็นชาและมีตรรกะ','ร่าเริงและแปลกประหลาด','ลึกลับและเงียบขรึม','ดื้อรั้นแต่มุ่งมั่น','อบอุ่นและเมตตา','จริงจังและจริงใจ','อิสระและมองโลกในแง่ดี'],
+  agReasons:['เพื่อปกป้องสันติภาพ','เพื่อแก้แค้นให้ครอบครัวที่สูญเสียไป','ด้วยความอยากรู้ทางวิทยาศาสตร์','เพื่อฟื้นฟูสมดุลของจักรวาล','แค่รู้สึกเบื่อ'],
+  agFamilies:['ลูกคนเดียว','เติบโตมาในครอบครัวใหญ่','เด็กกำพร้า','มาจากราชวงศ์','มาจากครอบครัวชาวนาธรรมดา'],
+  agHobbies:['สะสมหินอวกาศ','โต้คลื่นหลุมดำ','การทำอาหารข้ามกาแล็กซี','วาดกลุ่มดาว','ฟังเพลงคลื่นความโน้มถ่วง'],
+  agInterests:['การวิจัยสสารมืด','การวางแผนการเดินทางข้ามเวลา','คณิตศาสตร์ของโลก','การพับมิติ','การวิ่งในไฮเปอร์สเปซ'],
+  agLikes:['ความเงียบสงบของอวกาศ','แรงโน้มถ่วงที่แรง','ดาวสีน้ำเงิน','พระอาทิตย์ขึ้นสองดวง','เดินเล่นในแถบดาวเคราะห์น้อย'],
+  agDislikes:['กลิ่นของหลุมดำ','การกลับทิศแรงโน้มถ่วง','ขยะอวกาศ','ลมสุริยะ','ดาวที่กำลังดับ'],
+  agGreetings:(i)=>['เฮ้! โจทย์นี้ทำให้ฉันปวดหัว แก้ได้ไหม?','อืม... ขอโทษนะ... โจทย์นี้ยากมาก... ช่วยได้ไหม?','โอ้! มาพอดีเลย! ฉันนอนไม่หลับเพราะโจทย์นี้!','หมม ถ้าแก้โจทย์นี้ได้ ฉันจะยอมรับว่าเธอเป็นพันธมิตร','ฮ่า! แม้แต่ฉันก็เจอของยาก! ลองดูสิ!','...โจทย์นี้... คิดมานานแล้ว... ไม่รู้...','ไม่ยอมแพ้! แต่โจทย์นี้... ต้องการความช่วยเหลือ','อยากมีเพื่อนช่วยคิดโจทย์นี้ด้วย','ถ้าแก้โจทย์นี้ได้ ฉันจะต่อสู้กับเธอเพื่อปกป้องโลก','เย้ เพื่อนใหม่! อยากคิดโจทย์นี้ด้วยกันไหม?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['ไม่ใช่! คิดใหม่อีกครั้ง!','โอ้... ผิดนะ... ไม่เป็นไร ลองใหม่','หืม ไม่ถูกนะ? อีกครั้ง!','ไม่ถูกต้อง แนะนำให้คิดใหม่','บัซ! ผิด! ลองใหม่~','...ไม่... กลับมาอีกที...','ไม่ยอมแพ้ แต่ผิดแล้ว อีกครั้ง!','โอ้ไม่... ใกล้แล้ว ครั้งหน้าแน่นอน!','ไม่ค่อยถูกนัก ลองใหม่อีกที','อุ๊ย ผิด! ครั้งหน้าให้ถูก!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['ถูกต้อง! มาต่อสู้ด้วยกัน!','ถูกแล้ว! ขอบคุณนะ... ฉันจะเป็นพันธมิตรของเธอ!','ถูกต้อง! แก้โจทย์นี้ได้... เธอเก่งมากเลย!','แม่นยำ ฉันยอมรับว่าเธอเป็นพันธมิตร','ว้าว ทำได้! ฉันรู้ว่าฉันสายตาดี~','...ถูกแล้ว... ซาบซึ้งมาก...','ทำได้แล้ว! ด้วยความมุ่งมั่นนี้เราทำงานร่วมกันได้!','ดังที่คาด! มาผจญภัยด้วยกันเถอะ!','ยอดเยี่ยม เราจะทำภารกิจด้วยกัน','ทำได้! ตื่นเต้นมาก! มาเล่นด้วยกัน!'][i]??AG.corrects[i%AG.corrects.length],
+},
+vi:{
+  agPerso:['dũng cảm và thẳng thắn','nhút nhát và hiền lành','tò mò và năng động','lạnh lùng và logic','vui vẻ và kỳ lạ','bí ẩn và ít nói','bướng bỉnh nhưng quyết tâm','ấm áp và tốt bụng','nghiêm túc và thành thật','tự do và lạc quan'],
+  agReasons:['để bảo vệ hòa bình','để trả thù cho gia đình đã mất','vì tò mò khoa học','để khôi phục cân bằng vũ trụ','đơn giản là vì chán'],
+  agFamilies:['con một','lớn lên trong gia đình đông con','trẻ mồ côi','xuất thân hoàng tộc','từ gia đình nông dân bình thường'],
+  agHobbies:['sưu tập đá không gian','lướt sóng hố đen','nấu ăn liên thiên hà','vẽ chòm sao','nghe nhạc sóng hấp dẫn'],
+  agInterests:['nghiên cứu vật chất tối','lên kế hoạch du hành thời gian','toán học Trái Đất','gấp chiều không gian','chạy siêu không gian'],
+  agLikes:['sự tĩnh lặng của vũ trụ','trọng lực mạnh','ngôi sao xanh','bình minh hai mặt trời','đi dạo qua vành đai tiểu hành tinh'],
+  agDislikes:['mùi hố đen','đảo ngược trọng lực','rác vũ trụ','gió mặt trời','ngôi sao đang tắt'],
+  agGreetings:(i)=>['Này! Bài này làm tôi điên đầu rồi. Bạn giải được không?','Ừm... xin lỗi... bài này khó quá... bạn có thể giúp không?','Ồ! Vừa đúng lúc! Tôi không ngủ được vì bài này!','Hmm. Nếu bạn giải được bài này, tôi sẽ công nhận bạn là đồng minh.','Ha! Ngay cả tôi cũng gặp bài khó! Thử xem nào!','...Bài này... tôi suy nghĩ lâu rồi... không biết...','Không bỏ cuộc! Nhưng bài này... cần được giúp đỡ.','Ước gì có bạn cùng suy nghĩ bài này với tôi.','Nếu bạn giải được bài này, tôi sẽ chiến đấu cùng bạn để bảo vệ Trái Đất.','Yay, bạn mới! Muốn cùng nhau suy nghĩ bài này không?'][i]??AG.greetings[i%AG.greetings.length],
+  agWrongs:(i)=>['Không phải vậy! Nghĩ lại đi!','Ồ... sai rồi... không sao, thử lại đi.','Hmm, tôi nghĩ không đúng? Thêm một lần nữa!','Sai. Tôi khuyên bạn nên xem lại.','Buzz! Sai! Thử lại~','...Không... quay lại...','Không bỏ cuộc, nhưng sai rồi. Lại!','Ôi không... suýt rồi. Lần sau chắc chắn!','Chưa đúng lắm. Hãy thử lại.','Ối, sai! Lần sau nhé!'][i]??AG.wrongs[i%AG.wrongs.length],
+  agCorrects:(i)=>['Đúng! Hãy chiến đấu cùng nhau!','Đúng rồi! Cảm ơn... tôi sẽ là đồng minh của bạn!','Đúng! Giải được bài này... bạn là thiên tài à?!','Chính xác. Tôi công nhận bạn là đồng minh.','Wow, làm được rồi! Tôi biết mình có con mắt tinh tường~','...Đúng rồi... tôi xúc động lắm...','Làm được rồi! Với quyết tâm đó chúng ta có thể làm việc cùng nhau!','Đúng như mong đợi! Hãy cùng nhau phiêu lưu!','Xuất sắc. Chúng ta sẽ thực hiện nhiệm vụ cùng nhau.','Làm được rồi! Thú vị quá! Cùng nhau chơi nào!'][i]??AG.corrects[i%AG.corrects.length],
+},
+Object.keys(LANG_DATA_EXT4).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT4[lang]);});
+
 
 
 
@@ -7046,6 +7255,67 @@ const ALIEN_TEMPLATE_RANKS = (() => {
   return ranks;
 })();
 
+
+// ── 비한국어 외계인 스토리 템플릿 ──
+const ALIEN_STORY_FN = {
+  en:[
+    d=>`${d.name} is a ${d.age}-year-old alien from ${d.planet}. Personality: ${d.perso}. They enjoy ${d.hobby} and are fascinated by ${d.interest}. Known for loving ${d.like} but absolutely despising ${d.dislike}. They came here ${d.reason} — growing up as a ${d.family} shaped everything about them.`,
+    d=>`"I'm ${d.name}! Originally from ${d.planet}, ${d.age} years old. My crew thinks I spend too much time on ${d.hobby}, but honestly ${d.interest} is just too important to ignore. I came here ${d.reason}. Grew up ${d.family}, which made me who I am. I love ${d.like}. ${d.dislike}? Hard pass. Anyway — glad we're allies now."`,
+    d=>`★ TOP SECRET DIARY OF ${d.name} ★  Today I got caught doing ${d.hobby} mid-briefing. Embarrassing. But ${d.interest} genuinely matters to me. Grew up ${d.family} on ${d.planet}, so I've always been independent. Love ${d.like}. Cannot stand ${d.dislike}. I came here ${d.reason}, and I stand by that. P.S. If you're reading this, please pretend you didn't.`,
+    d=>`Word around the ship: ${d.name} from ${d.planet} was spotted spending way too much time on ${d.hobby} again. The ${d.age}-year-old is described as "${d.perso}" by those who know them. Their obsession with ${d.interest} continues to raise eyebrows. When asked about it, they just smiled and said nothing. Classic ${d.name}.`,
+    d=>`[BREAKING NEWS] A ${d.age}-year-old alien from ${d.planet} known as ${d.name} has reportedly been prioritizing ${d.hobby} and ${d.interest} over mission duties. Colleagues confirm: "${d.perso} — which tracks." They came ${d.reason}. Whatever their reasons, one thing's clear: we're lucky to have them on our side.`,
+  ],
+  ja:[
+    d=>`${d.name}は${d.planet}出身、${d.age}歳のエイリアンです。性格は${d.perso}。趣味は${d.hobby}で、${d.interest}に夢中になっています。${d.like}が大好きで、${d.dislike}は苦手。${d.reason}ためにここへ来ました。`,
+    d=>`「私は${d.name}です！${d.planet}出身の${d.age}歳です。${d.hobby}が趣味で、${d.interest}にハマっています。${d.reason}ためにここへ。仲間になれて嬉しいです！」`,
+    d=>`★ ${d.name}の極秘日記 ★  今日も${d.hobby}に時間を使いすぎてしまった。でも${d.interest}は本当に大事なんだ。${d.like}は最高だし、${d.dislike}は勘弁してほしい。${d.reason}ために来たことは後悔していない。この日記、誰にも見せないでください。`,
+  ],
+  'zh-TW':[
+    d=>`${d.name}來自${d.planet}，今年${d.age}歲。性格${d.perso}。喜歡${d.hobby}，對${d.interest}非常著迷。最愛${d.like}，最討厭${d.dislike}。為了${d.reason}來到這裡，很高興成為你的夥伴！`,
+    d=>`「我是${d.name}！來自${d.planet}，${d.age}歲。我的愛好是${d.hobby}，最近對${d.interest}非常入迷。我來這裡是${d.reason}。認識你真的很開心！」`,
+    d=>`★ ${d.name}的秘密日記 ★  今天又花太多時間在${d.hobby}上了。但${d.interest}真的太重要了。喜歡${d.like}，討厭${d.dislike}。為了${d.reason}來這裡，不後悔。請不要告訴別人看了這本日記。`,
+  ],
+  'zh-CN':[
+    d=>`${d.name}来自${d.planet}，今年${d.age}岁。性格${d.perso}。喜欢${d.hobby}，对${d.interest}非常着迷。最爱${d.like}，最讨厌${d.dislike}。为了${d.reason}来到这里，很高兴成为你的伙伴！`,
+    d=>`「我是${d.name}！来自${d.planet}，${d.age}岁。我的爱好是${d.hobby}，最近对${d.interest}非常入迷。我来这里是${d.reason}。认识你真的很开心！」`,
+    d=>`★ ${d.name}的秘密日记 ★  今天又花太多时间在${d.hobby}上了。但${d.interest}真的太重要了。喜欢${d.like}，讨厌${d.dislike}。为了${d.reason}来这里，不后悔。`,
+  ],
+  es:[
+    d=>`${d.name} tiene ${d.age} años y es de ${d.planet}. Personalidad: ${d.perso}. Le encanta ${d.hobby} y está obsesionado/a con ${d.interest}. Ama ${d.like} pero detesta ${d.dislike}. Llegó aquí ${d.reason}. ¡Feliz de ser tu aliado/a!`,
+    d=>`"¡Hola, soy ${d.name}! Tengo ${d.age} años, soy de ${d.planet}. Me encantan ${d.hobby} y ${d.interest}. Vine aquí ${d.reason}. ${d.like} me fascina. ${d.dislike}? Ni hablar. ¡Juntos vamos a ganar!"`,
+  ],
+  pt:[
+    d=>`${d.name} tem ${d.age} anos e vem de ${d.planet}. Personalidade: ${d.perso}. Adora ${d.hobby} e é fascinado/a por ${d.interest}. Ama ${d.like}, mas detesta ${d.dislike}. Veio aqui ${d.reason}. Feliz em ser seu aliado/a!`,
+    d=>`"Oi, sou ${d.name}! Tenho ${d.age} anos, vim de ${d.planet}. Adoro ${d.hobby} e ${d.interest}. Vim aqui ${d.reason}. ${d.like} é incrível. ${d.dislike}? De jeito nenhum. Juntos vamos vencer!"`,
+  ],
+  fr:[
+    d=>`${d.name} a ${d.age} ans et vient de ${d.planet}. Personnalité : ${d.perso}. Il/Elle adore ${d.hobby} et est fasciné(e) par ${d.interest}. Aime ${d.like} mais déteste ${d.dislike}. Venu(e) ici ${d.reason}. Ravi(e) d'être ton allié(e) !`,
+    d=>`« Je suis ${d.name} ! J'ai ${d.age} ans, je viens de ${d.planet}. J'adore ${d.hobby} et ${d.interest}. Je suis venu(e) ici ${d.reason}. ${d.like}, c'est fantastique. ${d.dislike} ? Pas question. Ensemble on va gagner ! »`,
+  ],
+  de:[
+    d=>`${d.name} ist ${d.age} Jahre alt und kommt von ${d.planet}. Persönlichkeit: ${d.perso}. Liebt ${d.hobby} und ist fasziniert von ${d.interest}. Mag ${d.like}, hasst aber ${d.dislike}. Kam hierher ${d.reason}. Freut sich, dein Verbündeter zu sein!`,
+    d=>`„Ich bin ${d.name}! ${d.age} Jahre alt, von ${d.planet}. Ich liebe ${d.hobby} und ${d.interest}. Ich kam ${d.reason}. ${d.like} ist toll. ${d.dislike}? Auf keinen Fall. Gemeinsam werden wir gewinnen!"`,
+  ],
+  id:[
+    d=>`${d.name} berusia ${d.age} tahun dan berasal dari ${d.planet}. Kepribadian: ${d.perso}. Suka ${d.hobby} dan terpesona oleh ${d.interest}. Menyukai ${d.like} tapi membenci ${d.dislike}. Datang ke sini ${d.reason}. Senang menjadi sekutumu!`,
+    d=>`"Hei, aku ${d.name}! Umur ${d.age} tahun, dari ${d.planet}. Aku suka ${d.hobby} dan ${d.interest}. Aku ke sini ${d.reason}. ${d.like} itu luar biasa. ${d.dislike}? Jangan sampai. Kita menang bersama!"`,
+  ],
+  th:[
+    d=>`${d.name} อายุ ${d.age} ปี มาจาก ${d.planet} นิสัย${d.perso} ชอบ${d.hobby} และหลงใหล${d.interest} รัก${d.like} แต่เกลียด${d.dislike} มาที่นี่${d.reason} ยินดีที่ได้เป็นพันธมิตรของคุณ!`,
+    d=>`"สวัสดี ฉันชื่อ${d.name}! อายุ${d.age}ปี มาจาก${d.planet} ชอบ${d.hobby} และ${d.interest} มาที่นี่${d.reason} ${d.like}สุดยอดมาก ส่วน${d.dislike}ไม่เอาเลย เราชนะด้วยกัน!"`,
+  ],
+  vi:[
+    d=>`${d.name} ${d.age} tuổi, đến từ ${d.planet}. Tính cách: ${d.perso}. Thích ${d.hobby} và mê ${d.interest}. Yêu ${d.like} nhưng ghét ${d.dislike}. Đến đây ${d.reason}. Vui được là đồng minh của bạn!`,
+    d=>`"Xin chào, tôi là ${d.name}! ${d.age} tuổi, từ ${d.planet}. Tôi thích ${d.hobby} và ${d.interest}. Đến đây ${d.reason}. ${d.like} thật tuyệt. ${d.dislike}? Không bao giờ. Cùng nhau chúng ta sẽ thắng!"`,
+  ],
+};
+function generateAlienStoryLocalized(d){
+  if(!GSETTINGS.lang||GSETTINGS.lang==='ko') return generateAlienStory(d);
+  const fn=ALIEN_STORY_FN[GSETTINGS.lang]||ALIEN_STORY_FN.en;
+  const tIdx=(alienSeededRand(d.idx,30)*fn.length)|0;
+  return fn[tIdx](d);
+}
+
 function generateAlienStory(d) {
   const tIdx = (alienSeededRand(d.idx, 30) * ALIEN_STORIES.length) | 0;
   const r = (o) => alienSeededRand(d.idx, 31 + o);
@@ -7089,17 +7359,17 @@ function getAlienData(idx) {
     name:  CUSTOM_ALIEN_NAMES[idx] || (AG.nameP[Math.floor(r(1)*20)] + AG.nameS[Math.floor(r(2)*20)]),
     planet:AG.planets[Math.floor(r(3)*10)],
     age:   AG.ages[Math.floor(r(4)*10)],
-    reason:AG.reasons[Math.floor(r(5)*5)],
-    family:AG.families[Math.floor(r(6)*5)],
-    hobby: AG.hobbies[Math.floor(r(7)*5)],
-    interest:AG.interests[Math.floor(r(8)*5)],
-    like:  AG.likes[Math.floor(r(9)*5)],
-    dislike:AG.dislikes[Math.floor(r(10)*5)],
+    reason:  ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agReasons  || AG.reasons  )[Math.floor(r(5)*5)],
+    family:  ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agFamilies || AG.families )[Math.floor(r(6)*5)],
+    hobby:   ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agHobbies  || AG.hobbies  )[Math.floor(r(7)*5)],
+    interest:((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agInterests|| AG.interests)[Math.floor(r(8)*5)],
+    like:    ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agLikes    || AG.likes    )[Math.floor(r(9)*5)],
+    dislike: ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agDislikes || AG.dislikes )[Math.floor(r(10)*5)],
     persoIdx: pi,
-    perso: AG.perso[pi],
-    greeting: AG.greetings[pi],
-    wrongMsg: AG.wrongs[pi],
-    correctMsg: AG.corrects[pi],
+    perso: ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agPerso || AG.perso)[pi],
+    greeting: (LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agGreetings?.(pi) ?? AG.greetings[pi],
+    wrongMsg:  (LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agWrongs?.(pi)   ?? AG.wrongs[pi],
+    correctMsg:(LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agCorrects?.(pi) ?? AG.corrects[pi],
     problem: ALIEN_PROBLEMS[idx],
     abilityId,
     abilityLabel: ab ? ab.label : '',
@@ -7914,31 +8184,31 @@ function generateAlienHint(q, a) {
 
   // ── 혼합연산 ──
   const mxa=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*\+\s*(\d+)/);
-  if(mxa){const[,x,y,z]=mxa.map(Number);return `곱셈을 먼저 해야 해!\n${x}×${y}를 먼저 계산한 다음,\n그 결과에 ${z}을(를) 더하면 끝~`;}
+  if(mxa){const[,x,y,z]=mxa.map(Number);return trf('hintMixedMulAdd',{x,y,z});}
   const mxs=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*-\s*(\d+)/);
-  if(mxs){const[,x,y,z]=mxs.map(Number);return `곱셈을 먼저 해야 해!\n${x}×${y}를 먼저 계산한 다음,\n그 결과에서 ${z}을(를) 빼면 끝~`;}
+  if(mxs){const[,x,y,z]=mxs.map(Number);return trf('hintMixedMulSub',{x,y,z});}
 
   // ── 3항 덧셈/뺄셈 ──
   const a4=t.match(/(\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)/);
-  if(a4){const[,w,x,y,z]=a4.map(Number);return `네 수를 차례로 더해봐!\n${w}+${x}=${w+x}\n${w+x}+${y}=${w+x+y}\n그 다음 ${w+x+y}+${z}=?~`;}
+  if(a4){const[,w,x,y,z]=a4.map(Number);return trf('hintAdd4',{w,x,y,z,wx:w+x,wxy:w+x+y});}
   const a3=t.match(/(\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)/);
-  if(a3){const[,x,y,z]=a3.map(Number);return `세 수를 한 번에 더하기 어렵지?\n앞에 두 수 ${x}+${y}를 먼저 계산해봐!\n그 다음 결과에 ${z}를 더하면 끝이야~`;}
+  if(a3){const[,x,y,z]=a3.map(Number);return trf('hintAdd3',{x,y,z});}
   const s3=t.match(/(\d+)\s*-\s*(\d+)\s*-\s*(\d+)/);
-  if(s3){const[,x,y,z]=s3.map(Number);return `빼기를 앞에서부터 차례로 해봐!\n${x}에서 ${y}를 빼고,\n그 결과에서 ${z}를 또 빼면 돼~`;}
+  if(s3){const[,x,y,z]=s3.map(Number);return trf('hintSub3',{x,y,z});}
 
   // ── 두자릿수 곱셈 ──
   const mul=t.match(/^(\d+)\s*[×x]\s*(\d+)\s*=/);
   if(mul){const[,x,y]=mul.map(Number);const b=Math.max(x,y),s=Math.min(x,y);const t10=Math.floor(s/10)*10,t1=s%10;
-    if(t10>0&&t1>0)return `큰 곱셈은 쪼개서 생각해봐!\n${b}×${s} = ${b}×${t10} + ${b}×${t1}\n이렇게 두 덩어리로 나눠서 각각 계산하면 훨씬 쉬워~`;
-    return `${b}를 ${s}번 더하면 어떻게 될까?\n천천히 ${b}씩 세어봐!`;}
+    if(t10>0&&t1>0)return trf('hintMulSplit',{b,s,t10,t1});
+    return trf('hintMulCount',{b,s});}
 
   // ── 나눗셈 ──
   const dv=t.match(/^(\d+)\s*÷\s*(\d+)\s*=/);
-  if(dv){const[,x,y]=dv.map(Number);return `${y}씩 몇 번 더해야 ${x}가 될까?\n${y}, ${y*2}, ${y*3}... 이렇게 세어봐!\n${y}의 몇 배가 ${x}인지 찾으면 돼~`;}
+  if(dv){const[,x,y]=dv.map(Number);return trf('hintDiv',{x,y,y2:y*2,y3:y*3});}
 
   // ── 괄호 혼합 ──
   if(t.match(/^\(.*\)/))return `괄호가 있으면 무조건 괄호 안부터!\n수학에서 괄호는 "나 먼저 계산해!" 라는 신호야~`;
-  if(t.match(/\d+.*[×÷].*[+\-]|[+\-].*[×÷]/))return `수학에는 계산 순서가 있어!\n×÷는 먼저, +-는 나중에 계산하는 게 규칙이야~`;
+  if(t.match(/\d+.*[×÷].*[+\-]|[+\-].*[×÷]/))return tr('hintOrderOps');
 
   // ── 삼각형 각도 ──
   if(t.includes('삼각형')&&t.includes('나머지')){
@@ -8369,7 +8639,7 @@ function openAlienProfile(idx, isNew=false, correctMsg='') {
     ALIEN_SAVE.newConfirmed = ALIEN_SAVE.newConfirmed.filter(i=>i!==idx);
     saveAlienSave(); updateAlienRedDots();
   }
-  const story = generateAlienStory(d);
+  const story = generateAlienStoryLocalized(d);
   $('alien-popup').innerHTML = `
     <div style="border-radius:50%;padding:3px;background:${d.gradeColor};display:inline-block;box-shadow:0 0 14px ${d.gradeColor}99;"><div class="popup-face-big" style="background:${d.bg};border:none;">${d.headHtml}</div></div>
     <div class="popup-alien-name">${d.name}${isNew?` <span style="font-size:13px;color:#ffdd88">${tr('alienNewMember')}</span>`:''}</div>
