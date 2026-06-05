@@ -7426,7 +7426,7 @@ function renderMedalBoard() {
         [tr('tierBronze'),tr('tierSilver'),tr('tierGold'),tr('tierPlatinum')][st.tier-1]||tr('tierPlatinum');
       const progBar = !locked && st.tier<st.maxTier
         ? `<div class="medal-prog-wrap"><div class="medal-prog-bar" style="width:${st.pct}%"></div></div>`
-        : st.tier===st.maxTier?`<div class="medal-complete-badge">${tr('tierComplete')}</div>`:'`;
+        : st.tier===st.maxTier?`<div class="medal-complete-badge">${tr('tierComplete')}</div>`:'';
       html+=`<div class="medal-card ${tClass}" onclick="showMedalDetail('${m.id}')">
         <div class="medal-icon">${locked?'<span style="font-size:20px;font-weight:900;color:#555;font-family:Arial,sans-serif;">?</span>':`<img src="medals/${m.id}.png" style="width:45px;height:45px;object-fit:contain;">`}</div>
         <div class="medal-name">${m.nk?tr(m.nk):m.name}</div>
