@@ -7495,7 +7495,7 @@ function showMedalDetail(id) {
     <div class="mpop-name">${m.nk?tr(m.nk):m.name}</div>
     <div class="mpop-tier" style="color:${color}">${tierLbl}</div>
     ${reqTxt?`<div class="mpop-desc">${reqTxt}</div>`:''}
-    ${!locked&&m.section!=='special'?`<div class="mpop-desc">${m.lowerIsBetter?'최고 기록':'누적'}: <b style="color:#fff">${m.lowerIsBetter?(st.val/1000).toFixed(1)+'초':st.val.toLocaleString()}</b></div>`:''}
+    ${!locked&&m.section!=='special'?`<div class="mpop-desc">${m.lowerIsBetter?tr('tierBestRecord'):tr('tierCumulative')}: <b style="color:#fff">${m.lowerIsBetter?(st.val/1000).toFixed(1)+tr('tierSeconds'):st.val.toLocaleString()}</b></div>`:''}
     ${progHtml}${nextHtml}
     ${st.tier < st.maxTier
       ? `<div style="font-size:11px;color:#aab;margin-top:2px;">${trf('tierStarRewardFmt',{n:MEDAL_TIER_STARS[st.tier+1]||100})}</div>`
