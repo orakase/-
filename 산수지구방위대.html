@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<script>(function(){function _setH(){var h=window.visualViewport?window.visualViewport.height:window.innerHeight;document.documentElement.style.setProperty('--app-h',h+'px');}if(window.visualViewport)window.visualViewport.addEventListener('resize',_setH);window.addEventListener('resize',_setH);_setH();})();</script>
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,7 +28,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   --skin-div-bg:rgba(30,5,40,.93);--skin-div-bd:#cc44ff;--skin-div-c:#ddaaff;
 }
 #wrap{
-  width:100vw;height:100vh;height:100dvh;max-width:430px;margin:0 auto;
+  width:100vw;height:100vh;height:100dvh;height:var(--app-h,100dvh);max-width:430px;margin:0 auto;
   position:relative;display:flex;flex-direction:column;
   background:linear-gradient(180deg,#00000f 0%,#04001a 20%,#08002e 45%,#050028 70%,#020014 100%);
 }
