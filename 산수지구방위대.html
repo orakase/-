@@ -1600,6 +1600,12 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 .reset-box small{color:#557;font-size:11px;display:block;margin-bottom:18px;line-height:1.5;}
 .reset-box-btns{display:flex;gap:8px;}
 .reset-box-btns button{flex:1;padding:12px 0;border-radius:6px;border:none;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;}
+.sett-select{
+  background:rgba(20,30,80,.8);border:1px solid rgba(100,120,180,.3);
+  color:#aaccff;font-size:13px;font-weight:700;padding:9px 12px;
+  border-radius:6px;width:100%;cursor:pointer;font-family:inherit;
+  -webkit-appearance:none;appearance:none;text-align:center;
+}
 </style>
 </head>
 <body>
@@ -1608,10 +1614,10 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 
 <!-- HUD -->
 <div id="hud">
-  <div class="hc"><span class="hl">격추</span><span class="hv" id="h-hit">0</span></div>
-  <div class="hc"><span class="hl">레벨</span><span class="hv" id="h-level">Lv.1</span></div>
-  <div class="hc"><span class="hl">최고점수</span><span class="hv" id="h-best" style="font-size:11px;">0</span></div>
-  <div class="hc"><span class="hl">점수</span><span class="hv" id="h-score">0</span></div>
+  <div class="hc"><span class="hl" data-i18n="kills">격추</span><span class="hv" id="h-hit">0</span></div>
+  <div class="hc"><span class="hl" data-i18n="level">레벨</span><span class="hv" id="h-level">Lv.1</span></div>
+  <div class="hc"><span class="hl" data-i18n="best">최고점수</span><span class="hv" id="h-best" style="font-size:11px;">0</span></div>
+  <div class="hc"><span class="hl" data-i18n="score">점수</span><span class="hv" id="h-score">0</span></div>
   <button id="btn-pause" onclick="pauseGame()">||</button>
 </div>
 
@@ -1621,28 +1627,28 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   <div id="pause-overlay">
     <!-- 일반 일시정지 패널 -->
     <div id="pause-normal" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-      <div style="font-size:24px;font-weight:900;color:#fff;letter-spacing:2px;">|| 일시 정지</div>
-      <div style="font-size:13px;color:#667;margin-top:-6px;">점수 <span id="pause-score-val" style="color:#ddeeff;font-weight:900">0</span></div>
+      <div style="font-size:24px;font-weight:900;color:#fff;letter-spacing:2px;" data-i18n="pauseTitle">|| 일시 정지</div>
+      <div style="font-size:13px;color:#667;margin-top:-6px;"><span data-i18n="pauseScore">점수</span> <span id="pause-score-val" style="color:#ddeeff;font-weight:900">0</span></div>
       <button class="pause-action-btn" onclick="resumeGame()"
-        style="background:#1a33bb;color:#fff;margin-top:4px;">▶ 계속하기</button>
+        style="background:#1a33bb;color:#fff;margin-top:4px;" data-i18n="resume">▶ 계속하기</button>
       <button class="pause-action-btn" onclick="openSettings()"
-        style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:#88aabb;">⚙ 설정</button>
+        style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:#88aabb;" data-i18n="settingsBtn">⚙ 설정</button>
       <button class="pause-action-btn" onclick="showQuitConfirm()"
-        style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:#aab;">🏠 타이틀로</button>
+        style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:#aab;" data-i18n="toTitle">🏠 타이틀로</button>
     </div>
     <!-- 나가기 확인 패널 -->
     <div id="pause-confirm" style="display:none;flex-direction:column;align-items:center;gap:14px;">
-      <div style="font-size:18px;font-weight:900;color:#fff;">정말 나가시겠어요?</div>
+      <div style="font-size:18px;font-weight:900;color:#fff;" data-i18n="quitConfirm">정말 나가시겠어요?</div>
       <div style="font-size:13px;color:#8899aa;text-align:center;line-height:1.7;">지금까지의 기록은 저장됩니다.<br>결과 화면을 거쳐 타이틀로 이동해요.</div>
       <button class="pause-action-btn" onclick="quitWithRecord()"
-        style="background:#aa2222;color:#fff;margin-top:4px;">📋 결과 보고 나가기</button>
+        style="background:#aa2222;color:#fff;margin-top:4px;" data-i18n="quitAction">📋 결과 보고 나가기</button>
       <button class="pause-action-btn" onclick="hideQuitConfirm()"
-        style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:#aab;">↩ 계속 하기</button>
+        style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:#aab;" data-i18n="quitCancel2">↩ 계속 하기</button>
     </div>
   </div>
   <div id="fever-status">
-    <span class="fever-badge fever-badge-invincible"><img src="ui/fever_invincible.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> 무적</span>
-    <span class="fever-badge fever-badge-score"><img src="ui/fever_score.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> 점수×2</span>
+    <span class="fever-badge fever-badge-invincible"><img src="ui/fever_invincible.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> <span data-i18n="invincible">무적</span></span>
+    <span class="fever-badge fever-badge-score"><img src="ui/fever_score.png" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> <span data-i18n="scoreX2">점수×2</span></span>
   </div>
   <div id="prog-bar"><div id="prog-fill" style="width:100%"></div></div>
   <div id="earth"></div>
@@ -1681,7 +1687,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 
 <!-- Controls -->
 <div id="controls">
-  <button id="fire-btn"><span id="fi"><img src="ui/fire_btn.png" style="width:55px;height:55px;object-fit:contain;vertical-align:middle;"></span><span>발사</span></button>
+  <button id="fire-btn"><span id="fi"><img src="ui/fire_btn.png" style="width:55px;height:55px;object-fit:contain;vertical-align:middle;"></span><span data-i18n="fire">발사</span></button>
   <div id="numpad">
     <button class="nb" data-v="1">1</button>
     <button class="nb" data-v="2">2</button>
@@ -1694,7 +1700,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
     <button class="nb" data-v="9">9</button>
     <button class="nb del" data-v="del">←</button>
     <button class="nb" data-v="0">0</button>
-    <button class="nb fire2" data-v="fire">발사↑</button>
+    <button class="nb fire2" data-v="fire" data-i18n="fire2">발사↑</button>
   </div>
 </div>
 
@@ -1737,67 +1743,67 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 
     <!-- 제목 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-      <div class="title-main">산수 지구 방위대</div>
-      <div class="title-tagline">산수로 지구를 지켜라!</div>
+      <div class="title-main" data-i18n="gameTitle">산수 지구 방위대</div>
+      <div class="title-tagline" data-i18n="tagline">산수로 지구를 지켜라!</div>
     </div>
 
     <!-- 최고 기록 -->
     <div class="title-best">
-      <span style="font-size:11px;color:#8899aa;letter-spacing:.5px;">🏆 최고 기록</span>
+      <span style="font-size:11px;color:#8899aa;letter-spacing:.5px;" data-i18n="bestRecord">🏆 최고 기록</span>
       <span id="title-best-val" style="font-size:15px;font-weight:900;color:#ffd700;">-</span>
     </div>
 
     <!-- 게임 시작 버튼 -->
     <div style="height:4px;"></div>
-    <button id="btn-start">▶ &nbsp;게임 시작</button>
+    <button id="btn-start" data-i18n="gameStart">▶  게임 시작</button>
 
     <!-- 조작 힌트 -->
     <div style="font-size:10px;color:#334455;letter-spacing:.3px;">
-      모바일: 숫자패드 → 발사 &nbsp;|&nbsp; PC: 숫자 → Enter
+      <span id="control-hint" data-i18n="controlHint">모바일: 숫자패드 → 발사  |  PC: 숫자 → Enter</span>
     </div>
   </div>
 
   <!-- 하단 탭 네비게이션 -->
   <nav class="title-nav">
     <button class="title-nav-btn" id="btn-medals-s">
-      <span class="title-nav-icon"><img src="ui/tab_medal.png" style="transform:scale(0.9);"></span>훈장
+      <span class="title-nav-icon"><img src="ui/tab_medal.png" style="transform:scale(0.9);"></span><span data-i18n="medals">훈장</span>
     </button>
     <button class="title-nav-btn" id="btn-report-s">
-      <span class="title-nav-icon"><img src="ui/tab_report.png"></span>리포트
+      <span class="title-nav-icon"><img src="ui/tab_report.png"></span><span data-i18n="report">리포트</span>
     </button>
     <button class="title-nav-btn" id="btn-aliens-s" style="position:relative;">
-      <span class="title-nav-icon"><img src="ui/tab_alien.png" style="transform:scale(1.3);"></span>동료
+      <span class="title-nav-icon"><img src="ui/tab_alien.png" style="transform:scale(1.3);"></span><span data-i18n="allies">동료</span>
       <span class="red-dot" id="rd-aliens-s" style="display:none;top:4px;right:8px;"></span>
     </button>
     <button class="title-nav-btn" id="btn-shop-s">
-      <span class="title-nav-icon"><img src="ui/tab_shop.png" style="transform:scale(0.9);"></span>상점
+      <span class="title-nav-icon"><img src="ui/tab_shop.png" style="transform:scale(0.9);"></span><span data-i18n="shop">상점</span>
     </button>
   </nav>
 </div>
 
 <div class="ov" id="ov-over" style="display:none">
-  <h1><img src="twemoji/1f4cb.svg" width="22" height="22" style="vertical-align:middle;margin-right:6px;">전투 보고서</h1>
+  <h1><img src="twemoji/1f4cb.svg" width="22" height="22" style="vertical-align:middle;margin-right:6px;"><span data-i18n="reportTitle">전투 보고서</span></h1>
   <div id="ov-over-body" style="width:100%;display:flex;flex-direction:column;gap:8px;"></div>
   <div style="display:flex;gap:8px;width:100%;flex-shrink:0;margin-top:6px;">
-    <button id="btn-retry" style="flex:1;background:#1a33bb;border:2px solid #4466ff;color:#fff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;letter-spacing:.5px;">↩ 다시 도전</button>
-    <button onclick="shareBattleReport()" style="flex:1;background:rgba(100,200,255,.12);border:2px solid rgba(100,200,255,.45);color:#88ccff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f4e4.svg" width="16" height="16" style="vertical-align:middle;"> 공유</button>
-    <button onclick="goToTitle()" style="flex:1;background:rgba(255,255,255,.06);border:2px solid rgba(180,200,255,.35);color:#aab;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f3e0.svg" width="16" height="16" style="vertical-align:middle;"> 타이틀로</button>
+    <button id="btn-retry" style="flex:1;background:#1a33bb;border:2px solid #4466ff;color:#fff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;letter-spacing:.5px;" data-i18n="retry">↩ 다시 도전</button>
+    <button onclick="shareBattleReport()" style="flex:1;background:rgba(100,200,255,.12);border:2px solid rgba(100,200,255,.45);color:#88ccff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f4e4.svg" width="16" height="16" style="vertical-align:middle;" data-i18n="share"> 공유</button>
+    <button onclick="goToTitle()" style="flex:1;background:rgba(255,255,255,.06);border:2px solid rgba(180,200,255,.35);color:#aab;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f3e0.svg" width="16" height="16" style="vertical-align:middle;" data-i18n="toTitle"> 타이틀로</button>
   </div>
 </div>
 
 <!-- ── 설정 오버레이 ── -->
 <div id="ov-settings">
   <div class="sett-panel">
-    <div class="sett-title">⚙ 설정</div>
+    <div class="sett-title" data-i18n="settTitle">⚙ 설정</div>
 
     <!-- 사운드 -->
-    <div class="sett-sec">사운드</div>
+    <div class="sett-sec" data-i18n="settSoundSec">사운드</div>
     <div class="sett-row">
-      <span class="sett-label">마스터 ON/OFF</span>
+      <span class="sett-label" data-i18n="settSoundToggle">마스터 ON/OFF</span>
       <label class="sett-sw"><input type="checkbox" id="set-sound-on" onchange="settApply()"><span class="sett-sw-slider"></span></label>
     </div>
     <div class="sett-row" id="sett-vol-rows">
-      <span class="sett-label">전체 볼륨</span>
+      <span class="sett-label" data-i18n="settVolMaster">전체 볼륨</span>
       <input type="range" class="sett-range" id="set-vol-master" min="0" max="100" value="100" oninput="settApply()">
     </div>
     <div class="sett-row">
@@ -1805,67 +1811,88 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
       <input type="range" class="sett-range" id="set-vol-bgm" min="0" max="100" value="100" oninput="settApply()">
     </div>
     <div class="sett-row">
-      <span class="sett-label">효과음</span>
+      <span class="sett-label" data-i18n="settVolSfx">효과음</span>
       <input type="range" class="sett-range" id="set-vol-sfx" min="0" max="100" value="100" oninput="settApply()">
     </div>
     <div class="sett-row">
-      <span class="sett-label">키패드 음성</span>
+      <span class="sett-label" data-i18n="settVolKp">키패드 음성</span>
       <input type="range" class="sett-range" id="set-vol-kp" min="0" max="100" value="100" oninput="settApply()">
     </div>
 
     <div class="sett-divider"></div>
 
     <!-- 진동 -->
-    <div class="sett-sec">진동</div>
+    <div class="sett-sec" data-i18n="settVibSec">진동</div>
     <div class="sett-row">
-      <span class="sett-label">강도</span>
+      <span class="sett-label" data-i18n="settVibLabel">강도</span>
       <div class="sett-radio-group">
         <button class="sett-rb" data-key="vib" data-val="0" onclick="settRadio(this)">OFF</button>
-        <button class="sett-rb" data-key="vib" data-val="1" onclick="settRadio(this)">약</button>
-        <button class="sett-rb" data-key="vib" data-val="2" onclick="settRadio(this)">중</button>
-        <button class="sett-rb" data-key="vib" data-val="3" onclick="settRadio(this)">강</button>
+        <button class="sett-rb" data-key="vib" data-val="1" onclick="settRadio(this)" data-i18n="settVibWeak">약</button>
+        <button class="sett-rb" data-key="vib" data-val="2" onclick="settRadio(this)" data-i18n="settVibMid">중</button>
+        <button class="sett-rb" data-key="vib" data-val="3" onclick="settRadio(this)" data-i18n="settVibStrong">강</button>
       </div>
     </div>
 
     <div class="sett-divider"></div>
 
     <!-- 그래픽 -->
-    <div class="sett-sec">그래픽 품질</div>
+    <div class="sett-sec" data-i18n="settGfxSec">그래픽 품질</div>
     <div class="sett-row">
-      <span class="sett-label">파티클 효과</span>
+      <span class="sett-label" data-i18n="settGfxLabel">파티클 효과</span>
       <div class="sett-radio-group">
-        <button class="sett-rb" data-key="gfx" data-val="0" onclick="settRadio(this)">낮음</button>
-        <button class="sett-rb" data-key="gfx" data-val="1" onclick="settRadio(this)">보통</button>
-        <button class="sett-rb" data-key="gfx" data-val="2" onclick="settRadio(this)">높음</button>
+        <button class="sett-rb" data-key="gfx" data-val="0" onclick="settRadio(this)" data-i18n="settGfxLow">낮음</button>
+        <button class="sett-rb" data-key="gfx" data-val="1" onclick="settRadio(this)" data-i18n="settGfxMid">보통</button>
+        <button class="sett-rb" data-key="gfx" data-val="2" onclick="settRadio(this)" data-i18n="settGfxHigh">높음</button>
       </div>
     </div>
 
     <div class="sett-divider"></div>
 
     <!-- 손잡이 -->
-    <div class="sett-sec">조작</div>
+    <div class="sett-sec" data-i18n="settCtrlSec">조작</div>
     <div class="sett-row">
-      <span class="sett-label">손잡이</span>
+      <span class="sett-label" data-i18n="settHandLabel">손잡이</span>
       <div class="sett-radio-group">
-        <button class="sett-rb" data-key="hand" data-val="r" onclick="settRadio(this)">오른손</button>
-        <button class="sett-rb" data-key="hand" data-val="l" onclick="settRadio(this)">왼손</button>
+        <button class="sett-rb" data-key="hand" data-val="r" onclick="settRadio(this)" data-i18n="settHandRight">오른손</button>
+        <button class="sett-rb" data-key="hand" data-val="l" onclick="settRadio(this)" data-i18n="settHandLeft">왼손</button>
       </div>
     </div>
 
     <div class="sett-divider"></div>
 
     <!-- 데이터 -->
-    <div class="sett-sec">데이터</div>
-    <button class="sett-danger-btn" onclick="settResetConfirm()">기록 및 데이터 초기화</button>
-    <button class="sett-plain-btn" onclick="openPrivacy()">개인정보처리방침 보기</button>
-    <button class="sett-close-btn" onclick="closeSettings()">닫기</button>
+    <!-- 언어 -->
+    <div class="sett-sec" data-i18n="settLangSec">언어</div>
+    <div class="sett-row">
+      <select id="set-lang" class="sett-select" onchange="settLangChange(this.value)">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="id">Indonesia</option>
+        <option value="th">ภาษาไทย</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+    </div>
+
+    <div class="sett-divider"></div>
+
+    <div class="sett-sec" data-i18n="settDataSec">데이터</div>
+    <button class="sett-danger-btn" onclick="settResetConfirm()" data-i18n="settResetBtn">기록 및 데이터 초기화</button>
+    <button class="sett-plain-btn" onclick="openPrivacy()" data-i18n="settPrivacyBtn">개인정보처리방침 보기</button>
+    <button class="sett-close-btn" onclick="closeSettings()" data-i18n="settCloseBtn">닫기</button>
   </div>
 </div>
 
 <!-- ── 개인정보처리방침 오버레이 ── -->
 <div id="ov-privacy">
   <div class="priv-panel">
-    <h2>개인정보처리방침</h2>
+    <h2 data-i18n="privTitle">개인정보처리방침</h2>
     <h3>수집하는 정보</h3>
     <p>본 앱은 개인식별정보를 수집하지 않습니다. 게임 기록(점수, 통계)은 기기 내 로컬 저장소에만 저장되며 외부로 전송되지 않습니다.</p>
     <h3>광고</h3>
@@ -1881,11 +1908,11 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <!-- ── 초기화 확인 ── -->
 <div id="ov-reset-confirm">
   <div class="reset-box">
-    <p>⚠ 데이터를 초기화할까요?</p>
-    <small>점수 기록, 획득한 별, 동료 외계인, 스킨 구매 내역이<br>모두 삭제됩니다. 되돌릴 수 없습니다.</small>
+    <p data-i18n="resetTitle">⚠ 데이터를 초기화할까요?</p>
+    <small data-i18n="resetDesc">점수 기록, 획득한 별, 동료 외계인, 스킨 구매 내역이 모두 삭제됩니다. 되돌릴 수 없습니다.</small>
     <div class="reset-box-btns">
-      <button onclick="closeResetConfirm()" style="background:rgba(30,40,100,.8);color:#aab;">취소</button>
-      <button onclick="doResetAll()" style="background:#991111;color:#fff;">초기화</button>
+      <button onclick="closeResetConfirm()" style="background:rgba(30,40,100,.8);color:#aab;" data-i18n="resetCancel">취소</button>
+      <button onclick="doResetAll()" style="background:#991111;color:#fff;" data-i18n="resetConfirm">초기화</button>
     </div>
   </div>
 </div>
@@ -1979,10 +2006,62 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 //  SETTINGS
 // ══════════════════════════════════════════
 const SETTINGS_KEY = 'sansugame_settings_v1';
-const SETT_DEF = { soundOn:true, volMaster:100, volBgm:100, volSfx:100, volKeypad:100, vib:2, gfx:2, hand:'r' };
+const SETT_DEF = { soundOn:true, volMaster:100, volBgm:100, volSfx:100, volKeypad:100, vib:2, gfx:2, hand:'r', lang:'ko' };
 let GSETTINGS = Object.assign({}, SETT_DEF);
 (function(){ try { const r=localStorage.getItem(SETTINGS_KEY); if(r) GSETTINGS=Object.assign({},SETT_DEF,JSON.parse(r)); } catch(e){} })();
 function saveSettings(){ try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(GSETTINGS));}catch(e){} }
+function tr(k){ return ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko)[k])||(LANG_DATA.ko[k])||k; }
+function loadLangFont(lang){
+  const FONTS={
+    'ja':  {name:'DotGothic16',   url:'https://fonts.googleapis.com/css2?family=DotGothic16&display=swap'},
+    'zh-TW':{name:'FusionPixelTC',url:'https://cdn.jsdelivr.net/fontsource/fonts/fusion-pixel-12px-monospaced-tc@latest/chinese-traditional-400-normal.woff2', ff:true},
+    'zh-CN':{name:'FusionPixelSC',url:'https://cdn.jsdelivr.net/fontsource/fonts/fusion-pixel-12px-monospaced-sc@latest/chinese-simplified-400-normal.woff2', ff:true},
+    'th':  {name:'Chakra Petch',  url:'https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap'},
+    'vi':  {name:'VT323',         url:'https://fonts.googleapis.com/css2?family=VT323&display=swap'},
+  };
+  const f=FONTS[lang];
+  if(!f){document.body.style.fontFamily="'Galmuri11','Apple SD Gothic Neo','Malgun Gothic',sans-serif";return;}
+  const id='lang-font-'+lang;
+  if(!document.getElementById(id)){
+    const s=document.createElement('style');s.id=id;
+    if(f.ff){s.textContent=`@font-face{font-family:'${f.name}';src:url('${f.url}') format('woff2');font-weight:400;font-style:normal;}`;}
+    else{s.textContent=`@import url('${f.url}');`;}
+    document.head.appendChild(s);
+  }
+  document.body.style.fontFamily=`'${f.name}','Galmuri11','Apple SD Gothic Neo','Malgun Gothic',sans-serif`;
+}
+function applyLang(){
+  loadLangFont(GSETTINGS.lang||'ko');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n, v=tr(k);
+    if(el.tagName==='INPUT'||el.tagName==='BUTTON'||el.tagName==='DIV'||el.tagName==='SPAN'){
+      // preserve child nodes with images
+      if(el.children.length===0) el.textContent=v;
+      else {
+        // only replace text nodes
+        for(const n of el.childNodes){if(n.nodeType===3&&n.textContent.trim())n.textContent=v;}
+      }
+    }
+  });
+}
+function settLangChange(lang){
+  GSETTINGS.lang=lang; saveSettings(); applyLang();
+}
+const LANG_DATA = {
+ko:{kills:'격추',level:'레벨',best:'최고점수',score:'점수',fire:'발사',fire2:'발사↑',gameTitle:'산수 지구 방위대',tagline:'산수로 지구를 지켜라!',bestRecord:'🏆 최고 기록',gameStart:'▶  게임 시작',controlHint:'모바일: 숫자패드 → 발사  |  PC: 숫자 → Enter',medals:'훈장',report:'리포트',allies:'동료',shop:'상점',pauseTitle:'|| 일시 정지',pauseScore:'점수',resume:'▶ 계속하기',settingsBtn:'⚙ 설정',toTitle:'🏠 타이틀로',quitConfirm:'정말 나가시겠어요?',quitAction:'📋 결과 보고 나가기',quitCancel2:'↩ 계속 하기',settTitle:'⚙ 설정',settSoundSec:'사운드',settSoundToggle:'마스터 ON/OFF',settVolMaster:'전체 볼륨',settVolSfx:'효과음',settVolKp:'키패드 음성',settVibSec:'진동',settVibLabel:'강도',settVibWeak:'약',settVibMid:'중',settVibStrong:'강',settGfxSec:'그래픽 품질',settGfxLabel:'파티클 효과',settGfxLow:'낮음',settGfxMid:'보통',settGfxHigh:'높음',settCtrlSec:'조작',settHandLabel:'손잡이',settHandRight:'오른손',settHandLeft:'왼손',settLangSec:'언어',settDataSec:'데이터',settResetBtn:'기록 및 데이터 초기화',settPrivacyBtn:'개인정보처리방침 보기',settCloseBtn:'닫기',resetTitle:'⚠ 데이터를 초기화할까요?',resetDesc:'점수 기록, 획득한 별, 동료 외계인, 스킨 구매 내역이 모두 삭제됩니다. 되돌릴 수 없습니다.',resetCancel:'취소',resetConfirm:'초기화',privTitle:'개인정보처리방침',reportTitle:'전투 보고서',retry:'↩ 다시 도전',share:'공유',rptCalcTitle:'📐 연산 기록',rptBattleTitle:'⚔️ 전투 기록',rptAddLbl:'➕ 덧셈',rptSubLbl:'➖ 뺄셈',rptMulLbl:'✖️ 곱셈',rptDivLbl:'➗ 나눗셈',rptHitRate:'격추율',rptWrongRate:'오답률',rptFinalScore:'최종 점수',rptMaxCombo:'최대 콤보',rptLevel:'도달 레벨',rptUfoKills:'UFO 격추',rptBossKills:'보스 격파',rptMedalTitle:'달성 훈장',rptAlienTitle:'새 외계인 동료',rptAlienGuide:"당신을 만나고 싶어합니다. '동료' 버튼을 눌러보세요!",rptStarTitle:'획득 별',rptStarTotal:'합계',invincible:'무적',scoreX2:'점수×2',bossAlert:'보스 등장!',bossDefeated:'BOSS DEFEATED!',levelUp:'레벨 업!',allClear:'올 클리어!',comboLabel:'콤보',marisUnit:'마리'},
+en:{kills:'Kills',level:'Level',best:'Best',score:'Score',fire:'Fire',fire2:'Fire↑',gameTitle:'MATH EARTH DEFENSE',tagline:'Defend Earth with Math!',bestRecord:'🏆 Best Score',gameStart:'▶  PLAY',controlHint:'Mobile: Numpad → Fire  |  PC: Numbers → Enter',medals:'Medals',report:'Report',allies:'Allies',shop:'Shop',pauseTitle:'|| PAUSED',pauseScore:'Score',resume:'▶ Resume',settingsBtn:'⚙ Settings',toTitle:'🏠 Title',quitConfirm:'Quit the game?',quitAction:'📋 See Results',quitCancel2:'↩ Keep Playing',settTitle:'⚙ Settings',settSoundSec:'SOUND',settSoundToggle:'Master ON/OFF',settVolMaster:'Master Volume',settVolSfx:'Sound FX',settVolKp:'Keypad Voice',settVibSec:'VIBRATION',settVibLabel:'Intensity',settVibWeak:'Weak',settVibMid:'Mid',settVibStrong:'Strong',settGfxSec:'GRAPHICS',settGfxLabel:'Particles',settGfxLow:'Low',settGfxMid:'Mid',settGfxHigh:'High',settCtrlSec:'CONTROLS',settHandLabel:'Handedness',settHandRight:'Right',settHandLeft:'Left',settLangSec:'LANGUAGE',settDataSec:'DATA',settResetBtn:'Reset All Data',settPrivacyBtn:'Privacy Policy',settCloseBtn:'Close',resetTitle:'⚠ Reset all data?',resetDesc:'Scores, stars, alien allies, and skin purchases will all be deleted. This cannot be undone.',resetCancel:'Cancel',resetConfirm:'Reset',privTitle:'Privacy Policy',reportTitle:'Battle Report',retry:'↩ Retry',share:'Share',rptCalcTitle:'📐 Math Stats',rptBattleTitle:'⚔️ Battle Stats',rptAddLbl:'➕ Add',rptSubLbl:'➖ Sub',rptMulLbl:'✖️ Mul',rptDivLbl:'➗ Div',rptHitRate:'Kill Rate',rptWrongRate:'Miss Rate',rptFinalScore:'Final Score',rptMaxCombo:'Max Combo',rptLevel:'Max Level',rptUfoKills:'UFO Kills',rptBossKills:'Boss Kills',rptMedalTitle:'New Medals',rptAlienTitle:'New Alien Allies',rptAlienGuide:"They want to meet you! Check the Allies tab!",rptStarTitle:'Stars Earned',rptStarTotal:'Total',invincible:'Shield',scoreX2:'Score×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'LEVEL UP!',allClear:'ALL CLEAR!',comboLabel:'COMBO',marisUnit:''},
+ja:{kills:'撃墜',level:'レベル',best:'最高点',score:'スコア',fire:'発射',fire2:'発射↑',gameTitle:'算数地球防衛隊',tagline:'算数で地球を守れ!',bestRecord:'🏆 最高記録',gameStart:'▶  ゲーム開始',controlHint:'モバイル: テンキー → 発射  |  PC: 数字 → Enter',medals:'勲章',report:'レポート',allies:'仲間',shop:'ショップ',pauseTitle:'|| ポーズ',pauseScore:'スコア',resume:'▶ 続ける',settingsBtn:'⚙ 設定',toTitle:'🏠 タイトル',quitConfirm:'ゲームを終了しますか?',quitAction:'📋 結果を見る',quitCancel2:'↩ 続ける',settTitle:'⚙ 設定',settSoundSec:'サウンド',settSoundToggle:'マスター ON/OFF',settVolMaster:'マスター音量',settVolSfx:'効果音',settVolKp:'キーパッド音声',settVibSec:'バイブ',settVibLabel:'強度',settVibWeak:'弱',settVibMid:'中',settVibStrong:'強',settGfxSec:'グラフィック',settGfxLabel:'パーティクル',settGfxLow:'低',settGfxMid:'中',settGfxHigh:'高',settCtrlSec:'操作',settHandLabel:'利き手',settHandRight:'右手',settHandLeft:'左手',settLangSec:'言語',settDataSec:'データ',settResetBtn:'データを初期化',settPrivacyBtn:'プライバシーポリシー',settCloseBtn:'閉じる',resetTitle:'⚠ データを初期化しますか?',resetDesc:'スコア、星、仲間エイリアン、スキン購入履歴がすべて削除されます。元に戻せません。',resetCancel:'キャンセル',resetConfirm:'初期化',privTitle:'プライバシーポリシー',reportTitle:'戦闘レポート',retry:'↩ もう一度',share:'シェア',rptCalcTitle:'📐 演算記録',rptBattleTitle:'⚔️ 戦闘記録',rptAddLbl:'➕ 足し算',rptSubLbl:'➖ 引き算',rptMulLbl:'✖️ 掛け算',rptDivLbl:'➗ 割り算',rptHitRate:'撃墜率',rptWrongRate:'誤答率',rptFinalScore:'最終スコア',rptMaxCombo:'最大コンボ',rptLevel:'到達レベル',rptUfoKills:'UFO撃墜',rptBossKills:'ボス撃破',rptMedalTitle:'獲得勲章',rptAlienTitle:'新しい仲間',rptAlienGuide:"あなたに会いたがっています！「仲間」タブを確認して！",rptStarTitle:'獲得スター',rptStarTotal:'合計',invincible:'無敵',scoreX2:'スコア×2',bossAlert:'ボス出現!',bossDefeated:'BOSS DEFEATED!',levelUp:'レベルアップ!',allClear:'オールクリア!',comboLabel:'コンボ',marisUnit:'体'},
+'zh-TW':{kills:'擊落',level:'等級',best:'最高分',score:'得分',fire:'發射',fire2:'發射↑',gameTitle:'數學地球防衛隊',tagline:'用數學保衛地球!',bestRecord:'🏆 最高記錄',gameStart:'▶  開始遊戲',controlHint:'手機: 數字鍵盤 → 發射  |  PC: 數字 → Enter',medals:'勳章',report:'報告',allies:'夥伴',shop:'商店',pauseTitle:'|| 暫停',pauseScore:'得分',resume:'▶ 繼續',settingsBtn:'⚙ 設定',toTitle:'🏠 主選單',quitConfirm:'確定要退出嗎?',quitAction:'📋 查看結果',quitCancel2:'↩ 繼續遊戲',settTitle:'⚙ 設定',settSoundSec:'音效',settSoundToggle:'主音效 ON/OFF',settVolMaster:'主音量',settVolSfx:'音效',settVolKp:'鍵盤語音',settVibSec:'震動',settVibLabel:'強度',settVibWeak:'弱',settVibMid:'中',settVibStrong:'強',settGfxSec:'畫面品質',settGfxLabel:'粒子效果',settGfxLow:'低',settGfxMid:'中',settGfxHigh:'高',settCtrlSec:'操作',settHandLabel:'慣用手',settHandRight:'右手',settHandLeft:'左手',settLangSec:'語言',settDataSec:'資料',settResetBtn:'重置所有資料',settPrivacyBtn:'隱私政策',settCloseBtn:'關閉',resetTitle:'⚠ 確定要重置資料嗎?',resetDesc:'分數、星星、外星夥伴及皮膚購買記錄將全部刪除，無法復原。',resetCancel:'取消',resetConfirm:'重置',privTitle:'隱私政策',reportTitle:'戰鬥報告',retry:'↩ 再試一次',share:'分享',rptCalcTitle:'📐 運算記錄',rptBattleTitle:'⚔️ 戰鬥記錄',rptAddLbl:'➕ 加法',rptSubLbl:'➖ 減法',rptMulLbl:'✖️ 乘法',rptDivLbl:'➗ 除法',rptHitRate:'擊落率',rptWrongRate:'誤答率',rptFinalScore:'最終得分',rptMaxCombo:'最高連擊',rptLevel:'最高等級',rptUfoKills:'UFO擊落',rptBossKills:'Boss擊破',rptMedalTitle:'獲得勳章',rptAlienTitle:'新外星夥伴',rptAlienGuide:"他們想見你！請查看「夥伴」頁面！",rptStarTitle:'獲得星星',rptStarTotal:'合計',invincible:'無敵',scoreX2:'得分×2',bossAlert:'Boss出現!',bossDefeated:'BOSS DEFEATED!',levelUp:'等級提升!',allClear:'全部清除!',comboLabel:'連擊',marisUnit:'隻'},
+'zh-CN':{kills:'击落',level:'等级',best:'最高分',score:'得分',fire:'发射',fire2:'发射↑',gameTitle:'数学地球防卫队',tagline:'用数学保卫地球!',bestRecord:'🏆 最高记录',gameStart:'▶  开始游戏',controlHint:'手机: 数字键盘 → 发射  |  PC: 数字 → Enter',medals:'勋章',report:'报告',allies:'伙伴',shop:'商店',pauseTitle:'|| 暂停',pauseScore:'得分',resume:'▶ 继续',settingsBtn:'⚙ 设置',toTitle:'🏠 主菜单',quitConfirm:'确定要退出吗?',quitAction:'📋 查看结果',quitCancel2:'↩ 继续游戏',settTitle:'⚙ 设置',settSoundSec:'音效',settSoundToggle:'主音效 ON/OFF',settVolMaster:'主音量',settVolSfx:'音效',settVolKp:'键盘语音',settVibSec:'震动',settVibLabel:'强度',settVibWeak:'弱',settVibMid:'中',settVibStrong:'强',settGfxSec:'画面品质',settGfxLabel:'粒子效果',settGfxLow:'低',settGfxMid:'中',settGfxHigh:'高',settCtrlSec:'操作',settHandLabel:'惯用手',settHandRight:'右手',settHandLeft:'左手',settLangSec:'语言',settDataSec:'数据',settResetBtn:'重置所有数据',settPrivacyBtn:'隐私政策',settCloseBtn:'关闭',resetTitle:'⚠ 确定要重置数据吗?',resetDesc:'分数、星星、外星伙伴及皮肤购买记录将全部删除，无法恢复。',resetCancel:'取消',resetConfirm:'重置',privTitle:'隐私政策',reportTitle:'战斗报告',retry:'↩ 再试一次',share:'分享',rptCalcTitle:'📐 运算记录',rptBattleTitle:'⚔️ 战斗记录',rptAddLbl:'➕ 加法',rptSubLbl:'➖ 减法',rptMulLbl:'✖️ 乘法',rptDivLbl:'➗ 除法',rptHitRate:'击落率',rptWrongRate:'误答率',rptFinalScore:'最终得分',rptMaxCombo:'最高连击',rptLevel:'最高等级',rptUfoKills:'UFO击落',rptBossKills:'Boss击破',rptMedalTitle:'获得勋章',rptAlienTitle:'新外星伙伴',rptAlienGuide:"他们想见你！请查看「伙伴」页面！",rptStarTitle:'获得星星',rptStarTotal:'合计',invincible:'无敌',scoreX2:'得分×2',bossAlert:'Boss出现!',bossDefeated:'BOSS DEFEATED!',levelUp:'等级提升!',allClear:'全部清除!',comboLabel:'连击',marisUnit:'只'},
+es:{kills:'Bajas',level:'Nivel',best:'Récord',score:'Puntos',fire:'Fuego',fire2:'Fuego↑',gameTitle:'DEFENSA TIERRA MATH',tagline:'¡Defiende la Tierra con Matemáticas!',bestRecord:'🏆 Récord',gameStart:'▶  JUGAR',controlHint:'Móvil: Teclado → Fuego  |  PC: Números → Enter',medals:'Medallas',report:'Informe',allies:'Aliados',shop:'Tienda',pauseTitle:'|| PAUSA',pauseScore:'Puntos',resume:'▶ Continuar',settingsBtn:'⚙ Ajustes',toTitle:'🏠 Menú',quitConfirm:'¿Salir del juego?',quitAction:'📋 Ver Resultados',quitCancel2:'↩ Seguir',settTitle:'⚙ Ajustes',settSoundSec:'SONIDO',settSoundToggle:'Sonido ON/OFF',settVolMaster:'Volumen',settVolSfx:'Efectos',settVolKp:'Voz Teclado',settVibSec:'VIBRACIÓN',settVibLabel:'Intensidad',settVibWeak:'Suave',settVibMid:'Media',settVibStrong:'Fuerte',settGfxSec:'GRÁFICOS',settGfxLabel:'Partículas',settGfxLow:'Bajo',settGfxMid:'Medio',settGfxHigh:'Alto',settCtrlSec:'CONTROLES',settHandLabel:'Mano',settHandRight:'Derecha',settHandLeft:'Izquierda',settLangSec:'IDIOMA',settDataSec:'DATOS',settResetBtn:'Borrar Todos los Datos',settPrivacyBtn:'Política de Privacidad',settCloseBtn:'Cerrar',resetTitle:'⚠ ¿Borrar todos los datos?',resetDesc:'Se eliminarán puntuaciones, estrellas, aliados y skins. No se puede deshacer.',resetCancel:'Cancelar',resetConfirm:'Borrar',privTitle:'Política de Privacidad',reportTitle:'Informe de Batalla',retry:'↩ Reintentar',share:'Compartir',rptCalcTitle:'📐 Estadísticas',rptBattleTitle:'⚔️ Batalla',rptAddLbl:'➕ Suma',rptSubLbl:'➖ Resta',rptMulLbl:'✖️ Multi',rptDivLbl:'➗ Div',rptHitRate:'Precisión',rptWrongRate:'Fallos',rptFinalScore:'Puntuación Final',rptMaxCombo:'Combo Máx',rptLevel:'Nivel Máx',rptUfoKills:'OVNI Bajas',rptBossKills:'Jefes',rptMedalTitle:'Medallas',rptAlienTitle:'Nuevos Aliados',rptAlienGuide:"¡Quieren conocerte! ¡Ve a la pestaña Aliados!",rptStarTitle:'Estrellas',rptStarTotal:'Total',invincible:'Escudo',scoreX2:'Puntos×2',bossAlert:'¡JEFE!',bossDefeated:'BOSS DEFEATED!',levelUp:'¡NIVEL SUBIDO!',allClear:'¡TODO DESPEJADO!',comboLabel:'COMBO',marisUnit:''},
+pt:{kills:'Baixas',level:'Nível',best:'Recorde',score:'Pontos',fire:'Fogo',fire2:'Fogo↑',gameTitle:'DEFESA DA TERRA MATH',tagline:'Defenda a Terra com Matemática!',bestRecord:'🏆 Recorde',gameStart:'▶  JOGAR',controlHint:'Mobile: Teclado → Fogo  |  PC: Números → Enter',medals:'Medalhas',report:'Relatório',allies:'Aliados',shop:'Loja',pauseTitle:'|| PAUSA',pauseScore:'Pontos',resume:'▶ Continuar',settingsBtn:'⚙ Config',toTitle:'🏠 Menu',quitConfirm:'Sair do jogo?',quitAction:'📋 Ver Resultados',quitCancel2:'↩ Continuar',settTitle:'⚙ Configurações',settSoundSec:'SOM',settSoundToggle:'Som ON/OFF',settVolMaster:'Volume',settVolSfx:'Efeitos',settVolKp:'Voz Teclado',settVibSec:'VIBRAÇÃO',settVibLabel:'Intensidade',settVibWeak:'Fraco',settVibMid:'Médio',settVibStrong:'Forte',settGfxSec:'GRÁFICOS',settGfxLabel:'Partículas',settGfxLow:'Baixo',settGfxMid:'Médio',settGfxHigh:'Alto',settCtrlSec:'CONTROLES',settHandLabel:'Mão',settHandRight:'Direita',settHandLeft:'Esquerda',settLangSec:'IDIOMA',settDataSec:'DADOS',settResetBtn:'Apagar Todos os Dados',settPrivacyBtn:'Política de Privacidade',settCloseBtn:'Fechar',resetTitle:'⚠ Apagar todos os dados?',resetDesc:'Pontuações, estrelas, aliados e skins serão excluídos. Não pode ser desfeito.',resetCancel:'Cancelar',resetConfirm:'Apagar',privTitle:'Política de Privacidade',reportTitle:'Relatório de Batalha',retry:'↩ Tentar de novo',share:'Compartilhar',rptCalcTitle:'📐 Estatísticas',rptBattleTitle:'⚔️ Batalha',rptAddLbl:'➕ Adição',rptSubLbl:'➖ Subtração',rptMulLbl:'✖️ Multi',rptDivLbl:'➗ Div',rptHitRate:'Precisão',rptWrongRate:'Erros',rptFinalScore:'Pontuação Final',rptMaxCombo:'Combo Máx',rptLevel:'Nível Máx',rptUfoKills:'OVNI Abatidos',rptBossKills:'Chefes',rptMedalTitle:'Medalhas',rptAlienTitle:'Novos Aliados',rptAlienGuide:"Eles querem te conhecer! Veja a aba Aliados!",rptStarTitle:'Estrelas',rptStarTotal:'Total',invincible:'Escudo',scoreX2:'Pontos×2',bossAlert:'CHEFE!',bossDefeated:'BOSS DEFEATED!',levelUp:'NÍVEL ACIMA!',allClear:'TUDO LIMPO!',comboLabel:'COMBO',marisUnit:''},
+fr:{kills:'Kills',level:'Niveau',best:'Record',score:'Score',fire:'Tir',fire2:'Tir↑',gameTitle:'DÉFENSE TERRE MATH',tagline:'Défends la Terre avec les Maths!',bestRecord:'🏆 Record',gameStart:'▶  JOUER',controlHint:'Mobile: Pavé → Tir  |  PC: Chiffres → Entrée',medals:'Médailles',report:'Rapport',allies:'Alliés',shop:'Boutique',pauseTitle:'|| PAUSE',pauseScore:'Score',resume:'▶ Reprendre',settingsBtn:'⚙ Paramètres',toTitle:'🏠 Menu',quitConfirm:'Quitter le jeu?',quitAction:'📋 Voir Résultats',quitCancel2:'↩ Continuer',settTitle:'⚙ Paramètres',settSoundSec:'SON',settSoundToggle:'Son ON/OFF',settVolMaster:'Volume',settVolSfx:'Effets',settVolKp:'Voix Clavier',settVibSec:'VIBRATION',settVibLabel:'Intensité',settVibWeak:'Faible',settVibMid:'Moyen',settVibStrong:'Fort',settGfxSec:'GRAPHISMES',settGfxLabel:'Particules',settGfxLow:'Bas',settGfxMid:'Moyen',settGfxHigh:'Élevé',settCtrlSec:'CONTRÔLES',settHandLabel:'Main',settHandRight:'Droite',settHandLeft:'Gauche',settLangSec:'LANGUE',settDataSec:'DONNÉES',settResetBtn:'Effacer Toutes les Données',settPrivacyBtn:'Politique de Confidentialité',settCloseBtn:'Fermer',resetTitle:'⚠ Effacer toutes les données?',resetDesc:'Scores, étoiles, alliés et skins seront supprimés. Irréversible.',resetCancel:'Annuler',resetConfirm:'Effacer',privTitle:'Politique de Confidentialité',reportTitle:'Rapport de Bataille',retry:'↩ Réessayer',share:'Partager',rptCalcTitle:'📐 Stats Math',rptBattleTitle:'⚔️ Stats Bataille',rptAddLbl:'➕ Addition',rptSubLbl:'➖ Soustraction',rptMulLbl:'✖️ Multi',rptDivLbl:'➗ Div',rptHitRate:'Précision',rptWrongRate:'Erreurs',rptFinalScore:'Score Final',rptMaxCombo:'Combo Max',rptLevel:'Niveau Max',rptUfoKills:'OVNI Abattus',rptBossKills:'Boss',rptMedalTitle:'Médailles',rptAlienTitle:'Nouveaux Alliés',rptAlienGuide:"Ils veulent te rencontrer! Voir onglet Alliés!",rptStarTitle:'Étoiles Gagnées',rptStarTotal:'Total',invincible:'Bouclier',scoreX2:'Score×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'NIVEAU SUPÉRIEUR!',allClear:'TOUT EFFACÉ!',comboLabel:'COMBO',marisUnit:''},
+de:{kills:'Kills',level:'Level',best:'Rekord',score:'Punkte',fire:'Schuss',fire2:'Schuss↑',gameTitle:'MATHE ERDE DEFENSE',tagline:'Verteidige die Erde mit Mathe!',bestRecord:'🏆 Rekord',gameStart:'▶  SPIELEN',controlHint:'Mobil: Numpad → Schuss  |  PC: Zahlen → Enter',medals:'Orden',report:'Bericht',allies:'Verbündete',shop:'Shop',pauseTitle:'|| PAUSE',pauseScore:'Punkte',resume:'▶ Weiter',settingsBtn:'⚙ Einstellungen',toTitle:'🏠 Menü',quitConfirm:'Spiel beenden?',quitAction:'📋 Ergebnisse',quitCancel2:'↩ Weiterspielen',settTitle:'⚙ Einstellungen',settSoundSec:'TON',settSoundToggle:'Ton ON/OFF',settVolMaster:'Lautstärke',settVolSfx:'Effekte',settVolKp:'Tastatur-Stimme',settVibSec:'VIBRATION',settVibLabel:'Stärke',settVibWeak:'Schwach',settVibMid:'Mittel',settVibStrong:'Stark',settGfxSec:'GRAFIK',settGfxLabel:'Partikel',settGfxLow:'Niedrig',settGfxMid:'Mittel',settGfxHigh:'Hoch',settCtrlSec:'STEUERUNG',settHandLabel:'Hand',settHandRight:'Rechts',settHandLeft:'Links',settLangSec:'SPRACHE',settDataSec:'DATEN',settResetBtn:'Alle Daten Löschen',settPrivacyBtn:'Datenschutzrichtlinie',settCloseBtn:'Schließen',resetTitle:'⚠ Alle Daten löschen?',resetDesc:'Punkte, Sterne, Verbündete und Skins werden gelöscht. Nicht rückgängig machbar.',resetCancel:'Abbrechen',resetConfirm:'Löschen',privTitle:'Datenschutzrichtlinie',reportTitle:'Kampfbericht',retry:'↩ Nochmal',share:'Teilen',rptCalcTitle:'📐 Mathe-Statistik',rptBattleTitle:'⚔️ Kampf-Statistik',rptAddLbl:'➕ Addition',rptSubLbl:'➖ Subtraktion',rptMulLbl:'✖️ Multi',rptDivLbl:'➗ Division',rptHitRate:'Trefferquote',rptWrongRate:'Fehlerquote',rptFinalScore:'Endpunktzahl',rptMaxCombo:'Max Combo',rptLevel:'Max Level',rptUfoKills:'UFO Kills',rptBossKills:'Boss Kills',rptMedalTitle:'Neue Orden',rptAlienTitle:'Neue Verbündete',rptAlienGuide:"Sie wollen dich treffen! Schau in den Verbündeten-Tab!",rptStarTitle:'Verdiente Sterne',rptStarTotal:'Gesamt',invincible:'Schild',scoreX2:'Punkte×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'LEVEL AUF!',allClear:'ALLES GUT!',comboLabel:'COMBO',marisUnit:''},
+id:{kills:'Bunuh',level:'Level',best:'Terbaik',score:'Skor',fire:'Tembak',fire2:'Tembak↑',gameTitle:'PERTAHANAN BUMI MATH',tagline:'Pertahankan Bumi dengan Matematika!',bestRecord:'🏆 Skor Terbaik',gameStart:'▶  MAIN',controlHint:'Mobile: Numpad → Tembak  |  PC: Angka → Enter',medals:'Medali',report:'Laporan',allies:'Sekutu',shop:'Toko',pauseTitle:'|| JEDA',pauseScore:'Skor',resume:'▶ Lanjutkan',settingsBtn:'⚙ Pengaturan',toTitle:'🏠 Menu',quitConfirm:'Keluar dari game?',quitAction:'📋 Lihat Hasil',quitCancel2:'↩ Lanjutkan',settTitle:'⚙ Pengaturan',settSoundSec:'SUARA',settSoundToggle:'Suara ON/OFF',settVolMaster:'Volume',settVolSfx:'Efek Suara',settVolKp:'Suara Keypad',settVibSec:'GETARAN',settVibLabel:'Intensitas',settVibWeak:'Lemah',settVibMid:'Sedang',settVibStrong:'Kuat',settGfxSec:'GRAFIK',settGfxLabel:'Partikel',settGfxLow:'Rendah',settGfxMid:'Sedang',settGfxHigh:'Tinggi',settCtrlSec:'KONTROL',settHandLabel:'Tangan',settHandRight:'Kanan',settHandLeft:'Kiri',settLangSec:'BAHASA',settDataSec:'DATA',settResetBtn:'Hapus Semua Data',settPrivacyBtn:'Kebijakan Privasi',settCloseBtn:'Tutup',resetTitle:'⚠ Hapus semua data?',resetDesc:'Skor, bintang, sekutu alien, dan pembelian skin akan dihapus. Tidak bisa dibatalkan.',resetCancel:'Batal',resetConfirm:'Hapus',privTitle:'Kebijakan Privasi',reportTitle:'Laporan Pertempuran',retry:'↩ Coba Lagi',share:'Bagikan',rptCalcTitle:'📐 Statistik Math',rptBattleTitle:'⚔️ Statistik Pertempuran',rptAddLbl:'➕ Penjumlahan',rptSubLbl:'➖ Pengurangan',rptMulLbl:'✖️ Perkalian',rptDivLbl:'➗ Pembagian',rptHitRate:'Tingkat Bunuh',rptWrongRate:'Tingkat Salah',rptFinalScore:'Skor Akhir',rptMaxCombo:'Combo Maks',rptLevel:'Level Maks',rptUfoKills:'UFO Terbunuh',rptBossKills:'Boss Dikalahkan',rptMedalTitle:'Medali Baru',rptAlienTitle:'Sekutu Alien Baru',rptAlienGuide:"Mereka ingin bertemu kamu! Cek tab Sekutu!",rptStarTitle:'Bintang Didapat',rptStarTotal:'Total',invincible:'Perisai',scoreX2:'Skor×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'NAIK LEVEL!',allClear:'SEMUA BERSIH!',comboLabel:'COMBO',marisUnit:''},
+th:{kills:'ยิง',level:'ระดับ',best:'สูงสุด',score:'คะแนน',fire:'ยิง',fire2:'ยิง↑',gameTitle:'ป้องกันโลกด้วยคณิต',tagline:'ปกป้องโลกด้วยคณิตศาสตร์!',bestRecord:'🏆 คะแนนสูงสุด',gameStart:'▶  เล่น',controlHint:'มือถือ: คีย์แพด → ยิง  |  PC: ตัวเลข → Enter',medals:'เหรียญ',report:'รายงาน',allies:'พวกพ้อง',shop:'ร้านค้า',pauseTitle:'|| หยุด',pauseScore:'คะแนน',resume:'▶ ดำเนินต่อ',settingsBtn:'⚙ ตั้งค่า',toTitle:'🏠 หน้าหลัก',quitConfirm:'ออกจากเกม?',quitAction:'📋 ดูผลลัพธ์',quitCancel2:'↩ เล่นต่อ',settTitle:'⚙ ตั้งค่า',settSoundSec:'เสียง',settSoundToggle:'เสียง ON/OFF',settVolMaster:'ระดับเสียง',settVolSfx:'เอฟเฟกต์',settVolKp:'เสียงคีย์แพด',settVibSec:'การสั่น',settVibLabel:'ความแรง',settVibWeak:'อ่อน',settVibMid:'กลาง',settVibStrong:'แรง',settGfxSec:'กราฟิก',settGfxLabel:'อนุภาค',settGfxLow:'ต่ำ',settGfxMid:'กลาง',settGfxHigh:'สูง',settCtrlSec:'การควบคุม',settHandLabel:'มือถนัด',settHandRight:'ขวา',settHandLeft:'ซ้าย',settLangSec:'ภาษา',settDataSec:'ข้อมูล',settResetBtn:'ลบข้อมูลทั้งหมด',settPrivacyBtn:'นโยบายความเป็นส่วนตัว',settCloseBtn:'ปิด',resetTitle:'⚠ ลบข้อมูลทั้งหมด?',resetDesc:'คะแนน ดาว มิตรต่างดาว และสกินที่ซื้อจะถูกลบทั้งหมด ไม่สามารถกู้คืนได้',resetCancel:'ยกเลิก',resetConfirm:'ลบ',privTitle:'นโยบายความเป็นส่วนตัว',reportTitle:'รายงานการสู้รบ',retry:'↩ ลองใหม่',share:'แบ่งปัน',rptCalcTitle:'📐 สถิติคณิต',rptBattleTitle:'⚔️ สถิติการสู้รบ',rptAddLbl:'➕ บวก',rptSubLbl:'➖ ลบ',rptMulLbl:'✖️ คูณ',rptDivLbl:'➗ หาร',rptHitRate:'อัตราการยิง',rptWrongRate:'อัตราผิด',rptFinalScore:'คะแนนสุดท้าย',rptMaxCombo:'คอมโบสูงสุด',rptLevel:'ระดับสูงสุด',rptUfoKills:'ยิง UFO',rptBossKills:'สังหารบอส',rptMedalTitle:'เหรียญใหม่',rptAlienTitle:'มิตรต่างดาวใหม่',rptAlienGuide:"พวกเขาอยากเจอคุณ! ดูแท็บพวกพ้อง!",rptStarTitle:'ดาวที่ได้รับ',rptStarTotal:'รวม',invincible:'โล่ป้องกัน',scoreX2:'คะแนน×2',bossAlert:'บอส!',bossDefeated:'BOSS DEFEATED!',levelUp:'เลเวลอัพ!',allClear:'ผ่านทั้งหมด!',comboLabel:'คอมโบ',marisUnit:'ตัว'},
+vi:{kills:'Tiêu diệt',level:'Cấp',best:'Kỷ lục',score:'Điểm',fire:'Bắn',fire2:'Bắn↑',gameTitle:'BẢO VỆ TRÁI ĐẤT TOÁN',tagline:'Bảo vệ Trái Đất bằng Toán học!',bestRecord:'🏆 Kỷ Lục',gameStart:'▶  CHƠI',controlHint:'Mobile: Bàn phím số → Bắn  |  PC: Số → Enter',medals:'Huy chương',report:'Báo cáo',allies:'Đồng đội',shop:'Cửa hàng',pauseTitle:'|| TẠM DỪNG',pauseScore:'Điểm',resume:'▶ Tiếp tục',settingsBtn:'⚙ Cài đặt',toTitle:'🏠 Menu',quitConfirm:'Thoát khỏi game?',quitAction:'📋 Xem Kết Quả',quitCancel2:'↩ Tiếp Tục',settTitle:'⚙ Cài đặt',settSoundSec:'ÂM THANH',settSoundToggle:'Âm thanh ON/OFF',settVolMaster:'Âm lượng',settVolSfx:'Hiệu ứng âm',settVolKp:'Giọng bàn phím',settVibSec:'RUNG',settVibLabel:'Cường độ',settVibWeak:'Nhẹ',settVibMid:'Vừa',settVibStrong:'Mạnh',settGfxSec:'ĐỒ HỌA',settGfxLabel:'Hiệu ứng hạt',settGfxLow:'Thấp',settGfxMid:'Vừa',settGfxHigh:'Cao',settCtrlSec:'ĐIỀU KHIỂN',settHandLabel:'Tay thuận',settHandRight:'Tay phải',settHandLeft:'Tay trái',settLangSec:'NGÔN NGỮ',settDataSec:'DỮ LIỆU',settResetBtn:'Xóa Tất Cả Dữ Liệu',settPrivacyBtn:'Chính sách Bảo mật',settCloseBtn:'Đóng',resetTitle:'⚠ Xóa tất cả dữ liệu?',resetDesc:'Điểm số, sao, đồng đội ngoài hành tinh và skin đã mua sẽ bị xóa. Không thể hoàn tác.',resetCancel:'Hủy',resetConfirm:'Xóa',privTitle:'Chính sách Bảo mật',reportTitle:'Báo Cáo Chiến Đấu',retry:'↩ Thử Lại',share:'Chia sẻ',rptCalcTitle:'📐 Thống kê Toán',rptBattleTitle:'⚔️ Thống kê Chiến đấu',rptAddLbl:'➕ Cộng',rptSubLbl:'➖ Trừ',rptMulLbl:'✖️ Nhân',rptDivLbl:'➗ Chia',rptHitRate:'Tỷ lệ tiêu diệt',rptWrongRate:'Tỷ lệ sai',rptFinalScore:'Điểm Cuối',rptMaxCombo:'Combo Tối Đa',rptLevel:'Cấp Tối Đa',rptUfoKills:'UFO Tiêu Diệt',rptBossKills:'Boss Hạ Gục',rptMedalTitle:'Huy chương mới',rptAlienTitle:'Đồng đội mới',rptAlienGuide:"Họ muốn gặp bạn! Kiểm tra tab Đồng đội!",rptStarTitle:'Sao kiếm được',rptStarTotal:'Tổng',invincible:'Khiên',scoreX2:'Điểm×2',bossAlert:'BOSS!',bossDefeated:'BOSS DEFEATED!',levelUp:'LÊN CẤP!',allClear:'SẠCH HẾT!',comboLabel:'COMBO',marisUnit:'con'},
+};
+
 function applyAudioSettings(){
   if(masterOut) masterOut.gain.value = GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0;
   if(sfxOut)    sfxOut.gain.value    = GSETTINGS.volSfx/100;
@@ -2008,6 +2087,7 @@ function openSettings(){
   document.querySelectorAll('.sett-rb[data-key="vib"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.vib));
   document.querySelectorAll('.sett-rb[data-key="gfx"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.gfx));
   document.querySelectorAll('.sett-rb[data-key="hand"]').forEach(b=>b.classList.toggle('active',b.dataset.val===s.hand));
+  const ls=document.getElementById('set-lang');if(ls)ls.value=s.lang||'ko';
   document.getElementById('ov-settings').style.display='flex';
 }
 function closeSettings(){
@@ -4005,32 +4085,32 @@ function gameOver() {
 
   // 연산 섹션
   let html = `<div class="rpt-section">
-    <div class="rpt-title">📐 연산 기록</div>
+    <div class="rpt-title">${tr('rptCalcTitle')}</div>
     <div class="rpt-op-grid">
-      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#6699ff">${addC}</div><div class="rpt-op-lbl">➕ 덧셈</div></div>
-      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#ff9944">${subC}</div><div class="rpt-op-lbl">➖ 뺄셈</div></div>
-      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#44ee88">${mulC}</div><div class="rpt-op-lbl">✖️ 곱셈</div></div>
-      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#ff66cc">${divC}</div><div class="rpt-op-lbl">➗ 나눗셈</div></div>
+      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#6699ff">${addC}</div><div class="rpt-op-lbl">${tr('rptAddLbl')}</div></div>
+      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#ff9944">${subC}</div><div class="rpt-op-lbl">${tr('rptSubLbl')}</div></div>
+      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#44ee88">${mulC}</div><div class="rpt-op-lbl">${tr('rptMulLbl')}</div></div>
+      <div class="rpt-op-chip"><div class="rpt-op-val" style="color:#ff66cc">${divC}</div><div class="rpt-op-lbl">${tr('rptDivLbl')}</div></div>
     </div>
-    <div class="rpt-row"><span>격추율</span><b>${hitRate}%</b></div>
-    <div class="rpt-row"><span>오답률</span><b>${wrongRate}%</b></div>
+    <div class="rpt-row"><span>${tr('rptHitRate')}</span><b>${hitRate}%</b></div>
+    <div class="rpt-row"><span>${tr('rptWrongRate')}</span><b>${wrongRate}%</b></div>
   </div>`;
 
   // 전투 섹션
   html += `<div class="rpt-section">
-    <div class="rpt-title">⚔️ 전투 기록</div>
+    <div class="rpt-title">${tr('rptBattleTitle')}</div>
     ${isNewBest?`<div style="text-align:center;background:rgba(255,210,0,.12);border:1.5px solid rgba(255,210,0,.4);border-radius:8px;padding:7px;margin-bottom:4px;font-size:14px;font-weight:900;color:#ffd700;">🏆 NEW RECORD!</div>`:''}
-    <div class="rpt-row"><span>최종 점수</span><b style="color:${isNewBest?'#ffd700':'#fff'};font-size:16px">${finalScore.toLocaleString()}</b></div>
-    <div class="rpt-row"><span>최대 콤보</span><b>${S.maxCombo}</b></div>
-    <div class="rpt-row"><span>도달 레벨</span><b>Lv.${getSpeedTier()+1}</b></div>
-    <div class="rpt-row"><span>UFO 격추</span><b>${sess.ufoKills||0}마리</b></div>
-    <div class="rpt-row"><span>보스 격파</span><b>${sess.bossKills||0}마리</b></div>
+    <div class="rpt-row"><span>${tr('rptFinalScore')}</span><b style="color:${isNewBest?'#ffd700':'#fff'};font-size:16px">${finalScore.toLocaleString()}</b></div>
+    <div class="rpt-row"><span>${tr('rptMaxCombo')}</span><b>${S.maxCombo}</b></div>
+    <div class="rpt-row"><span>${tr('rptLevel')}</span><b>Lv.${getSpeedTier()+1}</b></div>
+    <div class="rpt-row"><span>${tr('rptUfoKills')}</span><b>${sess.ufoKills||0}${tr('marisUnit')}</b></div>
+    <div class="rpt-row"><span>${tr('rptBossKills')}</span><b>${sess.bossKills||0}${tr('marisUnit')}</b></div>
   </div>`;
 
   // 획득 훈장
   if (_sessionNewMedals.length > 0) {
     html += `<div class="rpt-section">
-      <div class="rpt-title"><img src="twemoji/1f3c5.svg" width="16" height="16" style="vertical-align:middle;margin-right:4px;">달성 훈장</div>
+      <div class="rpt-title"><img src="twemoji/1f3c5.svg" width="16" height="16" style="vertical-align:middle;margin-right:4px;">${tr('rptMedalTitle')}</div>
       <div class="rpt-medals">
         ${_sessionNewMedals.map(m=>`<span class="rpt-medal-chip"><img src="medals/${m.id}.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;"> ${m.name} ${m.tier}</span>`).join('')}
       </div>
@@ -4048,8 +4128,8 @@ function gameOver() {
       </div>`;
     }).join('');
     html += `<div class="rpt-section">
-      <div class="rpt-title">👾 새 외계인 동료</div>
-      <div class="rpt-alien-guide">당신을 만나고 싶어합니다.<br>'동료' 버튼을 눌러보세요!</div>
+      <div class="rpt-title">👾 ${tr('rptAlienTitle')}</div>
+      <div class="rpt-alien-guide">${tr('rptAlienGuide')}</div>
       <div class="rpt-alien-grid">${alienCards}</div>
     </div>`;
   }
@@ -5536,7 +5616,7 @@ function onBossDeath() {
   // 격파 배너
   const banner = document.createElement('div');
   banner.className = 'clearbns-pop';
-  banner.innerHTML = `BOSS DEFEATED!<br>
+  banner.innerHTML = `${tr('bossDefeated')}<br>
     <span style="font-size:15px;font-weight:700;letter-spacing:1px;opacity:.9;">+${bossScore.toLocaleString()} pts &nbsp;·&nbsp; HP +3</span>`;
   gameEl.appendChild(banner);
   setTimeout(() => banner.remove(), 2000);
@@ -5724,7 +5804,7 @@ function sfxLevelUp() {
 function showLevelUp(lv) {
   const p = document.createElement('div');
   p.className = 'levelup-pop';
-  p.textContent = `🔥 Lv.${lv} 레벨업! 속도 증가!`;
+  p.textContent = `🔥 Lv.${lv} ${tr('levelUp')}`;
   gameEl.appendChild(p);
   setTimeout(() => p.remove(), 2300);
   sfxVoiceAnnounce('Level up!!', 1.4);
@@ -8332,8 +8412,9 @@ document.addEventListener('visibilitychange', () => {
     masterOut.gain.setValueAtTime(GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0, AC.currentTime);
   }
 });
-// 초기 손잡이 설정 적용
+// 초기 손잡이 + 언어 적용
 applyHandSettings();
+applyLang();
 
 // ── 타이틀 BGM 자동 시작 + 전역 버튼 SFX ──
 (function() {
