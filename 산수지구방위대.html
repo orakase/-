@@ -6805,19 +6805,19 @@ const ALIEN_PROBLEMS = [
 
 // ── 특수 능력 13종 (합계 200) ──
 const ABILITY_TYPES = [
-  {id:'start_hp',    label:'게임 시작 HP', lk:'abilityStartHp',      unit:'+1',      count:10, value:1},
-  {id:'fever_dur',   label:'피버 지속시간', lk:'abilityFeverDur',      unit:'+0.1초',  count:30, value:0.1},
-  {id:'combo_time',  label:'콤보 연결 시간', lk:'abilityComboTime',     unit:'+0.1초',  count:30, value:0.1},
-  {id:'cover_dur',   label:'동료 로켓 지속', lk:'abilityCoverDur',     unit:'+1초',    count:20, value:1},
-  {id:'cover_cool',  label:'동료 로켓 쿨타임', lk:'abilityCoverCool',   unit:'-0.05초', count:10, value:0.05},
-  {id:'nuke_range',  label:'핵폭탄 범위', lk:'abilityNukeRange',        unit:'+1%',     count:20, value:1},
-  {id:'score_mult',  label:'점수 배율', lk:'abilityScoreMult',          unit:'+0.5%',   count:20, value:0.5},
-  {id:'fever_ext',   label:'피버 연장 최솟값', lk:'abilityFeverExt',   unit:'+10ms',   count:20, value:10},
-  {id:'boss_fever',  label:'보스 격파 피버', lk:'abilityBossFever',     unit:'+1카운트',count:10, value:1},
-  {id:'ufo_speed',   label:'UFO 이동속도', lk:'abilityUfoSpeed',       unit:'-2% (느리게)',count:10, value:2},
-  {id:'fever_ufo',   label:'피버 발동 UFO', lk:'abilityFeverUfo',      unit:'-1마리',  count:3,  value:1},
-  {id:'cover_frz',   label:'동결 지속시간', lk:'abilityCoverFrz',      unit:'+0.2초',  count:10, value:0.2},
-  {id:'fall_speed',  label:'낙하 속도', lk:'abilityFallSpeed',          unit:'-0.5%',   count:7,  value:0.5},
+  {id:'start_hp',    label:'게임 시작 HP', lk:'abilityStartHp',      unit:'+1',    uk:'unitHp',      count:10, value:1},
+  {id:'fever_dur',   label:'피버 지속시간', lk:'abilityFeverDur',      unit:'+0.1초', uk:'unitSec',  count:30, value:0.1},
+  {id:'combo_time',  label:'콤보 연결 시간', lk:'abilityComboTime',     unit:'+0.1초', uk:'unitSec',  count:30, value:0.1},
+  {id:'cover_dur',   label:'동료 로켓 지속', lk:'abilityCoverDur',     unit:'+1초',   uk:'unitSec',    count:20, value:1},
+  {id:'cover_cool',  label:'동료 로켓 쿨타임', lk:'abilityCoverCool',   unit:'-0.05초', uk:'unitSec', count:10, value:0.05},
+  {id:'nuke_range',  label:'핵폭탄 범위', lk:'abilityNukeRange',        unit:'+1%',    uk:'unitPct',     count:20, value:1},
+  {id:'score_mult',  label:'점수 배율', lk:'abilityScoreMult',          unit:'+0.5%',  uk:'unitPct',   count:20, value:0.5},
+  {id:'fever_ext',   label:'피버 연장 최솟값', lk:'abilityFeverExt',   unit:'+10ms',  uk:'unitMs',   count:20, value:10},
+  {id:'boss_fever',  label:'보스 격파 피버', lk:'abilityBossFever',     unit:'+1카운트', uk:'unitCount',count:10, value:1},
+  {id:'ufo_speed',   label:'UFO 이동속도', lk:'abilityUfoSpeed',       unit:'-2% (느리게)', uk:'unitPctSlower',count:10, value:2},
+  {id:'fever_ufo',   label:'피버 발동 UFO', lk:'abilityFeverUfo',      unit:'-1마리', uk:'unitCount',  count:3,  value:1},
+  {id:'cover_frz',   label:'동결 지속시간', lk:'abilityCoverFrz',      unit:'+0.2초', uk:'unitSec',  count:10, value:0.2},
+  {id:'fall_speed',  label:'낙하 속도', lk:'abilityFallSpeed',          unit:'-0.5%',  uk:'unitPct',   count:7,  value:0.5},
 ];
 
 // ── 능력 배분 (셔플된 200 인덱스 고정 시드) ──
@@ -7900,7 +7900,7 @@ function renderAlienTab(tab) {
       unknowns.forEach(i => { html += mkUnknown(i); });
     }
     html += '</div>';
-    html += `<div class="ability-sidebar"><div class="ability-sidebar-title">📊 ${tr('abilitySidebarTitle')}</div>${abSummary||'<div style="color:#445">${tr('alienNoneConfirmed')}</div>'}</div>`;
+    html += `<div class="ability-sidebar"><div class="ability-sidebar-title">📊 ${tr('abilitySidebarTitle')}</div>${abSummary||`<div style="color:#445">${tr('alienNoneConfirmed')}</div>`}</div>`;
     html += '</div>';
     scroll.innerHTML = html;
   applyTwemoji(scroll);
