@@ -1491,6 +1491,115 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   18% {transform:translateY(1px);opacity:.9;}
   100%{transform:translateY(20px);opacity:0;}
 }
+/* ── 설정 버튼 ── */
+#btn-settings-title{
+  position:absolute;right:10px;top:10px;z-index:10;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:#99aacc;font-size:16px;width:34px;height:34px;
+  border-radius:6px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;
+}
+#btn-settings-title:active{background:rgba(255,255,255,.18);}
+/* ── 설정 오버레이 ── */
+#ov-settings,#ov-privacy{
+  position:fixed;inset:0;background:rgba(0,0,10,.94);
+  display:none;flex-direction:column;align-items:center;justify-content:flex-start;
+  z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:16px 12px 32px;
+}
+.sett-panel{
+  width:100%;max-width:390px;
+  background:rgba(4,8,42,.98);border:2px solid #1a2a5a;
+  border-radius:12px;overflow:hidden;
+}
+.sett-title{
+  font-size:15px;font-weight:900;color:#ccdeff;letter-spacing:2px;
+  padding:13px 16px;background:rgba(10,20,80,.8);
+  border-bottom:1px solid #1a2a5a;text-align:center;
+}
+.sett-sec{
+  font-size:10px;font-weight:900;color:#4466aa;letter-spacing:2px;
+  padding:10px 16px 2px;
+}
+.sett-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 16px;gap:8px;
+}
+.sett-label{font-size:13px;color:#99aacc;font-weight:700;flex-shrink:0;}
+/* Range slider */
+.sett-range{
+  -webkit-appearance:none;appearance:none;
+  flex:1;height:4px;border-radius:2px;outline:none;cursor:pointer;
+  background:rgba(255,255,255,.12);
+}
+.sett-range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:20px;height:20px;border-radius:50%;
+  background:#3a5cf0;border:2px solid #8aaaf8;cursor:pointer;
+  box-shadow:0 0 6px rgba(80,140,255,.6);
+}
+/* Radio group */
+.sett-radio-group{display:flex;gap:4px;}
+.sett-rb{
+  background:rgba(20,30,80,.8);border:1px solid rgba(100,120,180,.25);
+  color:#556;font-size:11px;font-weight:900;letter-spacing:.5px;
+  padding:7px 11px;border-radius:4px;cursor:pointer;
+  -webkit-user-select:none;user-select:none;transition:all .1s;font-family:inherit;
+}
+.sett-rb.active{background:#1a3399;border-color:#4466ff;color:#aaccff;}
+.sett-rb:active{opacity:.7;}
+/* ON/OFF toggle */
+.sett-sw{position:relative;display:inline-block;width:42px;height:24px;flex-shrink:0;}
+.sett-sw input{opacity:0;width:0;height:0;position:absolute;}
+.sett-sw-slider{
+  position:absolute;inset:0;cursor:pointer;
+  background:rgba(255,255,255,.1);border-radius:24px;transition:.2s;
+  border:1px solid rgba(255,255,255,.15);
+}
+.sett-sw-slider:before{
+  content:"";position:absolute;width:18px;height:18px;
+  left:2px;top:2px;border-radius:50%;background:#556;transition:.2s;
+}
+.sett-sw input:checked+.sett-sw-slider{background:#1a3399;border-color:#4466ff;}
+.sett-sw input:checked+.sett-sw-slider:before{transform:translateX(18px);background:#aaccff;}
+/* Buttons */
+.sett-danger-btn,.sett-plain-btn,.sett-close-btn{
+  display:block;width:calc(100% - 32px);margin:5px 16px;
+  padding:12px 0;border-radius:7px;cursor:pointer;
+  font-size:13px;font-weight:900;letter-spacing:.5px;font-family:inherit;text-align:center;
+}
+.sett-danger-btn{background:rgba(100,15,15,.7);border:1px solid #551a1a;color:#ff8888;}
+.sett-danger-btn:active{background:rgba(140,20,20,.8);}
+.sett-plain-btn{background:rgba(15,22,70,.7);border:1px solid rgba(80,100,180,.3);color:#6688aa;}
+.sett-plain-btn:active{background:rgba(25,35,100,.8);}
+.sett-close-btn{background:#1a33bb;border:2px solid #4466ff;color:#fff;margin-top:10px;}
+.sett-close-btn:active{background:#2244cc;}
+.sett-divider{height:1px;background:rgba(255,255,255,.05);margin:4px 16px;}
+/* Privacy panel */
+.priv-panel{
+  width:100%;max-width:390px;
+  background:rgba(4,8,42,.98);border:2px solid #1a2a5a;
+  border-radius:12px;padding:20px 16px;color:#8899bb;font-size:12px;line-height:1.8;
+}
+.priv-panel h2{font-size:14px;color:#ccdeff;margin-bottom:14px;text-align:center;font-weight:900;}
+.priv-panel h3{font-size:12px;color:#99bbdd;margin:12px 0 4px;font-weight:900;}
+.priv-close-btn{
+  display:block;width:100%;margin-top:14px;padding:12px 0;
+  background:#1a33bb;border:2px solid #4466ff;color:#fff;
+  font-size:13px;font-weight:900;border-radius:8px;cursor:pointer;font-family:inherit;
+}
+/* 초기화 확인 */
+#ov-reset-confirm{
+  position:fixed;inset:0;background:rgba(0,0,0,.82);
+  display:none;align-items:center;justify-content:center;z-index:500;
+}
+.reset-box{
+  background:rgba(4,8,42,.99);border:2px solid #883300;
+  border-radius:12px;padding:24px 20px;width:270px;text-align:center;
+}
+.reset-box p{color:#ffaa44;font-size:14px;font-weight:900;margin-bottom:6px;}
+.reset-box small{color:#557;font-size:11px;display:block;margin-bottom:18px;line-height:1.5;}
+.reset-box-btns{display:flex;gap:8px;}
+.reset-box-btns button{flex:1;padding:12px 0;border-radius:6px;border:none;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;}
 </style>
 </head>
 <body>
@@ -1516,6 +1625,8 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
       <div style="font-size:13px;color:#667;margin-top:-6px;">점수 <span id="pause-score-val" style="color:#ddeeff;font-weight:900">0</span></div>
       <button class="pause-action-btn" onclick="resumeGame()"
         style="background:#1a33bb;color:#fff;margin-top:4px;">▶ 계속하기</button>
+      <button class="pause-action-btn" onclick="openSettings()"
+        style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:#88aabb;">⚙ 설정</button>
       <button class="pause-action-btn" onclick="showQuitConfirm()"
         style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:#aab;">🏠 타이틀로</button>
     </div>
@@ -1589,6 +1700,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 
 <!-- Overlays -->
 <div class="ov" id="ov-start">
+  <button id="btn-settings-title" onclick="openSettings()" title="설정">⚙</button>
   <!-- 배경 글로우 -->
   <div class="title-bg-glow"></div>
 
@@ -1670,6 +1782,111 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
     <button id="btn-retry" style="flex:1;background:#1a33bb;border:2px solid #4466ff;color:#fff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;letter-spacing:.5px;">↩ 다시 도전</button>
     <button onclick="shareBattleReport()" style="flex:1;background:rgba(100,200,255,.12);border:2px solid rgba(100,200,255,.45);color:#88ccff;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f4e4.svg" width="16" height="16" style="vertical-align:middle;"> 공유</button>
     <button onclick="goToTitle()" style="flex:1;background:rgba(255,255,255,.06);border:2px solid rgba(180,200,255,.35);color:#aab;font-size:15px;font-weight:800;padding:13px 4px;border-radius:2px;cursor:pointer;"><img src="twemoji/1f3e0.svg" width="16" height="16" style="vertical-align:middle;"> 타이틀로</button>
+  </div>
+</div>
+
+<!-- ── 설정 오버레이 ── -->
+<div id="ov-settings">
+  <div class="sett-panel">
+    <div class="sett-title">⚙ 설정</div>
+
+    <!-- 사운드 -->
+    <div class="sett-sec">사운드</div>
+    <div class="sett-row">
+      <span class="sett-label">마스터 ON/OFF</span>
+      <label class="sett-sw"><input type="checkbox" id="set-sound-on" onchange="settApply()"><span class="sett-sw-slider"></span></label>
+    </div>
+    <div class="sett-row" id="sett-vol-rows">
+      <span class="sett-label">전체 볼륨</span>
+      <input type="range" class="sett-range" id="set-vol-master" min="0" max="100" value="100" oninput="settApply()">
+    </div>
+    <div class="sett-row">
+      <span class="sett-label">BGM</span>
+      <input type="range" class="sett-range" id="set-vol-bgm" min="0" max="100" value="100" oninput="settApply()">
+    </div>
+    <div class="sett-row">
+      <span class="sett-label">효과음</span>
+      <input type="range" class="sett-range" id="set-vol-sfx" min="0" max="100" value="100" oninput="settApply()">
+    </div>
+    <div class="sett-row">
+      <span class="sett-label">키패드 음성</span>
+      <input type="range" class="sett-range" id="set-vol-kp" min="0" max="100" value="100" oninput="settApply()">
+    </div>
+
+    <div class="sett-divider"></div>
+
+    <!-- 진동 -->
+    <div class="sett-sec">진동</div>
+    <div class="sett-row">
+      <span class="sett-label">강도</span>
+      <div class="sett-radio-group">
+        <button class="sett-rb" data-key="vib" data-val="0" onclick="settRadio(this)">OFF</button>
+        <button class="sett-rb" data-key="vib" data-val="1" onclick="settRadio(this)">약</button>
+        <button class="sett-rb" data-key="vib" data-val="2" onclick="settRadio(this)">중</button>
+        <button class="sett-rb" data-key="vib" data-val="3" onclick="settRadio(this)">강</button>
+      </div>
+    </div>
+
+    <div class="sett-divider"></div>
+
+    <!-- 그래픽 -->
+    <div class="sett-sec">그래픽 품질</div>
+    <div class="sett-row">
+      <span class="sett-label">파티클 효과</span>
+      <div class="sett-radio-group">
+        <button class="sett-rb" data-key="gfx" data-val="0" onclick="settRadio(this)">낮음</button>
+        <button class="sett-rb" data-key="gfx" data-val="1" onclick="settRadio(this)">보통</button>
+        <button class="sett-rb" data-key="gfx" data-val="2" onclick="settRadio(this)">높음</button>
+      </div>
+    </div>
+
+    <div class="sett-divider"></div>
+
+    <!-- 손잡이 -->
+    <div class="sett-sec">조작</div>
+    <div class="sett-row">
+      <span class="sett-label">손잡이</span>
+      <div class="sett-radio-group">
+        <button class="sett-rb" data-key="hand" data-val="r" onclick="settRadio(this)">오른손</button>
+        <button class="sett-rb" data-key="hand" data-val="l" onclick="settRadio(this)">왼손</button>
+      </div>
+    </div>
+
+    <div class="sett-divider"></div>
+
+    <!-- 데이터 -->
+    <div class="sett-sec">데이터</div>
+    <button class="sett-danger-btn" onclick="settResetConfirm()">기록 및 데이터 초기화</button>
+    <button class="sett-plain-btn" onclick="openPrivacy()">개인정보처리방침 보기</button>
+    <button class="sett-close-btn" onclick="closeSettings()">닫기</button>
+  </div>
+</div>
+
+<!-- ── 개인정보처리방침 오버레이 ── -->
+<div id="ov-privacy">
+  <div class="priv-panel">
+    <h2>개인정보처리방침</h2>
+    <h3>수집하는 정보</h3>
+    <p>본 앱은 개인식별정보를 수집하지 않습니다. 게임 기록(점수, 통계)은 기기 내 로컬 저장소에만 저장되며 외부로 전송되지 않습니다.</p>
+    <h3>광고</h3>
+    <p>본 앱은 추후 Google AdMob을 통한 광고를 포함할 수 있습니다. 광고 SDK는 별도의 개인정보 처리방침을 따릅니다.</p>
+    <h3>데이터 삭제</h3>
+    <p>설정 메뉴의 '기록 및 데이터 초기화'를 통해 기기에 저장된 모든 데이터를 삭제할 수 있습니다.</p>
+    <h3>문의</h3>
+    <p>개인정보 관련 문의: mhaha02@naver.com</p>
+    <button class="priv-close-btn" onclick="closePrivacy()">닫기</button>
+  </div>
+</div>
+
+<!-- ── 초기화 확인 ── -->
+<div id="ov-reset-confirm">
+  <div class="reset-box">
+    <p>⚠ 데이터를 초기화할까요?</p>
+    <small>점수 기록, 획득한 별, 동료 외계인, 스킨 구매 내역이<br>모두 삭제됩니다. 되돌릴 수 없습니다.</small>
+    <div class="reset-box-btns">
+      <button onclick="closeResetConfirm()" style="background:rgba(30,40,100,.8);color:#aab;">취소</button>
+      <button onclick="doResetAll()" style="background:#991111;color:#fff;">초기화</button>
+    </div>
   </div>
 </div>
 
@@ -1758,9 +1975,84 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 
 </div><!-- #wrap -->
 <script>
-// ═══════════════════════════════════════
+// ══════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════
+const SETTINGS_KEY = 'sansugame_settings_v1';
+const SETT_DEF = { soundOn:true, volMaster:100, volBgm:100, volSfx:100, volKeypad:100, vib:2, gfx:2, hand:'r' };
+let GSETTINGS = Object.assign({}, SETT_DEF);
+(function(){ try { const r=localStorage.getItem(SETTINGS_KEY); if(r) GSETTINGS=Object.assign({},SETT_DEF,JSON.parse(r)); } catch(e){} })();
+function saveSettings(){ try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(GSETTINGS));}catch(e){} }
+function applyAudioSettings(){
+  if(masterOut) masterOut.gain.value = GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0;
+  if(sfxOut)    sfxOut.gain.value    = GSETTINGS.volSfx/100;
+}
+function applyHandSettings(){
+  const c=document.getElementById('controls');
+  if(c) c.style.flexDirection = GSETTINGS.hand==='l' ? 'row-reverse' : '';
+}
+function vib(cat){
+  if(!navigator.vibrate||!GSETTINGS.vib) return;
+  const T={tap:[5,12,20],kill:[10,18,28],hit:[20,35,55],boss:[45,75,100]};
+  const ms=(T[cat]||T.kill)[GSETTINGS.vib-1];
+  navigator.vibrate(ms);
+}
+// ── Settings UI functions ──
+function openSettings(){
+  const s=GSETTINGS;
+  document.getElementById('set-sound-on').checked=s.soundOn;
+  document.getElementById('set-vol-master').value=s.volMaster;
+  document.getElementById('set-vol-bgm').value=s.volBgm;
+  document.getElementById('set-vol-sfx').value=s.volSfx;
+  document.getElementById('set-vol-kp').value=s.volKeypad;
+  document.querySelectorAll('.sett-rb[data-key="vib"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.vib));
+  document.querySelectorAll('.sett-rb[data-key="gfx"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.gfx));
+  document.querySelectorAll('.sett-rb[data-key="hand"]').forEach(b=>b.classList.toggle('active',b.dataset.val===s.hand));
+  document.getElementById('ov-settings').style.display='flex';
+}
+function closeSettings(){
+  document.getElementById('ov-settings').style.display='none';
+}
+function settApply(){
+  const s=GSETTINGS;
+  s.soundOn=document.getElementById('set-sound-on').checked;
+  s.volMaster=+document.getElementById('set-vol-master').value;
+  s.volBgm=+document.getElementById('set-vol-bgm').value;
+  s.volSfx=+document.getElementById('set-vol-sfx').value;
+  s.volKeypad=+document.getElementById('set-vol-kp').value;
+  saveSettings();
+  applyAudioSettings();
+  // BGM 실시간 반영
+  if(bgmGain)       bgmGain.gain.value      = s.soundOn ? 0.72*(s.volBgm/100)  : 0;
+  if(titleBgmGain)  titleBgmGain.gain.value = s.soundOn ? 0.30*(s.volBgm/100)  : 0;
+  if(feverBgmGain)  feverBgmGain.gain.value = s.soundOn ? 0.25*(s.volBgm/100)  : 0;
+}
+function settRadio(btn){
+  const key=btn.dataset.key, val=btn.dataset.val;
+  document.querySelectorAll(`.sett-rb[data-key="${key}"]`).forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(key==='vib') GSETTINGS.vib=+val;
+  else if(key==='gfx') GSETTINGS.gfx=+val;
+  else if(key==='hand'){ GSETTINGS.hand=val; applyHandSettings(); }
+  saveSettings();
+  vib('tap');
+}
+function settResetConfirm(){ document.getElementById('ov-reset-confirm').style.display='flex'; }
+function closeResetConfirm(){ document.getElementById('ov-reset-confirm').style.display='none'; }
+function doResetAll(){
+  ['sansugame_stats_v1','sansugame_skins_v1','sansugame_aliens_v1','sansugame_scores_v1','sansugame_best',SETTINGS_KEY].forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} });
+  location.reload();
+}
+function openPrivacy(){
+  document.getElementById('ov-privacy').style.display='flex';
+}
+function closePrivacy(){
+  document.getElementById('ov-privacy').style.display='none';
+}
+
+// ══════════════════════════════════════════
 //  CONFIG
-// ═══════════════════════════════════════
+// ══════════════════════════════════════════
 const CFG = {
   maxHp:           15,
   hpLossNormal:    1,
@@ -2733,7 +3025,7 @@ function onGroundHit(e, idx) {
   S.hp = Math.max(0, S.hp - e.hpLoss);
 
   showGroundHitFX(e, oldHp, S.hp);  // called before e.el.remove() so offsetWidth is valid
-  sfxHpLoss();
+  sfxHpLoss(); vib('hit');
   e.el.remove();
   shakePlayer();
 
@@ -2764,7 +3056,7 @@ function submit() {
     if (bossHit) return;
     // Wrong
     gRecordWrong();
-    sfxWrong();
+    sfxWrong(); vib('tap');
     inpBox.style.color = '#ff3322';
     setTimeout(() => inpBox.style.color = '', 280);
     return;
@@ -3668,6 +3960,7 @@ function playGameOverExplosion(callback) {
 function gameOver() {
   if (S.status === 'over') return;
   S.status = 'over';
+  vib('boss');
   S.fever = false;
   const feverBg = document.getElementById('fever-bg');
   if (feverBg) feverBg.remove();
@@ -3813,7 +4106,7 @@ document.querySelectorAll('.nb').forEach(btn => {
     // Brief flash + haptic feedback
     btn.classList.add('nb-flash');
     setTimeout(() => btn.classList.remove('nb-flash'), 130);
-    if (navigator.vibrate) navigator.vibrate(18);
+    vib('tap');
 
     const v = btn.dataset.v;
     if      (v === 'del')  { S.input = S.input.slice(0,-1); updateInputDisplay(); }
@@ -3822,7 +4115,7 @@ document.querySelectorAll('.nb').forEach(btn => {
   });
 });
 
-$('fire-btn').addEventListener('pointerdown', ev => { ev.preventDefault(); if (navigator.vibrate) navigator.vibrate(28); submit(); });
+$('fire-btn').addEventListener('pointerdown', ev => { ev.preventDefault(); vib('kill'); submit(); });
 
 document.addEventListener('keydown', ev => {
   if (S.status !== 'playing') return;
@@ -3842,18 +4135,18 @@ document.addEventListener('keydown', ev => {
 });
 
 $('btn-start').addEventListener('click', () => {
-  if (navigator.vibrate) navigator.vibrate(35);
+  vib('tap');
   const el = document.documentElement;
   if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
   else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
   startGame();
 });
-$('btn-retry').addEventListener('click', () => { if (navigator.vibrate) navigator.vibrate(35); startGame(); });
+$('btn-retry').addEventListener('click', () => { vib('tap'); startGame(); });
 
 // ═══════════════════════════════════════
 //  AUDIO ENGINE  (Web Audio API)
 // ═══════════════════════════════════════
-let AC = null, masterOut = null, reverbIn = null;
+let AC = null, masterOut = null, reverbIn = null, sfxOut = null;
 let bgmPlaying = false, bgmGain = null, bgmLong = [], bgmLoopTimer = null;
 let feverBgmGain = null, feverBgmLong = [], feverBgmLoopTimer = null;
 let ufoAlertInterval = null, ufoAlertLevel = 0;
@@ -3888,7 +4181,10 @@ function getAC() {
   if (!AC) {
     AC = new (window.AudioContext || window.webkitAudioContext)();
     masterOut = AC.createGain();
-    masterOut.gain.value = 0.65;
+    masterOut.gain.value = GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0;
+    sfxOut = AC.createGain();
+    sfxOut.gain.value = GSETTINGS.volSfx/100;
+    sfxOut.connect(masterOut);
     // Limiter/compressor — BGM과 SFX 동시 재생 시 클리핑 방지
     const limiter = AC.createDynamicsCompressor();
     limiter.threshold.value = -14;  // -14dB에서 압축 시작
@@ -3917,7 +4213,7 @@ function getAC() {
   return AC;
 }
 
-function audioConnect(g) { g.connect(masterOut); g.connect(reverbIn); }
+function audioConnect(g) { g.connect(sfxOut); g.connect(reverbIn); }
 
 // Smooth oscillator note (soft attack)
 function pOsc(type, freq, peak, t0, t1, det = 0) {
@@ -3952,7 +4248,7 @@ function startBGM() {
   const ctx = getAC();
   bgmGain = ctx.createGain();
   bgmGain.gain.setValueAtTime(0, ctx.currentTime);
-  bgmGain.gain.linearRampToValueAtTime(0.72, ctx.currentTime + 1.0);
+  bgmGain.gain.linearRampToValueAtTime(GSETTINGS.soundOn?0.72*(GSETTINGS.volBgm/100):0, ctx.currentTime + 1.0);
   bgmGain.connect(masterOut); bgmGain.connect(reverbIn);
   scheduleBGMLoop(ctx.currentTime + 0.08);
 }
@@ -4054,7 +4350,7 @@ function startTitleBGM() {
   const t = ctx.currentTime + 0.05;
   titleBgmGain = ctx.createGain();
   titleBgmGain.gain.setValueAtTime(0, t);
-  titleBgmGain.gain.linearRampToValueAtTime(0.30, t + 1.5);
+  titleBgmGain.gain.linearRampToValueAtTime(GSETTINGS.soundOn?0.30*(GSETTINGS.volBgm/100):0, t + 1.5);
   titleBgmGain.connect(masterOut);
   scheduleTitleLoop(t);
 }
@@ -4219,7 +4515,7 @@ function startFeverBGM() {
   const t   = ctx.currentTime + 0.05;
   feverBgmGain = ctx.createGain();
   feverBgmGain.gain.setValueAtTime(0, t);
-  feverBgmGain.gain.linearRampToValueAtTime(0.25, t + 0.25);
+  feverBgmGain.gain.linearRampToValueAtTime(GSETTINGS.soundOn?0.25*(GSETTINGS.volBgm/100):0, t + 0.25);
   feverBgmGain.connect(masterOut);
   scheduleFeverLoop(t);
 }
@@ -4460,7 +4756,9 @@ const _PX = (function() {
     else raf = null;
   }
   function spawn(vx, vy, cols, mult) {
+    if (typeof GSETTINGS !== 'undefined' && GSETTINGS.gfx === 0) return;
     mult = mult || 1;
+    if (typeof GSETTINGS !== 'undefined' && GSETTINGS.gfx === 1) mult = Math.max(1, Math.floor(mult * 0.5));
     if (!ctx && !init()) return;
     // 파티클 수 제한 - 이미 많으면 줄이거나 스킵
     if (particles.length > 180) return;
@@ -5182,6 +5480,7 @@ function onBossDeath() {
   const b = S.boss;
   if (!b) return;
 
+  vib('boss');
   // 대폭발 — 화면 전체
   sfxKill();
   sfxNukeBoom();
@@ -5815,7 +6114,10 @@ function showBestCrossedBanner() {
   gameEl.appendChild(p);
   setTimeout(() => p.remove(), 2700);
 }
-function sfxKeyVoice(digit) { _speak(KEY_WORDS[digit], 2.2, 2.0, 0.63); }
+function sfxKeyVoice(digit) {
+  if(!GSETTINGS.soundOn||GSETTINGS.volKeypad===0) return;
+  _speak(KEY_WORDS[digit], 2.2, 2.0, Math.min(1, 0.63*(GSETTINGS.volKeypad/100)));
+}
 
 function sfxUfoAlert(urgent) {
   const ctx = getAC(), t = ctx.currentTime;
@@ -8027,9 +8329,11 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     masterOut.gain.setValueAtTime(0, AC.currentTime);
   } else {
-    masterOut.gain.setValueAtTime(0.65, AC.currentTime);
+    masterOut.gain.setValueAtTime(GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0, AC.currentTime);
   }
 });
+// 초기 손잡이 설정 적용
+applyHandSettings();
 
 // ── 타이틀 BGM 자동 시작 + 전역 버튼 SFX ──
 (function() {
