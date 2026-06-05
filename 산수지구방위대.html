@@ -9262,6 +9262,34 @@ const CUSTOM_ALIEN_NAMES = {
   185: '캐수프',
   196: '인페임',
 };
+const CUSTOM_ALIEN_NAMES_L10N = {
+  en: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  ja: {152:'ムハハ',163:'アクチュイミ',174:'ハヤレイン',185:'ケスプ',196:'インフェイム'},
+  'zh-TW':{152:'穆哈哈',163:'惡趣味',174:'哈雅雷因',185:'凱蘇普',196:'因費姆'},
+  'zh-CN':{152:'穆哈哈',163:'恶趣味',174:'哈雅雷因',185:'凯苏普',196:'因费姆'},
+  es: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  pt: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  fr: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  de: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  id: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+  th: {152:'มูฮาฮา',163:'อักชุยมี',174:'ฮายาเรน',185:'เคซุพ',196:'อินเฟม'},
+  vi: {152:'Mhaha',163:'Akchuimy',174:'Hayarain',185:'Kaesup',196:'Infeim'},
+};
+const LANG_DATA_EXT6 = {
+ko:{agPlanets:['제노스','크리탄','루미나','오르비스','데카론','아르고스','벨트라','노바엑스','엑소리아','펜타볼']},
+en:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+ja:{agPlanets:['ゼノス','クリタン','ルミナ','オルビス','デカロン','アルゴス','ベルトラ','ノバエクス','エクソリア','ペンタボル']},
+'zh-TW':{agPlanets:['澤諾斯','克里坦','露米娜','奧比斯','德卡龍','阿爾戈斯','貝爾特拉','新星X','艾克索利亞','彭塔沃爾']},
+'zh-CN':{agPlanets:['泽诺斯','克里坦','露米娜','奥比斯','德卡龙','阿尔戈斯','贝尔特拉','新星X','艾克索利亚','彭塔沃尔']},
+es:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+pt:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+fr:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+de:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+id:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+th:{agPlanets:['เซโนส','คริตัน','ลูมินา','ออร์บิส','เดคารอน','อาร์กอส','เบลทรา','โนวาX','เอ็กโซเรีย','เพนตาวอล']},
+vi:{agPlanets:['Xenos','Kritan','Lumina','Orbis','Dekaron','Argos','Beltra','Nova-X','Exoria','Pentavol']},
+};
+Object.keys(LANG_DATA_EXT6).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT6[lang]);});
 
 function getAlienData(idx) {
   const r = (o) => alienSeededRand(idx, o);
@@ -9283,8 +9311,8 @@ function getAlienData(idx) {
     grade, gradeColor: gi.color, gradeStars: gi.stars,
     headHtml: _headHtml,
     bg:       `radial-gradient(circle at 50% 45%, rgba(255,255,255,.07) 0%, transparent 65%), ${_bgPool[grade][idx % _bgPool[grade].length]}`,
-    name:  CUSTOM_ALIEN_NAMES[idx] || (((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agNameP||AG.nameP)[Math.floor(r(1)*20)] + ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agNameS||AG.nameS)[Math.floor(r(2)*20)]),
-    planet:AG.planets[Math.floor(r(3)*10)],
+    name:  (CUSTOM_ALIEN_NAMES_L10N[GSETTINGS.lang]?.[idx] ?? CUSTOM_ALIEN_NAMES[idx]) || (((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agNameP||AG.nameP)[Math.floor(r(1)*20)] + ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agNameS||AG.nameS)[Math.floor(r(2)*20)]),
+    planet:((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agPlanets||AG.planets)[Math.floor(r(3)*10)],
     age:   AG.ages[Math.floor(r(4)*10)],
     reason:  ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agReasons  || AG.reasons  )[Math.floor(r(5)*5)],
     family:  ((LANG_DATA[GSETTINGS.lang]||LANG_DATA.ko).agFamilies || AG.families )[Math.floor(r(6)*5)],
