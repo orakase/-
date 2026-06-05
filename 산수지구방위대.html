@@ -8269,6 +8269,9 @@ function generateAlienHint(q, a) {
   if(t.match(/^\(.*\)/))return tr('hintBracket');
   if(t.match(/\d+.*[×÷].*[+\-]|[+\-].*[×÷]/))return tr('hintOrderOps');
 
+  // ── 한국어 문제 전용 힌트 (다른 언어는 자릿수 힌트로 폴백) ──
+  if(!GSETTINGS.lang||GSETTINGS.lang==='ko'){
+
   // ── 삼각형 각도 ──
   if(t.includes('삼각형')&&t.includes('나머지')){
     const angs=t.match(/(\d+)°/g);
@@ -8599,6 +8602,8 @@ function generateAlienHint(q, a) {
       }
     }
   }
+
+  } // end ko-only block
 
   if(a>=10000)return tr('hintDigit5');
   if(a>=1000)return trf('hintDigit4',{v:Math.floor(a/1000)*1000});
