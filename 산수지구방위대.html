@@ -1639,7 +1639,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
     <!-- 나가기 확인 패널 -->
     <div id="pause-confirm" style="display:none;flex-direction:column;align-items:center;gap:14px;">
       <div style="font-size:18px;font-weight:900;color:#fff;" data-i18n="quitConfirm">정말 나가시겠어요?</div>
-      <div style="font-size:13px;color:#8899aa;text-align:center;line-height:1.7;">지금까지의 기록은 저장됩니다.<br>결과 화면을 거쳐 타이틀로 이동해요.</div>
+      <div style="font-size:13px;color:#8899aa;text-align:center;line-height:1.7;" data-i18n="quitMsg">지금까지의 기록은 저장됩니다. 결과 화면을 거쳐 타이틀로 이동해요.</div>
       <button class="pause-action-btn" onclick="quitWithRecord()"
         style="background:#aa2222;color:#fff;margin-top:4px;" data-i18n="quitAction">📋 결과 보고 나가기</button>
       <button class="pause-action-btn" onclick="hideQuitConfirm()"
@@ -1893,14 +1893,14 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 <div id="ov-privacy">
   <div class="priv-panel">
     <h2 data-i18n="privTitle">개인정보처리방침</h2>
-    <h3>수집하는 정보</h3>
-    <p>본 앱은 개인식별정보를 수집하지 않습니다. 게임 기록(점수, 통계)은 기기 내 로컬 저장소에만 저장되며 외부로 전송되지 않습니다.</p>
-    <h3>광고</h3>
-    <p>본 앱은 추후 Google AdMob을 통한 광고를 포함할 수 있습니다. 광고 SDK는 별도의 개인정보 처리방침을 따릅니다.</p>
-    <h3>데이터 삭제</h3>
-    <p>설정 메뉴의 '기록 및 데이터 초기화'를 통해 기기에 저장된 모든 데이터를 삭제할 수 있습니다.</p>
-    <h3>문의</h3>
-    <p>개인정보 관련 문의: orakase83@gmail.com</p>
+    <h3 data-i18n="privH1">수집하는 정보</h3>
+    <p data-i18n="privB1">본 앱은 개인식별정보를 수집하지 않습니다. 게임 기록(점수, 통계)은 기기 내 로컬 저장소에만 저장되며 외부로 전송되지 않습니다.</p>
+    <h3 data-i18n="privH2">광고</h3>
+    <p data-i18n="privB2">본 앱은 추후 Google AdMob을 통한 광고를 포함할 수 있습니다. 광고 SDK는 별도의 개인정보 처리방침을 따릅니다.</p>
+    <h3 data-i18n="privH3">데이터 삭제</h3>
+    <p data-i18n="privB3">설정 메뉴의 '기록 및 데이터 초기화'를 통해 기기에 저장된 모든 데이터를 삭제할 수 있습니다.</p>
+    <h3 data-i18n="privH4">문의</h3>
+    <p data-i18n="privB4">개인정보 관련 문의: orakase83@gmail.com</p>
     <button class="priv-close-btn" onclick="closePrivacy()">닫기</button>
   </div>
 </div>
@@ -2035,7 +2035,7 @@ function applyLang(){
   loadLangFont(GSETTINGS.lang||'ko');
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const k=el.dataset.i18n, v=tr(k);
-    if(el.tagName==='INPUT'||el.tagName==='BUTTON'||el.tagName==='DIV'||el.tagName==='SPAN'){
+    if(['INPUT','BUTTON','DIV','SPAN','P','H2','H3','SMALL'].includes(el.tagName)){
       // preserve child nodes with images
       if(el.children.length===0) el.textContent=v;
       else {
@@ -2077,6 +2077,19 @@ Object.keys(LANG_DATA_EXT).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_
   const base={...LANG_DATA_EXT.en};
   Object.assign(LANG_DATA[lang],base,LANG_DATA[lang]);
 });
+
+// Extended keys patch 2
+const LANG_DATA_EXT2 = {
+ko:{privH1:'수집하는 정보',privB1:'본 앱은 개인식별정보를 수집하지 않습니다. 게임 기록(점수, 통계)은 기기 내 로컬 저장소에만 저장되며 외부로 전송되지 않습니다.',privH2:'광고',privB2:'본 앱은 추후 Google AdMob을 통한 광고를 포함할 수 있습니다. 광고 SDK는 별도의 개인정보 처리방침을 따릅니다.',privH3:'데이터 삭제',privB3:"설정 메뉴의 '기록 및 데이터 초기화'를 통해 기기에 저장된 모든 데이터를 삭제할 수 있습니다.",privH4:'문의',privB4:'개인정보 관련 문의: orakase83@gmail.com',quitMsg:'지금까지의 기록은 저장됩니다. 결과 화면을 거쳐 타이틀로 이동해요.',medalAcc:'정확도 훈장',medalSpeed:'속도 훈장',medalAllop:'만능 훈장',hintSpeed:'1회 플레이 분당 최대 정답 수',hintAllop:'세 연산 모두 같은 등급 이상',ownedSkin:'보유',unownedSkin:'미보유',equippedSkin:'✓ 장착 중',itemHeal:'체력 회복',itemHealDesc:'HP를 1 회복해요!',itemFreeze:'시간 정지',itemFreezeDesc:'적 전체 5초간 작전 동결!',itemBubble:'연쇄 폭탄',itemBubbleDesc:'적 20%에 연쇄 폭탄 장착!',itemCross:'크로스 빔',itemCrossDesc:'적 20%에 십자 포격 장착!',itemXblade:'X크래시',itemXbladeDesc:'적 20%에 사선 포격 장착!',itemDup:'혼란 작전',itemDupDesc:'적 20%의 신호를 교란!',itemNuke:'핵폭탄',itemNukeDesc:'하단 85% 적 전원 섬멸!',itemCover:'엄호 사격',itemCoverDesc:'30초간 동료 대원이 엄호!',feverEndBanner:'💥 FEVER END — 피날레 핵폭탄!',starUfoFmt:'UFO 격추 {n}마리',starBossFmt:'보스 격파 {n}회',starMedalFmt:'훈장 달성 {n}건',starAlienFmt:'동료 확정 {n}명',starScore:'점수 보너스',starLevel:'레벨 보너스',rptStarTotalFmt:'합계 ⭐ {n}별',bossName0:'정찰원반',bossName1:'감시정',bossName2:'침략선',bossName3:'파괴함',bossName4:'전투순양함',bossName5:'전함',bossName6:'중장갑함',bossName7:'타이탄',bossName8:'군주함',bossName9:'네메시스'},
+en:{privH1:'Data Collected',privB1:'This app does not collect personal information. Game data (scores, statistics) is stored only on your device and is never transmitted externally.',privH2:'Advertising',privB2:'This app may include ads via Google AdMob in the future. The ad SDK follows its own privacy policy.',privH3:'Data Deletion',privB3:"You can delete all stored data via 'Reset All Data' in Settings.",privH4:'Contact',privB4:'Privacy inquiries: orakase83@gmail.com',quitMsg:'Your progress will be saved. You will go to the result screen first.',medalAcc:'Accuracy Medal',medalSpeed:'Speed Medal',medalAllop:'All-Ops Medal',hintSpeed:'Max correct answers per minute in one play',hintAllop:'All three operations at same tier or above',ownedSkin:'Owned',unownedSkin:'Get',equippedSkin:'✓ Equipped',itemHeal:'HP Recovery',itemHealDesc:'Recovers 1 HP!',itemFreeze:'Time Freeze',itemFreezeDesc:'All enemies frozen for 5 seconds!',itemBubble:'Chain Bomb',itemBubbleDesc:'Chain bombs on 20% of enemies!',itemCross:'Crossbeam',itemCrossDesc:'Cross fire on 20% of enemies!',itemXblade:'X-Crash',itemXbladeDesc:'Diagonal fire on 20% of enemies!',itemDup:'Confusion',itemDupDesc:'Scrambles signals of 20% of enemies!',itemNuke:'Nuke',itemNukeDesc:'Destroys all enemies in bottom 85%!',itemCover:'Cover Fire',itemCoverDesc:'Ally provides cover for 30 seconds!',feverEndBanner:'💥 FEVER END — FINAL NUKE!',starUfoFmt:'UFO Kills: {n}',starBossFmt:'Boss Kills: {n}',starMedalFmt:'Medals: {n}',starAlienFmt:'Allies: {n}',starScore:'Score Bonus',starLevel:'Level Bonus',rptStarTotalFmt:'Total ⭐ {n} stars',bossName0:'Scout Saucer',bossName1:'Sentinel',bossName2:'Invader',bossName3:'Destroyer',bossName4:'Battle Cruiser',bossName5:'Warship',bossName6:'Dreadnought',bossName7:'Titan',bossName8:'Sovereign',bossName9:'Nemesis'},
+ja:{privH1:'収集する情報',privB1:'本アプリは個人識別情報を収集しません。ゲーム記録（スコア、統計）はデバイス内のローカルストレージにのみ保存され、外部には送信されません。',privH2:'広告',privB2:'本アプリは今後、Google AdMobによる広告を含む場合があります。広告SDKは別途のプライバシーポリシーに従います。',privH3:'データ削除',privB3:"設定メニューの「データを初期化」からデバイスに保存されたすべてのデータを削除できます。",privH4:'お問い合わせ',privB4:'個人情報に関するお問い合わせ: orakase83@gmail.com',quitMsg:'これまでの記録は保存されます。結果画面を経由してタイトルへ移動します。',medalAcc:'正確度勲章',medalSpeed:'スピード勲章',medalAllop:'万能勲章',hintSpeed:'1回プレイ分間最大正答数',hintAllop:'三演算すべて同等級以上',ownedSkin:'所持済',unownedSkin:'未所持',equippedSkin:'✓ 装備中',itemHeal:'HP回復',itemHealDesc:'HPを1回復！',itemFreeze:'時間停止',itemFreezeDesc:'全敵を5秒間凍結！',itemBubble:'連鎖爆弾',itemBubbleDesc:'敵の20%に連鎖爆弾を装備！',itemCross:'クロスビーム',itemCrossDesc:'敵の20%に十字砲撃を装備！',itemXblade:'Xクラッシュ',itemXbladeDesc:'敵の20%に斜め砲撃を装備！',itemDup:'混乱作戦',itemDupDesc:'敵の20%の信号を妨害！',itemNuke:'核爆弾',itemNukeDesc:'下部85%の敵を全滅！',itemCover:'援護射撃',itemCoverDesc:'30秒間仲間が援護！',feverEndBanner:'💥 FEVER END — ファイナル核爆弾！',starUfoFmt:'UFO撃墜 {n}体',starBossFmt:'ボス撃破 {n}回',starMedalFmt:'勲章達成 {n}件',starAlienFmt:'仲間確定 {n}名',starScore:'スコアボーナス',starLevel:'レベルボーナス',rptStarTotalFmt:'合計 ⭐ {n}スター',bossName0:'偵察円盤',bossName1:'監視艇',bossName2:'侵略船',bossName3:'破壊艦',bossName4:'戦闘巡洋艦',bossName5:'戦艦',bossName6:'重装甲艦',bossName7:'タイタン',bossName8:'君主艦',bossName9:'ネメシス'},
+'zh-TW':{privH1:'收集的資訊',privB1:'本應用不收集個人識別資訊。遊戲記錄（分數、統計）僅存儲於裝置本地，不會傳輸至外部。',privH2:'廣告',privB2:'本應用未來可能包含透過Google AdMob投放的廣告。廣告SDK遵循其自身的隱私政策。',privH3:'資料刪除',privB3:"可透過設定中的「重置所有資料」刪除裝置中儲存的所有資料。",privH4:'聯絡',privB4:'隱私相關詢問：orakase83@gmail.com',quitMsg:'您的進度將被保存。您將前往結果畫面後離開。',medalAcc:'準確度勳章',medalSpeed:'速度勳章',medalAllop:'萬能勳章',hintSpeed:'單次遊戲每分鐘最大正確答題數',hintAllop:'三種運算均達相同等級以上',ownedSkin:'已擁有',unownedSkin:'未擁有',equippedSkin:'✓ 裝備中',itemHeal:'HP回復',itemHealDesc:'回復1HP！',itemFreeze:'時間停止',itemFreezeDesc:'所有敵人凍結5秒！',itemBubble:'連鎖炸彈',itemBubbleDesc:'20%敵人裝備連鎖炸彈！',itemCross:'十字光束',itemCrossDesc:'20%敵人裝備十字砲擊！',itemXblade:'X碰撞',itemXbladeDesc:'20%敵人裝備斜線砲擊！',itemDup:'混亂作戰',itemDupDesc:'干擾20%敵人的信號！',itemNuke:'核彈',itemNukeDesc:'消滅下方85%的敵人！',itemCover:'支援射擊',itemCoverDesc:'盟友支援30秒！',feverEndBanner:'💥 FEVER END — 終極核彈！',starUfoFmt:'UFO擊落 {n}隻',starBossFmt:'Boss擊破 {n}次',starMedalFmt:'勳章達成 {n}件',starAlienFmt:'夥伴確定 {n}名',starScore:'分數獎勵',starLevel:'等級獎勵',rptStarTotalFmt:'合計 ⭐ {n}顆星',bossName0:'偵察飛碟',bossName1:'監視艇',bossName2:'侵略船',bossName3:'破壞艦',bossName4:'戰鬥巡洋艦',bossName5:'戰艦',bossName6:'重裝甲艦',bossName7:'泰坦',bossName8:'君主艦',bossName9:'涅墨西斯'},
+'zh-CN':{privH1:'收集的信息',privB1:'本应用不收集个人识别信息。游戏记录（分数、统计）仅存储于设备本地，不会传输至外部。',privH2:'广告',privB2:'本应用未来可能包含通过Google AdMob投放的广告。广告SDK遵循其自身的隐私政策。',privH3:'数据删除',privB3:"可通过设置中的「重置所有数据」删除设备中存储的所有数据。",privH4:'联系',privB4:'隐私相关咨询：orakase83@gmail.com',quitMsg:'您的进度将被保存。您将前往结果界面后离开。',medalAcc:'准确度勋章',medalSpeed:'速度勋章',medalAllop:'万能勋章',hintSpeed:'单次游戏每分钟最大正确答题数',hintAllop:'三种运算均达相同等级以上',ownedSkin:'已拥有',unownedSkin:'未拥有',equippedSkin:'✓ 已装备',itemHeal:'HP回复',itemHealDesc:'回复1HP！',itemFreeze:'时间停止',itemFreezeDesc:'所有敌人冻结5秒！',itemBubble:'连锁炸弹',itemBubbleDesc:'20%敌人装备连锁炸弹！',itemCross:'十字光束',itemCrossDesc:'20%敌人装备十字炮击！',itemXblade:'X碰撞',itemXbladeDesc:'20%敌人装备斜线炮击！',itemDup:'混乱作战',itemDupDesc:'干扰20%敌人的信号！',itemNuke:'核弹',itemNukeDesc:'消灭下方85%的敌人！',itemCover:'支援射击',itemCoverDesc:'盟友支援30秒！',feverEndBanner:'💥 FEVER END — 终极核弹！',starUfoFmt:'UFO击落 {n}只',starBossFmt:'Boss击破 {n}次',starMedalFmt:'勋章达成 {n}件',starAlienFmt:'伙伴确定 {n}名',starScore:'分数奖励',starLevel:'等级奖励',rptStarTotalFmt:'合计 ⭐ {n}颗星',bossName0:'侦察飞碟',bossName1:'监视艇',bossName2:'侵略船',bossName3:'破坏舰',bossName4:'战斗巡洋舰',bossName5:'战舰',bossName6:'重装甲舰',bossName7:'泰坦',bossName8:'君主舰',bossName9:'涅墨西斯'},
+es:{privH1:'Datos Recopilados',privB1:'Esta app no recopila información personal. Los registros del juego se almacenan solo en tu dispositivo y nunca se transmiten externamente.',privH2:'Publicidad',privB2:'Esta app puede incluir anuncios de Google AdMob en el futuro. El SDK de anuncios sigue su propia política de privacidad.',privH3:'Eliminación de Datos',privB3:"Puedes eliminar todos los datos almacenados mediante 'Borrar Todos los Datos' en Ajustes.",privH4:'Contacto',privB4:'Consultas de privacidad: orakase83@gmail.com',quitMsg:'Tu progreso se guardará. Irás a la pantalla de resultados primero.',medalAcc:'Medalla Precisión',medalSpeed:'Medalla Velocidad',medalAllop:'Medalla Todoterreno',hintSpeed:'Máx respuestas correctas por minuto en una partida',hintAllop:'Las tres operaciones al mismo nivel o superior',ownedSkin:'Poseído',unownedSkin:'No poseído',equippedSkin:'✓ Equipado',itemHeal:'Recuperar HP',itemHealDesc:'¡Recupera 1 HP!',itemFreeze:'Congelación',itemFreezeDesc:'¡Todos los enemigos congelados 5 segundos!',itemBubble:'Bomba en Cadena',itemBubbleDesc:'¡Bombas en cadena en el 20% de enemigos!',itemCross:'Rayo Cruzado',itemCrossDesc:'¡Fuego cruzado en el 20% de enemigos!',itemXblade:'X-Crash',itemXbladeDesc:'¡Fuego diagonal en el 20% de enemigos!',itemDup:'Confusión',itemDupDesc:'¡Desordena señales del 20% de enemigos!',itemNuke:'Nuke',itemNukeDesc:'¡Destruye todos los enemigos en el 85% inferior!',itemCover:'Fuego de Cobertura',itemCoverDesc:'¡El aliado proporciona cobertura 30 segundos!',feverEndBanner:'💥 FEVER END — ¡NUKE FINAL!',starUfoFmt:'OVNI eliminados: {n}',starBossFmt:'Jefes eliminados: {n}',starMedalFmt:'Medallas: {n}',starAlienFmt:'Aliados: {n}',starScore:'Bonus Puntuación',starLevel:'Bonus Nivel',rptStarTotalFmt:'Total ⭐ {n} estrellas',bossName0:'Explorador',bossName1:'Centinela',bossName2:'Invasor',bossName3:'Destructor',bossName4:'Crucero',bossName5:'Acorazado',bossName6:'Dreadnought',bossName7:'Titán',bossName8:'Soberano',bossName9:'Némesis'},
+};
+Object.keys(LANG_DATA_EXT2).forEach(lang=>{if(LANG_DATA[lang])Object.assign(LANG_DATA[lang],LANG_DATA_EXT2[lang]);});
+['pt','fr','de','id','th','vi'].forEach(lang=>{Object.assign(LANG_DATA[lang],LANG_DATA_EXT2.en,LANG_DATA[lang]);});
+
 
 function applyAudioSettings(){
   if(masterOut) masterOut.gain.value = GSETTINGS.soundOn ? 0.65*(GSETTINGS.volMaster/100) : 0;
@@ -2179,13 +2192,13 @@ const SCORE_VALUE = { normal:10, guerrilla:15, ufo:50 };
 const _ii = (n,s=22) => `<img src="items/${n}.png" style="width:${s}px;height:${s}px;object-fit:contain;vertical-align:middle;">`;
 const ITEMS = {
   heal:   { emoji:_ii('heal'),   name:'긴급 보급',  desc:'대원 HP +3 긴급 충전!' },
-  freeze: { emoji:_ii('freeze'), name:'시간 정지',  desc:'적 전체 5초간 작전 동결!' },
-  bubble: { emoji:_ii('bubble'), name:'연쇄 폭탄',  desc:'적 20%에 연쇄 폭탄 장착!' },
-  cross:  { emoji:_ii('cross'),  name:'크로스 빔',  desc:'적 20%에 십자 포격 장착!' },
-  xblade: { emoji:_ii('xblade'), name:'X크래시',   desc:'적 20%에 사선 포격 장착!' },
-  dup:    { emoji:_ii('dup'),    name:'혼란 작전',  desc:'적 20%의 신호를 교란!' },
-  nuke:   { emoji:_ii('nuke'),   name:'핵폭탄',    desc:'하단 85% 적 전원 섬멸!' },
-  cover:  { emoji:_ii('cover'),  name:'엄호 사격',  desc:'30초간 동료 대원이 엄호!' },
+  freeze: { emoji:_ii('freeze'), name:'시간 정지',  nk:'itemFreeze', dk:'itemFreezeDesc'  },
+  bubble: { emoji:_ii('bubble'), name:'연쇄 폭탄',  nk:'itemBubble', dk:'itemBubbleDesc'  },
+  cross:  { emoji:_ii('cross'),  name:'크로스 빔',  nk:'itemCross',  dk:'itemCrossDesc'   },
+  xblade: { emoji:_ii('xblade'), name:'X크래시',   nk:'itemXblade', dk:'itemXbladeDesc'  },
+  dup:    { emoji:_ii('dup'),    name:'혼란 작전',  nk:'itemDup',    dk:'itemDupDesc'     },
+  nuke:   { emoji:_ii('nuke'),   name:'핵폭탄',    nk:'itemNuke',   dk:'itemNukeDesc'    },
+  cover:  { emoji:_ii('cover'),  name:'엄호 사격',  nk:'itemCover',  dk:'itemCoverDesc'   },
 };
 const ITEM_KEYS = Object.keys(ITEMS);
 
@@ -3796,8 +3809,8 @@ function showItemPopup(def, flashColor = '#00ffaa') {
   popup.style.borderTopColor = flashColor;
   popup.style.boxShadow = `0 -10px 36px ${flashColor}`;
   $('ip-emoji').innerHTML = def.emoji;
-  $('ip-name').textContent  = def.name;
-  $('ip-desc').textContent  = def.desc;
+  $('ip-name').textContent  = def.nk?tr(def.nk):def.name;
+  $('ip-desc').textContent  = def.dk?tr(def.dk):def.desc||'';
 
   // Full-screen flash to draw attention
   const fl = document.createElement('div');
@@ -4157,28 +4170,32 @@ function gameOver() {
     const grp = {};
     _sessionStarLog.forEach(x=>{
       let key=x.reason||'기타', label=key, cnt=1;
-      if(key.includes('UFO')) key='UFO 격추';
-      else if(key.includes('보스 격파')) key='보스 격파';
-      else if(key.includes('훈장')) key='훈장 달성';
-      else if(key.includes('확정')) key='동료 확정';
+      if(key.includes('UFO')) key='__ufo';
+      else if(key.includes('보스')) key='__boss';
+      else if(key.includes('훈장')) key='__medal';
+      else if(key.includes('확정')) key='__alien';
+      else if(key.includes('점수')) key='__score';
+      else if(key.includes('레벨')) key='__level';
       if(!grp[key]) grp[key]={label:key, total:0, count:0};
       grp[key].total+=x.n; grp[key].count++;
     });
     const rows = Object.entries(grp).map(([key,g])=>{
       let label=g.label;
-      if(key==='UFO 격추') label=`UFO 격추 ${g.count*10}마리`;
-      else if(key==='보스 격파') label=`보스 격파 ${g.count}회`;
-      else if(key==='훈장 달성') label=`훈장 달성 ${g.count}건`;
-      else if(key==='동료 확정') label=`동료 확정 ${g.count}명`;
+      if(key==='__ufo') label=trf('starUfoFmt',{n:g.count*10});
+      else if(key==='__boss') label=trf('starBossFmt',{n:g.count});
+      else if(key==='__medal') label=trf('starMedalFmt',{n:g.count});
+      else if(key==='__alien') label=trf('starAlienFmt',{n:g.count});
+      else if(key==='__score') label=tr('starScore');
+      else if(key==='__level') label=tr('starLevel');
       return `<div class="rpt-star-row">
         <span class="rpt-star-label">${label}</span>
         <span class="rpt-star-plus">+${g.total}</span>
       </div>`;
     }).join('');
     html += `<div class="rpt-section">
-      <div class="rpt-title">⭐ 획득한 별</div>
+      <div class="rpt-title">${tr('rptStarTitle')}</div>
       ${rows}
-      <div class="rpt-star-total">합계 ⭐ ${totalStars.toLocaleString()}별</div>
+      <div class="rpt-star-total">${trf('rptStarTotalFmt',{n:totalStars.toLocaleString()})}</div>
     </div>`;
   }
 
@@ -5085,7 +5102,8 @@ function triggerBossWarning() {
   }, 2600);
 }
 
-const BOSS_NAMES = ['정찰원반','감시정','침략선','파괴함','전투순양함','전함','중장갑함','타이탄','군주함','네메시스'];
+const BOSS_NAMES_KO = ['정찰원반','감시정','침략선','파괴함','전투순양함','전함','중장갑함','타이탄','군주함','네메시스'];
+function getBossName(tier){return tr('bossName'+tier)||BOSS_NAMES_KO[tier]||'';}
 function mkBossSvg(t) {
   t = Math.max(0, Math.min(9, t|0));
   const rg = (id,c0,c1,cx='42%',cy='33%') =>
@@ -5466,7 +5484,7 @@ function spawnBoss(tierOverride) {
     amplitude: gw * 0.08,
     speedY: (gh - 44 + 200) / 55000,
     phase: 0, problems: [],
-    tierName: BOSS_NAMES[_bossTier],
+    tierName: getBossName(_bossTier),
   };
   gRecordBossSpawn();
   bossRefreshHp();
@@ -6070,7 +6088,7 @@ function showFeverBanner() {
 function showFeverEndBanner() {
   const p = document.createElement('div');
   p.className = 'fever-end-pop';
-  p.innerHTML = '💥 FEVER END — 피날레 핵폭탄!';
+  p.innerHTML = tr('feverEndBanner');
   gameEl.appendChild(p);
   setTimeout(() => p.remove(), 2700);
 }
@@ -6489,7 +6507,7 @@ function renderShopBody(){
       <div class="skin-preview">${preview}</div>
       <div class="skin-info">
         <div class="skin-name">${s.nk?tr(s.nk):s.name}</div>
-        <div class="skin-status">${isEquipped?'✓ 장착 중':isOwned?'보유':'미보유'}</div>
+        <div class="skin-status">${isEquipped?tr('equippedSkin'):isOwned?tr('ownedSkin'):tr('unownedSkin')}</div>
       </div>
       ${btnHtml}
     </div>`;
@@ -7275,13 +7293,13 @@ const MEDAL_DEFS = [
     tiers:[{v:100},{v:500},{v:2000},{v:5000}], getValue:()=>GSTATS.mulCount },
   { id:'div',   section:'math',   emoji:'➗', name:'나눗셈 훈장', nk:'medalDiv',
     tiers:[{v:50},{v:200},{v:800},{v:2000}], getValue:()=>GSTATS.divCount },
-  { id:'acc',   section:'math',   emoji:'🎯', name:'정확도 훈장',
+  { id:'acc',   section:'math',   emoji:'🎯', name:'정확도 훈장', nk:'medalAcc',
     tiers:[{v:70},{v:80},{v:90},{v:95}],
     getValue:()=>{
       const t=GSTATS.totalRight+GSTATS.totalWrong;
       return t<20?0:Math.round(GSTATS.totalRight/t*100);
     }},
-  { id:'speed', section:'math',   emoji:'⚡', name:'속도 훈장',
+  { id:'speed', section:'math',   emoji:'⚡', name:'속도 훈장', nk:'medalSpeed', hk:'hintSpeed',
     hint:'1회 플레이 분당 최대 정답 수',
     tiers:[{v:3},{v:6},{v:10},{v:15}],
     getValue:()=>{
@@ -7294,7 +7312,7 @@ const MEDAL_DEFS = [
       });
       return Math.floor(best);
     }},
-  { id:'allop', section:'math',   emoji:'🌟', name:'만능 훈장',
+  { id:'allop', section:'math',   emoji:'🌟', name:'만능 훈장', nk:'medalAllop', hk:'hintAllop',
     hint:'세 연산 모두 같은 등급 이상',
     tiers:[{v:1},{v:2},{v:3},{v:4}],
     getValue:()=>{
@@ -7549,7 +7567,7 @@ function renderReport(period) {
     <div class="report-stat-row">
       <div class="report-stat-box"><div class="report-stat-val">${totRight}</div><div class="report-stat-lbl">${tr('totalCorrect')}</div></div>
       <div class="report-stat-box"><div class="report-stat-val">${acc}%</div><div class="report-stat-lbl">${tr('accuracy')}</div></div>
-      <div class="report-stat-box"><div class="report-stat-val">${period==='weekly'?daysPlayed+'일':days[0].fever||0+'회'}</div>
+      <div class="report-stat-box"><div class="report-stat-val">${period==='weekly'?daysPlayed:days[0].fever||0}</div>
         <div class="report-stat-lbl">${period==='weekly'?tr('daysPlayedLbl'):tr('feverLabel')}</div></div>
     </div>
     ${chartHtml}${opHtml}
