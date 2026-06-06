@@ -5827,6 +5827,7 @@ function spawnBoss(tierOverride) {
     amplitude: gw * 0.08,
     speedY: (gh - 44 + 200) / 55000,
     phase: 0, problems: [],
+    tier: _bossTier,
     tierName: getBossName(_bossTier),
   };
   gRecordBossSpawn();
@@ -5857,7 +5858,7 @@ function bossNextPhase() {
   const eqRow = document.createElement('div');
   eqRow.className = 'boss-eqs';
   b.problems = [];
-  const lastPhase = b.hp === 1;
+  const lastPhase = b.hp === 1 && b.tier !== 0;
   for (let i = 0; i < 3; i++) {
     const prob = lastPhase ? getUfoProb() : makeProblem();
     const slot = document.createElement('div');
