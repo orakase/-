@@ -4690,6 +4690,12 @@ function getAC() {
     rvG.gain.value = 0.1;
     conv.connect(rvG); rvG.connect(AC.destination);
     reverbIn = conv;
+    // Pre-allocate noise buffers for percussion (reuse across BGM loops)
+    const _r = AC.sampleRate;
+    const _fill = buf => { const d=buf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; return buf; };
+    AC._nKick  = _fill(AC.createBuffer(1, Math.ceil(0.04 *_r), _r));
+    AC._nSnare = _fill(AC.createBuffer(1, Math.ceil(0.07 *_r), _r));
+    AC._nHihat = _fill(AC.createBuffer(1, Math.ceil(0.022*_r), _r));
   }
   if (AC.state === 'suspended') AC.resume();
   return AC;
@@ -5024,22 +5030,6 @@ function scheduleFeverLoop(startT) {
     feverBgmLong.push(o);
   });
 
-  // Space echo — triangle wave, 120ms delay, low volume (spacey trail)
-  FEVER_NOTES.forEach(({p, d, f}) => {
-    const t0 = startT + p * FT16 + 0.12;
-    const t1 = t0 + d * FT16 * 0.50;
-    const o  = ctx.createOscillator();
-    o.type = 'triangle';
-    o.frequency.setValueAtTime(f, t0);
-    const og = ctx.createGain();
-    og.gain.setValueAtTime(0,   t0);
-    og.gain.linearRampToValueAtTime(0.07, t0 + 0.002);
-    og.gain.linearRampToValueAtTime(0,    t1);
-    o.connect(og); og.connect(g);
-    o.start(t0); o.stop(t1 + 0.005);
-    feverBgmLong.push(o);
-  });
-
   // Space sparkle — brief high-sine "star ping" on each half-bar (×4)
   [0, 8, 16, 24].forEach(beat => {
     const t0 = startT + beat * FT16;
@@ -5083,12 +5073,8 @@ function scheduleFeverLoop(startT) {
     og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.07);
     o.connect(og); og.connect(g); o.start(t0); o.stop(t0 + 0.08);
     feverBgmLong.push(o);
-    const rate = ctx.sampleRate, len = Math.ceil(0.04 * rate);
-    const buf = ctx.createBuffer(1, len, rate);
-    const d = buf.getChannelData(0);
-    for (let j = 0; j < len; j++) d[j] = Math.random() * 2 - 1;
     const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
-    ns.buffer = buf; nf.type = 'lowpass'; nf.frequency.value = 200;
+    ns.buffer = ctx._nKick || ctx.createBuffer(1,1,ctx.sampleRate); nf.type = 'lowpass'; nf.frequency.value = 200;
     ng.gain.setValueAtTime(0.28, t0); ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.04);
     ns.connect(nf); nf.connect(ng); ng.connect(g);
     ns.start(t0); ns.stop(t0 + 0.05);
@@ -5098,27 +5084,19 @@ function scheduleFeverLoop(startT) {
   // Ch4b: Snare (beats 2 & 4 of each bar × 2 bars)
   [4, 12, 20, 28].forEach(beat => {
     const t0 = startT + beat * FT16;
-    const rate = ctx.sampleRate, len = Math.ceil(0.07 * rate);
-    const buf = ctx.createBuffer(1, len, rate);
-    const d = buf.getChannelData(0);
-    for (let j = 0; j < len; j++) d[j] = Math.random() * 2 - 1;
     const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
-    ns.buffer = buf; nf.type = 'bandpass'; nf.frequency.value = 1100; nf.Q.value = 0.5;
+    ns.buffer = ctx._nSnare || ctx.createBuffer(1,1,ctx.sampleRate); nf.type = 'bandpass'; nf.frequency.value = 1100; nf.Q.value = 0.5;
     ng.gain.setValueAtTime(0.34, t0); ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.07);
     ns.connect(nf); nf.connect(ng); ng.connect(g);
     ns.start(t0); ns.stop(t0 + 0.08);
     feverBgmLong.push(ns);
   });
 
-  // Ch4c: Hi-hat — 8th-note tick (16ths 0,2,4,...,30)
-  [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30].forEach(beat => {
+  // Ch4c: Hi-hat — quarter-note tick (8ths 0,4,8,12,16,20,24,28) — 8 hits, lighter
+  [0,4,8,12,16,20,24,28].forEach(beat => {
     const t0 = startT + beat * FT16;
-    const rate = ctx.sampleRate, len = Math.ceil(0.022 * rate);
-    const buf = ctx.createBuffer(1, len, rate);
-    const d = buf.getChannelData(0);
-    for (let j = 0; j < len; j++) d[j] = Math.random() * 2 - 1;
     const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
-    ns.buffer = buf; nf.type = 'highpass'; nf.frequency.value = 7500;
+    ns.buffer = ctx._nHihat || ctx.createBuffer(1,1,ctx.sampleRate); nf.type = 'highpass'; nf.frequency.value = 7500;
     ng.gain.setValueAtTime(0.11, t0); ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.022);
     ns.connect(nf); nf.connect(ng); ng.connect(g);
     ns.start(t0); ns.stop(t0 + 0.025);
