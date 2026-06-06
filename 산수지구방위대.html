@@ -365,17 +365,16 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
   background:linear-gradient(180deg,#fff 0%,#ddeeff 12%,#66aaff 40%,#2255ff 70%,transparent);
   box-shadow:0 0 4px #fff,0 0 12px #4499ff,0 0 26px rgba(30,80,255,.7),0 0 44px rgba(0,50,200,.35);
 }
-/* Dragon: 파이어볼 — scale+opacity 맥박 (compositor only) */
-@keyframes fireballPulse{
-  0%,100%{transform:scale(1);   opacity:.85;}
-  50%     {transform:scale(1.25);opacity:1;}
-}
+/* Dragon: 불꽃 혜성 — 흰 선두 + 긴 불꽃 꼬리 */
 .missile-dragon{
-  width:16px;height:16px;border-radius:50%;
-  margin:-8px 0 0 -8px;
-  background:radial-gradient(circle at 38% 35%,#fff 0%,#ffff88 15%,#ffee44 28%,#ff6600 58%,#cc1100 88%);
-  box-shadow:0 0 10px #ff5500,0 0 22px rgba(255,80,0,.7),0 0 40px rgba(255,40,0,.35);
-  animation:fireballPulse .18s ease-in-out infinite;
+  width:12px;height:44px;
+  border-radius:6px 6px 2px 2px;
+  transform-origin:bottom center;
+  background:linear-gradient(180deg,
+    #fff 0%,#ffff99 8%,#ffee44 20%,
+    #ff8800 42%,#cc2200 64%,
+    rgba(80,10,0,.3) 84%,transparent 100%);
+  box-shadow:0 0 6px #fff,0 0 14px #ff5500,0 0 28px rgba(255,80,0,.6),0 0 46px rgba(180,30,0,.3);
 }
 /* Whale: 소나 링 */
 .missile-whale{
@@ -4241,7 +4240,7 @@ function launchMissile(targetEl, onHit) {
   const angle = Math.atan2(tx - sx, sy - ty) * 180 / Math.PI;
 
   const _rk = (typeof getSkin !== 'undefined') ? getSkin('rocket').id : 'default';
-  const _isBall = _rk === 'ufo' || _rk === 'dragon' || _rk === 'whale';
+  const _isBall = _rk === 'ufo' || _rk === 'whale';
   const m = document.createElement('div');
   m.className = 'missile' + (_rk !== 'default' ? ' missile-' + _rk : '');
   if (_isBall) {
