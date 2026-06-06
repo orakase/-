@@ -1620,7 +1620,12 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   display:none;position:absolute;bottom:calc(100% + 4px);left:0;right:0;z-index:50;
   background:rgba(4,8,42,.98);border:1px solid #1a2a5a;border-radius:8px;
   overflow:hidden;max-height:260px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:rgba(100,150,255,.4) rgba(255,255,255,.04);
 }
+.lang-dd-list::-webkit-scrollbar{width:5px;}
+.lang-dd-list::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:3px;}
+.lang-dd-list::-webkit-scrollbar-thumb{background:rgba(100,150,255,.4);border-radius:3px;}
+.lang-dd-list::-webkit-scrollbar-thumb:hover{background:rgba(100,150,255,.7);}
 .lang-dd.open .lang-dd-list{display:block;}
 .lang-dd-item{
   display:block;width:100%;text-align:left;padding:10px 14px;
