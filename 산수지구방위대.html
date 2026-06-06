@@ -354,25 +354,33 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
 }
 /* UFO: 플라즈마 구슬 */
 .missile-ufo{
-  width:12px;height:12px;border-radius:50%;transform-origin:center center;
+  width:12px;height:12px;border-radius:50%;
+  margin:-6px 0 0 -6px;
   background:radial-gradient(circle at 38% 35%,#fff 0%,#aaeeff 28%,#0099ff 65%,#0033cc 100%);
   box-shadow:0 0 8px #00ccff,0 0 18px rgba(0,180,255,.65);
 }
 /* Battleship: 두꺼운 레이저 빔 */
 .missile-battleship{
-  width:4px;height:30px;border-radius:2px 2px 0 0;transform-origin:bottom center;
-  background:linear-gradient(180deg,#fff 0%,#aaccff 20%,#2255ff 65%,transparent);
-  box-shadow:0 0 10px #3366ff,0 0 22px rgba(30,80,255,.55);
+  width:6px;height:36px;border-radius:3px 3px 0 0;transform-origin:bottom center;
+  background:linear-gradient(180deg,#fff 0%,#ddeeff 12%,#66aaff 40%,#2255ff 70%,transparent);
+  box-shadow:0 0 4px #fff,0 0 12px #4499ff,0 0 26px rgba(30,80,255,.7),0 0 44px rgba(0,50,200,.35);
 }
-/* Dragon: 파이어볼 */
+/* Dragon: 파이어볼 — scale+opacity 맥박 (compositor only) */
+@keyframes fireballPulse{
+  0%,100%{transform:scale(1);   opacity:.85;}
+  50%     {transform:scale(1.25);opacity:1;}
+}
 .missile-dragon{
-  width:13px;height:13px;border-radius:50%;transform-origin:center center;
-  background:radial-gradient(circle at 38% 35%,#fff 0%,#ffee44 28%,#ff6600 62%,#cc1100 100%);
-  box-shadow:0 0 9px #ff4400,0 0 20px rgba(255,80,0,.6);
+  width:16px;height:16px;border-radius:50%;
+  margin:-8px 0 0 -8px;
+  background:radial-gradient(circle at 38% 35%,#fff 0%,#ffff88 15%,#ffee44 28%,#ff6600 58%,#cc1100 88%);
+  box-shadow:0 0 10px #ff5500,0 0 22px rgba(255,80,0,.7),0 0 40px rgba(255,40,0,.35);
+  animation:fireballPulse .18s ease-in-out infinite;
 }
 /* Whale: 소나 링 */
 .missile-whale{
-  width:17px;height:17px;border-radius:50%;transform-origin:center center;
+  width:17px;height:17px;border-radius:50%;
+  margin:-9px 0 0 -9px;
   background:radial-gradient(circle,rgba(160,230,255,.25) 0%,transparent 55%);
   border:2px solid rgba(120,220,255,.9);
   box-shadow:0 0 0 3px rgba(100,200,255,.3),0 0 0 6px rgba(80,180,255,.12),0 0 14px rgba(100,220,255,.65);
@@ -4237,7 +4245,7 @@ function launchMissile(targetEl, onHit) {
   const m = document.createElement('div');
   m.className = 'missile' + (_rk !== 'default' ? ' missile-' + _rk : '');
   if (_isBall) {
-    m.style.cssText = `left:${sx}px;top:${sy}px;transform:translate(-50%,-50%);`;
+    m.style.cssText = `left:${sx}px;top:${sy}px;`;
   } else {
     m.style.cssText = `left:${sx}px;top:${sy}px;transform:rotate(${angle}deg) translateX(-50%);`;
   }
