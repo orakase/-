@@ -242,13 +242,11 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
 /* Explosion */
 .ent.boom{animation:explode .38s ease-out forwards;}
 @keyframes explode{
-  0%  {transform:scale(1);   opacity:1;}
-  12% {transform:scale(1.1); opacity:1;}
-  38% {transform:scale(1.85);opacity:.85;}
-  100%{transform:scale(.05); opacity:0;}
+  0%  {transform:scale(1);   opacity:1;  filter:brightness(1);}
+  10% {transform:scale(1.1); opacity:1;  filter:brightness(2.5) saturate(0.2);}
+  28% {transform:scale(1.5); opacity:.9; filter:brightness(1);}
+  100%{transform:scale(.05); opacity:0;  filter:brightness(1);}
 }
-@keyframes hitFlash{0%{opacity:0;}8%{opacity:.8;}22%{opacity:0;}100%{opacity:0;}}
-.boom::after{content:'';position:absolute;inset:0;background:#fff;border-radius:inherit;animation:hitFlash .38s ease-out forwards;pointer-events:none;z-index:1;}
 
 /* ── Bubble bomb area effect ── */
 .bubble-blast{
