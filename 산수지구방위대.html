@@ -60,7 +60,7 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
 @keyframes blink1{from{opacity:.08}to{opacity:.85}}
 @keyframes blink2{from{opacity:.4} to{opacity:.04}}
 @keyframes blink3{0%,100%{opacity:.15}50%{opacity:1}}
-@keyframes starPulse{0%,100%{box-shadow:0 0 3px 1px rgba(160,200,255,.4)}50%{box-shadow:0 0 8px 3px rgba(160,200,255,.9)}}
+@keyframes starPulse{0%,100%{opacity:.45;}50%{opacity:1;}}
 /* ── 배경 앰비언트 키프레임 ── */
 @keyframes marsUfo{
   0%  {opacity:0;  transform:translateX(0);}
@@ -219,16 +219,10 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
 }
 
 /* Special markings — animated blink */
-@keyframes bubbleBlink{
-  0%,100%{border-color:#aa2200;box-shadow:0 0 5px rgba(255,40,0,.3);}
-  50%    {border-color:#ff1100;box-shadow:0 0 22px rgba(255,0,0,.95),inset 0 0 14px rgba(255,0,0,.22);}
-}
-@keyframes crossBlink{
-  0%,100%{border-color:#0033cc;box-shadow:0 0 5px rgba(0,100,255,.3);}
-  50%    {border-color:#44bbff;box-shadow:0 0 22px rgba(0,160,255,.95),inset 0 0 14px rgba(0,130,255,.22);}
-}
-.ent.is-bubble{animation:bubbleBlink .6s ease-in-out infinite !important;}
-.ent.is-cross {animation:crossBlink  .6s ease-in-out infinite !important;}
+@keyframes bubbleBlink{0%,100%{opacity:.6;}50%{opacity:1;}}
+@keyframes crossBlink {0%,100%{opacity:.6;}50%{opacity:1;}}
+.ent.is-bubble{border-color:#ff1100!important;box-shadow:0 0 14px rgba(255,0,0,.75),inset 0 0 10px rgba(255,0,0,.18)!important;animation:bubbleBlink .6s ease-in-out infinite!important;}
+.ent.is-cross {border-color:#44bbff!important;box-shadow:0 0 14px rgba(0,160,255,.75),inset 0 0 10px rgba(0,130,255,.18)!important;animation:crossBlink  .6s ease-in-out infinite!important;}
 /* Explosion overrides blink */
 .ent.boom.is-bubble,.ent.boom.is-cross{animation:explode .38s ease-out forwards !important;}
 /* Same-answer (동조화) — ALL enemies sharing a duplicated answer */
@@ -247,11 +241,13 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
 /* Explosion */
 .ent.boom{animation:explode .38s ease-out forwards;}
 @keyframes explode{
-  0%  {transform:scale(1);   opacity:1; filter:brightness(1);}
-  12% {transform:scale(1.1); opacity:1; filter:brightness(10) saturate(0);}
-  38% {transform:scale(1.85);opacity:.85;filter:brightness(4);}
-  100%{transform:scale(.05); opacity:0; filter:brightness(1);}
+  0%  {transform:scale(1);   opacity:1;}
+  12% {transform:scale(1.1); opacity:1;}
+  38% {transform:scale(1.85);opacity:.85;}
+  100%{transform:scale(.05); opacity:0;}
 }
+@keyframes hitFlash{0%{opacity:0;}10%{opacity:.9;}40%{opacity:.45;}100%{opacity:0;}}
+.boom::after{content:'';position:absolute;inset:0;background:#fff;border-radius:inherit;animation:hitFlash .38s ease-out forwards;pointer-events:none;z-index:1;}
 
 /* ── Bubble bomb area effect ── */
 .bubble-blast{
