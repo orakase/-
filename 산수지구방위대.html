@@ -376,13 +376,25 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
     rgba(80,10,0,.3) 84%,transparent 100%);
   box-shadow:0 0 6px #fff,0 0 14px #ff5500,0 0 28px rgba(255,80,0,.6),0 0 46px rgba(180,30,0,.3);
 }
-/* Whale: 소나 링 */
+/* Whale: 소나 이중 링 — 위상차 물결 */
+@keyframes sonarPing{
+  0%  {transform:scale(.6); opacity:.95;}
+  100%{transform:scale(1.7);opacity:0;}
+}
 .missile-whale{
-  width:17px;height:17px;border-radius:50%;
-  margin:-9px 0 0 -9px;
-  background:radial-gradient(circle,rgba(160,230,255,.25) 0%,transparent 55%);
-  border:2px solid rgba(120,220,255,.9);
-  box-shadow:0 0 0 3px rgba(100,200,255,.3),0 0 0 6px rgba(80,180,255,.12),0 0 14px rgba(100,220,255,.65);
+  width:26px;height:26px;border-radius:50%;
+  margin:-13px 0 0 -13px;
+  background:radial-gradient(circle,rgba(190,248,255,.5) 0%,rgba(100,210,255,.18) 45%,transparent 70%);
+  border:2.5px solid rgba(140,232,255,.95);
+  box-shadow:0 0 0 4px rgba(100,210,255,.22),0 0 18px rgba(100,232,255,.85),0 0 38px rgba(70,200,255,.45);
+  animation:sonarPing .55s ease-out infinite;
+}
+.missile-whale::before{
+  content:'';
+  position:absolute;inset:-11px;
+  border-radius:50%;
+  border:1.5px solid rgba(100,210,255,.55);
+  animation:sonarPing .55s .275s ease-out infinite;
 }
 
 /* Combo popup (small, at hit point) */
