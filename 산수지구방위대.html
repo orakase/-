@@ -353,6 +353,31 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
   border-radius:3px 3px 0 0;pointer-events:none;z-index:4;
   transform-origin:bottom center;box-shadow:0 0 6px var(--skin-mglow,#f80);
 }
+/* UFO: 플라즈마 구슬 */
+.missile-ufo{
+  width:12px;height:12px;border-radius:50%;transform-origin:center center;
+  background:radial-gradient(circle at 38% 35%,#fff 0%,#aaeeff 28%,#0099ff 65%,#0033cc 100%);
+  box-shadow:0 0 8px #00ccff,0 0 18px rgba(0,180,255,.65);
+}
+/* Battleship: 두꺼운 레이저 빔 */
+.missile-battleship{
+  width:4px;height:30px;border-radius:2px 2px 0 0;transform-origin:bottom center;
+  background:linear-gradient(180deg,#fff 0%,#aaccff 20%,#2255ff 65%,transparent);
+  box-shadow:0 0 10px #3366ff,0 0 22px rgba(30,80,255,.55);
+}
+/* Dragon: 파이어볼 */
+.missile-dragon{
+  width:13px;height:13px;border-radius:50%;transform-origin:center center;
+  background:radial-gradient(circle at 38% 35%,#fff 0%,#ffee44 28%,#ff6600 62%,#cc1100 100%);
+  box-shadow:0 0 9px #ff4400,0 0 20px rgba(255,80,0,.6);
+}
+/* Whale: 소나 링 */
+.missile-whale{
+  width:17px;height:17px;border-radius:50%;transform-origin:center center;
+  background:radial-gradient(circle,rgba(160,230,255,.25) 0%,transparent 55%);
+  border:2px solid rgba(120,220,255,.9);
+  box-shadow:0 0 0 3px rgba(100,200,255,.3),0 0 0 6px rgba(80,180,255,.12),0 0 14px rgba(100,220,255,.65);
+}
 
 /* Combo popup (small, at hit point) */
 .cpop{
@@ -4208,14 +4233,23 @@ function launchMissile(targetEl, onHit) {
   const dur   = Math.max(70, dist * 1.0);
   const angle = Math.atan2(tx - sx, sy - ty) * 180 / Math.PI;
 
+  const _rk = (typeof getSkin !== 'undefined') ? getSkin('rocket').id : 'default';
+  const _isBall = _rk === 'ufo' || _rk === 'dragon' || _rk === 'whale';
   const m = document.createElement('div');
-  m.className = 'missile';
-  m.style.cssText = `left:${sx}px;top:${sy}px;transform:rotate(${angle}deg) translateX(-50%);`;
+  m.className = 'missile' + (_rk !== 'default' ? ' missile-' + _rk : '');
+  if (_isBall) {
+    m.style.cssText = `left:${sx}px;top:${sy}px;transform:translate(-50%,-50%);`;
+  } else {
+    m.style.cssText = `left:${sx}px;top:${sy}px;transform:rotate(${angle}deg) translateX(-50%);`;
+  }
   if (S.fever) {
-    m.style.width      = '10px';
-    m.style.height     = '22px';
-    m.style.background = 'linear-gradient(180deg,#ffffff,#ff4400 55%,transparent)';
-    m.style.boxShadow  = '0 0 14px #ff4400, 0 0 28px rgba(255,80,0,.7)';
+    m.style.width        = '10px';
+    m.style.height       = '22px';
+    m.style.borderRadius = '3px 3px 0 0';
+    m.style.background   = 'linear-gradient(180deg,#ffffff,#ff4400 55%,transparent)';
+    m.style.boxShadow    = '0 0 14px #ff4400, 0 0 28px rgba(255,80,0,.7)';
+    m.style.transform    = `rotate(${angle}deg) translateX(-50%)`;
+    m.style.border       = 'none';
   }
   gameEl.appendChild(m);
 
@@ -6614,7 +6648,6 @@ resetState();
 const _ti = (f,s=14) => `<img src="twemoji/${f}" width="${s}" height="${s}" style="vertical-align:middle;margin-right:3px;">`;
 const CAT_INFO = [
   {id:'rocket',    icon:'1f680.svg', lk:'catRocket'},
-  {id:'missile',   icon:'1f4ab.svg', lk:'catMissile'},
   {id:'laser',     icon:'26a1.svg',  lk:'catLaser'},
   {id:'bg',        icon:'1f30c.svg', lk:'catBg'},
   {id:'fever',     icon:'1f525.svg', lk:'catFever'},
