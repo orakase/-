@@ -17,7 +17,7 @@
   font-display:swap;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
 
 :root{
   --skin-m1:#ffff88;--skin-m2:#ff8800;--skin-mglow:#f80;
@@ -442,7 +442,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   background:rgba(0,0,24,.99);border-top:1px solid #1a2244;flex-shrink:0;
 }
 #fire-btn{
-  flex:0 0 65px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex:0 0 65px;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;
   background:linear-gradient(180deg,#18205a,#0c1030);
   border:2px solid #334488;border-radius:12px;
   color:#aabbd0;font-size:18px;font-weight:700;cursor:pointer;gap:2px;
@@ -450,7 +450,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 }
 #fire-btn:active{background:linear-gradient(180deg,#2a3590,#182070);}
 #fi{font-size:28px;}
-#numpad{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,auto);gap:5px;}
+#numpad{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,auto);gap:5px;touch-action:none;}
 .nb{
   background:rgba(12,12,45,.92);border:1px solid #223;border-radius:10px;
   color:#ccd8ee;font-size:24px;font-weight:700;padding:14px 0;text-align:center;cursor:pointer;
@@ -2486,13 +2486,9 @@ function openSettings(){
   document.querySelectorAll('.sett-rb[data-key="hand"]').forEach(b=>b.classList.toggle('active',b.dataset.val===s.hand));
   syncLangDD(s.lang||'ko');
   document.getElementById('ov-settings').style.display='flex';
-  document.body.style.touchAction='pan-y';
-  document.body.style.overflow='hidden';
 }
 function closeSettings(){
   document.getElementById('ov-settings').style.display='none';
-  document.body.style.touchAction='none';
-  document.body.style.overflow='hidden';
 }
 function settApply(){
   const s=GSETTINGS;
