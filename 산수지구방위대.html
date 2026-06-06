@@ -376,25 +376,24 @@ body{background:#000;overflow:hidden;font-family:'Galmuri11','Apple SD Gothic Ne
     rgba(80,10,0,.3) 84%,transparent 100%);
   box-shadow:0 0 6px #fff,0 0 14px #ff5500,0 0 28px rgba(255,80,0,.6),0 0 46px rgba(180,30,0,.3);
 }
-/* Whale: 소나 이중 링 — 위상차 물결 */
-@keyframes sonarPing{
-  0%  {transform:scale(.6); opacity:.95;}
-  100%{transform:scale(1.7);opacity:0;}
+/* Whale: 에너지 구체 — 항상 가시, 미세 호흡 */
+@keyframes whaleOrb{
+  0%,100%{transform:scale(1);   opacity:.88;}
+  50%     {transform:scale(1.08);opacity:1;}
 }
 .missile-whale{
-  width:26px;height:26px;border-radius:50%;
-  margin:-13px 0 0 -13px;
-  background:radial-gradient(circle,rgba(190,248,255,.5) 0%,rgba(100,210,255,.18) 45%,transparent 70%);
-  border:2.5px solid rgba(140,232,255,.95);
-  box-shadow:0 0 0 4px rgba(100,210,255,.22),0 0 18px rgba(100,232,255,.85),0 0 38px rgba(70,200,255,.45);
-  animation:sonarPing .55s ease-out infinite;
-}
-.missile-whale::before{
-  content:'';
-  position:absolute;inset:-11px;
-  border-radius:50%;
-  border:1.5px solid rgba(100,210,255,.55);
-  animation:sonarPing .55s .275s ease-out infinite;
+  width:28px;height:28px;border-radius:50%;
+  margin:-14px 0 0 -14px;
+  background:radial-gradient(circle at 38% 35%,
+    #fff 0%,#ccf4ff 16%,#66d4ff 36%,
+    #0088dd 60%,#003899 82%,#001155 100%);
+  box-shadow:
+    0 0 8px #fff,
+    0 0 18px #44ccff,
+    0 0 34px rgba(0,160,255,.8),
+    0 0 56px rgba(0,100,220,.5),
+    0 0 84px rgba(0,60,180,.3);
+  animation:whaleOrb 1.2s ease-in-out infinite;
 }
 
 /* Combo popup (small, at hit point) */
