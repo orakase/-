@@ -5092,8 +5092,8 @@ function scheduleFeverLoop(startT) {
     feverBgmLong.push(ns);
   });
 
-  // Ch4c: Hi-hat — quarter-note tick (8ths 0,4,8,12,16,20,24,28) — 8 hits, lighter
-  [0,4,8,12,16,20,24,28].forEach(beat => {
+  // Ch4c: Hi-hat — 8th-note tick (0,2,4,...,30) — 16 hits
+  [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30].forEach(beat => {
     const t0 = startT + beat * FT16;
     const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
     ns.buffer = ctx._nHihat || ctx.createBuffer(1,1,ctx.sampleRate); nf.type = 'highpass'; nf.frequency.value = 7500;
