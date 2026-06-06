@@ -1503,7 +1503,7 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
 #ov-settings,#ov-privacy{
   position:fixed;inset:0;background:rgba(0,0,10,.94);
   display:none;flex-direction:column;align-items:center;justify-content:flex-start;
-  z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;
   padding:16px 12px 32px;
 }
 .sett-panel{
@@ -1606,6 +1606,29 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
   border-radius:6px;width:100%;cursor:pointer;font-family:inherit;
   -webkit-appearance:none;appearance:none;text-align:center;
 }
+.lang-dd{position:relative;width:100%;}
+.lang-dd-btn{
+  width:100%;background:rgba(20,30,80,.8);border:1px solid rgba(100,120,180,.3);
+  color:#aaccff;font-size:13px;font-weight:700;padding:9px 12px;
+  border-radius:6px;cursor:pointer;font-family:inherit;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.lang-dd-btn:active{background:rgba(30,50,120,.8);}
+.lang-dd-arrow{font-size:11px;opacity:.7;transition:transform .2s;}
+.lang-dd.open .lang-dd-arrow{transform:rotate(180deg);}
+.lang-dd-list{
+  display:none;position:absolute;bottom:calc(100% + 4px);left:0;right:0;z-index:50;
+  background:rgba(4,8,42,.98);border:1px solid #1a2a5a;border-radius:8px;
+  overflow:hidden;max-height:260px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.lang-dd.open .lang-dd-list{display:block;}
+.lang-dd-item{
+  display:block;width:100%;text-align:left;padding:10px 14px;
+  background:none;border:none;border-bottom:1px solid rgba(100,120,180,.15);
+  color:#aaccff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+.lang-dd-item:last-child{border-bottom:none;}
+.lang-dd-item:active,.lang-dd-item.selected{background:rgba(40,70,180,.4);color:#fff;}
 </style>
 </head>
 <body>
@@ -1864,20 +1887,26 @@ body{background:#000;overflow:hidden;touch-action:none;font-family:'Galmuri11','
     <!-- 언어 -->
     <div class="sett-sec" data-i18n="settLangSec">언어</div>
     <div class="sett-row">
-      <select id="set-lang" class="sett-select" onchange="settLangChange(this.value)">
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="zh-TW">繁體中文</option>
-        <option value="zh-CN">简体中文</option>
-        <option value="es">Español</option>
-        <option value="pt">Português</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="id">Indonesia</option>
-        <option value="th">ภาษาไทย</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
+      <div class="lang-dd" id="lang-dd">
+        <button class="lang-dd-btn" id="lang-dd-btn" onclick="toggleLangDD()">
+          <span id="lang-dd-label">한국어</span>
+          <span class="lang-dd-arrow">▾</span>
+        </button>
+        <div class="lang-dd-list" id="lang-dd-list">
+          <button class="lang-dd-item" data-lang="ko" onclick="pickLang('ko')">한국어</button>
+          <button class="lang-dd-item" data-lang="en" onclick="pickLang('en')">English</button>
+          <button class="lang-dd-item" data-lang="ja" onclick="pickLang('ja')">日本語</button>
+          <button class="lang-dd-item" data-lang="zh-TW" onclick="pickLang('zh-TW')">繁體中文</button>
+          <button class="lang-dd-item" data-lang="zh-CN" onclick="pickLang('zh-CN')">简体中文</button>
+          <button class="lang-dd-item" data-lang="es" onclick="pickLang('es')">Español</button>
+          <button class="lang-dd-item" data-lang="pt" onclick="pickLang('pt')">Português</button>
+          <button class="lang-dd-item" data-lang="fr" onclick="pickLang('fr')">Français</button>
+          <button class="lang-dd-item" data-lang="de" onclick="pickLang('de')">Deutsch</button>
+          <button class="lang-dd-item" data-lang="id" onclick="pickLang('id')">Indonesia</button>
+          <button class="lang-dd-item" data-lang="th" onclick="pickLang('th')">ภาษาไทย</button>
+          <button class="lang-dd-item" data-lang="vi" onclick="pickLang('vi')">Tiếng Việt</button>
+        </div>
+      </div>
     </div>
 
     <div class="sett-divider"></div>
@@ -2045,8 +2074,28 @@ function applyLang(){
     }
   });
 }
+const LANG_LABELS={ko:'한국어',en:'English',ja:'日本語','zh-TW':'繁體中文','zh-CN':'简体中文',es:'Español',pt:'Português',fr:'Français',de:'Deutsch',id:'Indonesia',th:'ภาษาไทย',vi:'Tiếng Việt'};
+function syncLangDD(lang){
+  const lbl=document.getElementById('lang-dd-label');
+  if(lbl)lbl.textContent=LANG_LABELS[lang]||lang;
+  document.querySelectorAll('.lang-dd-item').forEach(b=>b.classList.toggle('selected',b.dataset.lang===lang));
+}
+function toggleLangDD(){
+  const dd=document.getElementById('lang-dd');
+  if(!dd)return;
+  dd.classList.toggle('open');
+}
+function pickLang(lang){
+  const dd=document.getElementById('lang-dd');
+  if(dd)dd.classList.remove('open');
+  settLangChange(lang);
+}
+document.addEventListener('click',function(e){
+  const dd=document.getElementById('lang-dd');
+  if(dd&&dd.classList.contains('open')&&!dd.contains(e.target))dd.classList.remove('open');
+});
 function settLangChange(lang){
-  GSETTINGS.lang=lang; saveSettings(); applyLang();
+  GSETTINGS.lang=lang; saveSettings(); applyLang(); syncLangDD(lang);
 }
 
 const LANG_DATA_EXT = {
@@ -2430,11 +2479,15 @@ function openSettings(){
   document.querySelectorAll('.sett-rb[data-key="vib"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.vib));
   document.querySelectorAll('.sett-rb[data-key="gfx"]').forEach(b=>b.classList.toggle('active',+b.dataset.val===s.gfx));
   document.querySelectorAll('.sett-rb[data-key="hand"]').forEach(b=>b.classList.toggle('active',b.dataset.val===s.hand));
-  const ls=document.getElementById('set-lang');if(ls)ls.value=s.lang||'ko';
+  syncLangDD(s.lang||'ko');
   document.getElementById('ov-settings').style.display='flex';
+  document.body.style.touchAction='pan-y';
+  document.body.style.overflow='hidden';
 }
 function closeSettings(){
   document.getElementById('ov-settings').style.display='none';
+  document.body.style.touchAction='none';
+  document.body.style.overflow='hidden';
 }
 function settApply(){
   const s=GSETTINGS;
